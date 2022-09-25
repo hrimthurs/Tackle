@@ -1,0 +1,14 @@
+{
+  "name": "tackle",
+  "version": "1.0.0",
+  "description": "Various auxiliary tools for working in JavaScript projects",
+  "author": "",
+  "license": "MIT",
+
+  "type": "module",
+  "module": "./src/index.js",
+
+  "scripts": {
+    "run": "node ./examples/example.js"
+  }
+}
