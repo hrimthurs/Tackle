@@ -1,17 +1,18 @@
 {
   "name": "@hrimthurs/tackle",
-  "version": "1.1.2",
+  "version": "1.1.7",
   "description": "Various auxiliary tools for working in JavaScript projects",
   "author": "",
   "license": "MIT",
 
   "repository": "hrimthurs/Tackle",
-  "homepage": "https://github.com/hrimthurs/Tackle",
+  "homepage": "https://github.com/hrimthurs/Tackle#readme",
   "keywords": [
     "javascript",
     "tools"
   ],
 
+  "main": "./src/index.js",
   "type": "module",
   "module": "./src/index.js",
 
