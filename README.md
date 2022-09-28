@@ -1,8 +1,8 @@
 # Tackle
 
 [![npm](https://img.shields.io/npm/v/@hrimthurs/tackle.svg)](https://npmjs.com/@hrimthurs/tackle)
-[![info badge](https://img.shields.io/npm/dt/@hrimthurs/tackle.svg)](http://npm-stat.com/charts.html?package=@hrimthurs/tackle)
-[![npm bundle size](https://img.shields.io/bundlephobia/min/@hrimthurs/tackle.svg)](https://img.shields.io/bundlephobia/min/@hrimthurs/tackle)
+[![info badge](https://img.shields.io/npm/dt/@hrimthurs/tackle.svg)](https://npm-stat.com/charts.html?package=@hrimthurs/tackle)
+[![GitHub file size in bytes](https://img.shields.io/github/size/hrimthurs/tackle/dist/Tackle.js?label=lib%20size)](https://github.com/hrimthurs/Tackle/dist/Tackle.js)
 
 Various auxiliary tools for working in JavaScript projects
 
@@ -30,6 +30,18 @@ import { TkArray } from '@hrimthurs/tackle'
 ~~~ javascript
 const Tackle = require('@hrimthurs/tackle')
 const { TkArray } = require('@hrimthurs/tackle')
+~~~
+
+### HTML tag \<script\>:
+
+~~~ html
+<!-- connection -->
+<script src="https://github.com/hrimthurs/Tackle/dist/Tackle.js"></script>
+
+<!-- use -->
+<script>
+    Tackle. ...
+</script>
 ~~~
 
 ## API
