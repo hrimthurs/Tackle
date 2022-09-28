@@ -14,6 +14,6 @@
   "scripts": {
     "run_example": "node ./examples/example.js",
     "version": "npm view @hrimthurs/tackle version",
-    "pub": "npm publish"
+    "pub": "npm publish --access public"
   }
 }

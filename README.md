@@ -1,7 +1,8 @@
 # Tackle
 
-[![info badge](https://img.shields.io/npm/dt/@hrimthurs/tackle.svg)](http://npm-stat.com/charts.html?package=@hrimthurs/tackle)
 [![npm](https://img.shields.io/npm/v/@hrimthurs/tackle.svg)](https://npmjs.com/@hrimthurs/tackle)
+[![info badge](https://img.shields.io/npm/dt/@hrimthurs/tackle.svg)](http://npm-stat.com/charts.html?package=@hrimthurs/tackle)
+[![npm bundle size](https://img.shields.io/bundlephobia/min/@hrimthurs/tackle.svg)](https://img.shields.io/bundlephobia/min/@hrimthurs/tackle)
 
 Various auxiliary tools for working in JavaScript projects
 
@@ -17,14 +18,14 @@ npm install @hrimthurs/tackle
 
 ## Connection
 
-### ESM
+### ESM:
 
 ~~~ javascript
 import Tackle from '@hrimthurs/tackle'
 import { TkArray } from '@hrimthurs/tackle'
 ~~~
 
-### CommonJS
+### CommonJS:
 
 ~~~ javascript
 const Tackle = require('@hrimthurs/tackle')
@@ -33,7 +34,7 @@ const { TkArray } = require('@hrimthurs/tackle')
 
 ## API
 
-### TkArray
+### TkArray:
 
 ~~~ typescript
 TkArray.get(src: any, uniqValues?: boolean = true): any[]   // - returns array regardless of type src
