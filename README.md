@@ -2,7 +2,7 @@
 
 [![npm](https://img.shields.io/npm/v/@hrimthurs/tackle.svg)](https://npmjs.com/@hrimthurs/tackle)
 [![info badge](https://img.shields.io/npm/dt/@hrimthurs/tackle.svg)](https://npm-stat.com/charts.html?package=@hrimthurs/tackle)
-[![GitHub file size in bytes](https://img.shields.io/github/size/hrimthurs/tackle/dist/Tackle.js?label=lib%20size)](https://github.com/hrimthurs/Tackle/dist/Tackle.js)
+[![GitHub file size in bytes](https://img.shields.io/github/size/hrimthurs/tackle/dist/Tackle.js?label=lib%20size)](https://github.com/hrimthurs/Tackle/blob/master/dist/Tackle.js)
 
 Various auxiliary tools for working in JavaScript projects
 
