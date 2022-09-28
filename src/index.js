@@ -1,10 +1,10 @@
-﻿export class TkArray {
+﻿class TkArray {
 
-    static get(obj, uniqValues = false) {
-        let array = Array.isArray(obj) ? [...obj] : obj != null ? [obj] : []
+    static get(src, uniqValues = false) {
+        let array = Array.isArray(src) ? [...src] : src != null ? [src] : []
         return uniqValues ? [...new Set(array)] : array
     }
 
 }
 
-export default { TkArray }
+module.exports = { TkArray }

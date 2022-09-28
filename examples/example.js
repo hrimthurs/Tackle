@@ -1,4 +1,4 @@
-﻿import Tackle from '../src/index.js'
+﻿const Tackle = require('../src/index.js')
 
 console.log('ARRAYS:')
 console.log('1.', Tackle.TkArray.get())
