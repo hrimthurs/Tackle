@@ -2,6 +2,7 @@
 
 [![npm](https://img.shields.io/npm/v/@hrimthurs/tackle.svg)](https://npmjs.com/@hrimthurs/tackle)
 [![info badge](https://img.shields.io/npm/dt/@hrimthurs/tackle.svg)](https://npm-stat.com/charts.html?package=@hrimthurs/tackle)
+[![packagephobia publish](https://badgen.net/packagephobia/publish/@hrimthurs/tackle)](https://bundlephobia.com/result?p=@hrimthurs/tackle)
 
 Various auxiliary tools/routines for working in JavaScript projects
 
