@@ -1,10 +1,7 @@
-﻿class TkArray {
-
-    static get(src, uniqValues = false) {
-        let array = Array.isArray(src) ? [...src] : src != null ? [src] : []
-        return uniqValues ? [...new Set(array)] : array
-    }
-
+﻿module.exports = {
+    TkArray: require('./TkArray.js'),
+    TkString: require('./TkString.js'),
+    TkObject: require('./TkObject.js'),
+    TkFunction: require('./TkFunction.js'),
+    TkService: require('./TkService.js')
 }
-
-module.exports = { TkArray }

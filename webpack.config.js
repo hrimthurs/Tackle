@@ -2,13 +2,10 @@ const path = require('path')
 const webpack = require('webpack')
 const TerserPlugin = require('terser-webpack-plugin')
 
-const PATH_SRC = path.join(__dirname, 'src', 'index.js')
-const PATH_DST = path.join(__dirname, 'dist')
-
 const cfgBase = {
     output: {
         filename: '[name].js',
-        path: PATH_DST,
+        path: path.join(__dirname, 'dist'),
         library: {
             name: '[name]',
             type: 'umd'
@@ -71,8 +68,15 @@ const cfgDev = {
     optimization: { minimize: false }
 }
 
-module.exports = env => ({
-    ...cfgBase,
-    entry: { [env.name || 'build']: PATH_SRC },
-    ...env.build_prod ? cfgProd : (env.build_dev ? cfgDev : {})
-})
+module.exports = env => {
+    const [
+        buildName = 'build',
+        srcPath = require('./package.json').main
+    ] = env.part?.split(',') || []
+
+    return {
+        ...cfgBase,
+        entry: { [buildName]: path.join(__dirname, srcPath) },
+        ...env.build_prod ? cfgProd : (env.build_dev ? cfgDev : {})
+    }
+}
