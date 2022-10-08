@@ -19,8 +19,22 @@
             console.log(Tackle.TkArray.sortArrayStr(arrStr1))
             console.log(Tackle.TkArray.isSubArray(arrNum1, arrNum2), Tackle.TkArray.isSubArray(arrNum1, arrNum2, true))
 
-            console.log(Tackle.TkObject.excludeKeys(objMix1, 'b'), Tackle.TkObject.excludeKeys(objMix1, ['a', 'c', 'f']))
-            console.log(Tackle.TkObject.getHash(arrMix1), Tackle.TkObject.getHash(objMix1))
+
+            let copyObj = Tackle.TkObject.clone(objMix1)
+            console.log(Tackle.TkObject.isObjectJs(copyObj), Tackle.TkObject.isObjectJs(copyObj, 'qqq'), copyObj)
+            console.log(Tackle.TkObject.excludeKeys(objMix1, 'b'))
+            console.log(Tackle.TkObject.excludeKeys(copyObj, ['a', 'c', 'f', 'd.sub', 'b.qqq', 'd.e.qqq.qqq'], true), copyObj)
+            console.log(Tackle.TkObject.setValue(objMix1, 'q', true, (root, key) => console.log(`success set field "${key}"`)))
+            console.log(Tackle.TkObject.setValue(objMix1, 'b', [false, -7, 0.123], (root, key) => console.log(`success set field "${key}"`)))
+            console.log(Tackle.TkObject.setValue(objMix1, 'd.sub.asd', true))
+            console.log(Tackle.TkObject.setValue(objMix1, 'd.sub', -123.987, () => 'OK'))
+            console.log(Tackle.TkObject.getValue(objMix1, 'd.e', 'b', 'c.sd.qqq', 'qqq'))
+            console.log(Tackle.TkObject.getValue(objMix1, 'd.sub'))
+            console.log(Tackle.TkObject.merge(objMix1, { e: 12, b: 555, d: { f: { q: 'str' }}}, { a: '!!!', b: true, d: { f: { f1: 1, f2: [1, 2, 3]}}}))
+            console.log(Tackle.TkObject.merge(objMix1, { d: { e: '!!!', f: { q: '!!!', new: 12 }}}))
+            console.log(Tackle.TkObject.getHash(objMix1), Tackle.TkObject.getHash(arrMix1))
+            console.log(Tackle.TkObject.getHash(objMix1, ['a', 'c']), Tackle.TkObject.getHash(objMix1, ['a', 'c'], 12))
+
 
             console.log(Tackle.TkString.formatNumber(19, 5), Tackle.TkString.formatNumber(-19, 5), Tackle.TkString.formatNumber(19, 5, 1), Tackle.TkString.formatNumber(-19, 5, 1))
             console.log(Tackle.TkString.getHash('Hashed string'), Tackle.TkString.getHash('Hashed string', 234))
@@ -30,6 +44,8 @@
 
             console.log(Tackle.TkService.bytesToKb(1_024))
             console.log(Tackle.TkService.bytesToMb(1_048_576))
+
+            console.log('------------------------------------')
         </script>
 
         <!-- V2 -->
@@ -44,8 +60,20 @@
 
         <script src="../dist/TkObject.js"></script>
         <script>
-            console.log(TkObject.excludeKeys(objMix1, 'b'), TkObject.excludeKeys(objMix1, ['a', 'c', 'f']))
-            console.log(TkObject.getHash(arrMix1), TkObject.getHash(objMix1))
+            let copyObj2 = TkObject.clone(objMix1)
+            console.log(TkObject.isObjectJs(copyObj2), TkObject.isObjectJs(copyObj2, 'qqq'), copyObj2)
+            console.log(TkObject.excludeKeys(objMix1, 'b'))
+            console.log(TkObject.excludeKeys(copyObj2, ['a', 'c', 'f', 'd.sub', 'b.qqq', 'd.e.qqq.qqq'], true), copyObj2)
+            console.log(TkObject.setValue(objMix1, 'q', true, (root, key) => console.log(`success set field "${key}"`)))
+            console.log(TkObject.setValue(objMix1, 'b', [false, -7, 0.123], (root, key) => console.log(`success set field "${key}"`)))
+            console.log(TkObject.setValue(objMix1, 'd.sub.asd', true))
+            console.log(TkObject.setValue(objMix1, 'd.sub', -123.987, () => 'OK'))
+            console.log(TkObject.getValue(objMix1, 'd.e', 'b', 'c.sd.qqq', 'qqq'))
+            console.log(TkObject.getValue(objMix1, 'd.sub'))
+            console.log(TkObject.merge(objMix1, { e: 12, b: 555, d: { f: { q: 'str' }}}, { a: '!!!', b: true, d: { f: { f1: 1, f2: [1, 2, 3]}}}))
+            console.log(TkObject.merge(objMix1, { d: { e: '!!!', f: { q: '!!!', new: 12 }}}))
+            console.log(TkObject.getHash(objMix1), TkObject.getHash(arrMix1))
+            console.log(TkObject.getHash(objMix1, ['a', 'c']), TkObject.getHash(objMix1, ['a', 'c'], 12))
         </script>
 
         <script src="../dist/TkString.js"></script>

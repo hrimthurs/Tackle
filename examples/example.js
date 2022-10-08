@@ -7,7 +7,7 @@ const arrNum2 = [1, 2, 3, 4, 2, 5, 2]
 const arrStr1 = ['str1', 'strN', 'str3', 'strN']
 const arrStr2 = ['Zxb', 'Baz', 'Zxa', 'Abc', 'Zxb', 'Zac', 'Bca', 'Zaa', 'Aaa']
 const arrMix1 = [1, true, 'str', 555, 3, 555]
-const objMix1 = { a: 1, b: [true, 2, 3.26456], c: 'str', d: { sub: -0.321 } }
+const objMix1 = { a: 1, b: [true, 2, 3.26456], c: 'str', d: { sub: -0.321, e: null, f: {}}}
 const func1 = function (a, b) { return a + b }
 const func2 = (a, b = 100) => a + b
 
@@ -24,9 +24,20 @@ console.log(' 8.', Tackle.TkArray.isSubArray(arrNum1, arrNum2), TkArray.isSubArr
 
 
 console.log('\nOBJECT:')
-console.log(' 1.', Tackle.TkObject.excludeKeys(objMix1, 'b'), TkObject.excludeKeys(objMix1, ['a', 'c', 'f']))
-console.log(' 2.', Tackle.TkObject.getHash(objMix1), Tackle.TkObject.getHash(objMix1, 'b'))
-console.log(' 3.', TkObject.getHash(objMix1, ['a', 'c']), TkObject.getHash(objMix1, ['a', 'c'], 12))
+let copyObj = Tackle.TkObject.clone(objMix1)
+console.log(' 1.', Tackle.TkObject.isObjectJs(copyObj), TkObject.isObjectJs(copyObj, 'qqq'), copyObj)
+console.log(' 2.', Tackle.TkObject.excludeKeys(objMix1, 'b'))
+console.log(' 3.', TkObject.excludeKeys(copyObj, ['a', 'c', 'f', 'd.sub', 'b.qqq', 'd.e.qqq.qqq'], true), copyObj)
+console.log(' 4.', Tackle.TkObject.setValue(objMix1, 'q', true, (root, key) => console.log(`success set field "${key}"`)))
+console.log(' 5.', Tackle.TkObject.setValue(objMix1, 'b', [false, -7, 0.123], (root, key) => console.log(`success set field "${key}"`)))
+console.log(' 6.', TkObject.setValue(objMix1, 'd.sub.asd', true))
+console.log(' 7.', TkObject.setValue(objMix1, 'd.sub', -123.987, () => 'OK'))
+console.log(' 8.', Tackle.TkObject.getValue(objMix1, 'd.e', 'b', 'c.sd.qqq', 'qqq'))
+console.log(' 9.', TkObject.getValue(objMix1, 'd.sub'))
+console.log('10.', Tackle.TkObject.merge(objMix1, { e: 12, b: 555, d: { f: { q: 'str' }}}, { a: '!!!', b: true, d: { f: { f1: 1, f2: [1, 2, 3]}}}))
+console.log('11.', TkObject.merge(objMix1, { d: { e: '!!!', f: { q: '!!!', new: 12 }}}))
+console.log('12.', Tackle.TkObject.getHash(objMix1), Tackle.TkObject.getHash(objMix1, 'b'))
+console.log('13.', TkObject.getHash(objMix1, ['a', 'c']), TkObject.getHash(objMix1, ['a', 'c'], 12))
 
 
 console.log('\nSTRING:')

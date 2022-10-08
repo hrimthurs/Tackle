@@ -1,5 +1,11 @@
 ﻿module.exports = class TkFunction {
 
+    /**
+     * Returns function decorator that implements memoization
+     * @param {function} srcFunc        - source function
+     * @param {object} [context]        - function execution context
+     * @return {function}
+     */
     static decoMemoize(srcFunc, context = globalThis) {
         let cache = new Map()
 

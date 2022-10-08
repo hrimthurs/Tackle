@@ -1,5 +1,13 @@
 ﻿module.exports = class TkString {
 
+    /**
+     * Converts a numeric value to a string of the specified length with adding '0' (at the beginning for integer, ending for float).
+     * If the length of the original number is greater than lenTotal - no change occurs
+     * @param {any} srcNum              - source number
+     * @param {number} lenTotal         - expected length result
+     * @param {number} [precision]      - number of decimal points of the result (0 → not change original value)
+     * @return {string}
+     */
     static formatNumber(srcNum, lenTotal, precision = 0) {
         const absNum = Math.abs(srcNum)
         const strSign = srcNum < 0 ? '-' : ''
@@ -16,6 +24,14 @@
         return strSign + strNum
     }
 
+    /**
+     * Converts the value to string
+     * @param {any} srcVal              - source value
+     * @param {object} [options]        - convert options:
+     * @param {boolean} [options.json]          - save or remove json markup (default: true)
+     * @param {number} [options.floatPrecision] - number of decimal points of the float values (default: 0 → not change original value)
+     * @return {string}
+     */
     static stringify(srcVal, options = {}) {
         let useOptions = {
             json: true,
@@ -42,6 +58,12 @@
         return res
     }
 
+    /**
+     * Returns hash of the string
+     * @param {string} srcStr           - source string
+     * @param {number} [seed]           - hashing is relative to this value
+     * @return {string}
+     */
     static getHash(srcStr, seed = 0) {
         const factor = {
             h1: { f1: 0xdeadbeef, f2: 2654435761, f3: 2246822507 },
