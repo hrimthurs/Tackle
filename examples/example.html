@@ -44,6 +44,8 @@
 
             console.log(Tackle.TkService.bytesToKb(1_024))
             console.log(Tackle.TkService.bytesToMb(1_048_576))
+            console.log(Tackle.TkService.getParamsURL())
+            console.log(Tackle.TkService.getParamsURL('https://example.com/search/entity?text=car%2BOR%2Bhome&order_by=publication_time,2,3,false&noobj=field1:true,field2false&from=suggest_post:-12&arr=a:3,v:,s:!!!&alert&fromSearchLine=true&area=2'))
 
             console.log('------------------------------------')
         </script>
@@ -92,6 +94,8 @@
         <script>
             console.log(TkService.bytesToKb(1_024))
             console.log(TkService.bytesToMb(1_048_576))
+            console.log(TkService.getParamsURL())
+            console.log(TkService.getParamsURL('https://example.com/search/entity?text=car%2BOR%2Bhome&order_by=publication_time,2,3,false&noobj=field1:true,field2false&from=suggest_post:-12&arr=a:3,v:,s:!!!&alert&fromSearchLine=true&area=2'))
         </script>
 
     </body>

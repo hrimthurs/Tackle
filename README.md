@@ -207,27 +207,27 @@ const { TkArray, TkObject, TkString, TkFunction, TkService } = require('@hrimthu
     /**
      * Converts a numeric value to a string of the specified length with adding '0' (at the beginning for integer, ending for float).
      * If the length of the original number is greater than lenTotal - no change occurs
-     * @param {any} srcNum              - source number
-     * @param {number} lenTotal         - expected length result
-     * @param {number} [precision]      - number of decimal points of the result (0 → not change original value)
+     * @param {any} srcNum                      - source number
+     * @param {number} lenTotal                 - expected length result
+     * @param {number} [precision]              - number of decimal points of the result (0 → not change original value)
      * @return {string}
      */
 
 • TkString.stringify(srcVal, options)
     /**
      * Converts the value to string
-     * @param {any} srcVal              - source value
-     * @param {object} [options]        - convert options:
+     * @param {any} srcVal                      - source value
+     * @param {object} [options]                - options
      * @param {boolean} [options.json]          - save or remove json markup (default: true)
-     * @param {number} [options.floatPrecision] - number of decimal points of the float values (default: 0 - not change original value)
+     * @param {number} [options.floatPrecision] - number of decimal points of the float values (default: 0 → not change original value)
      * @return {string}
      */
 
 • TkString.getHash(srcStr, seed = 0)
     /**
      * Returns hash of the string
-     * @param {string} srcStr           - source string
-     * @param {number} [seed]           - hashing is relative to this value
+     * @param {string} srcStr                   - source string
+     * @param {number} [seed]                   - hashing is relative to this value
      * @return {string}
      */
 ~~~
@@ -250,17 +250,33 @@ const { TkArray, TkObject, TkString, TkFunction, TkService } = require('@hrimthu
 • TkService.bytesToKb(numBytes, precision = 2)
     /**
      * Converts the number of bytes to kilobytes
-     * @param {number} numBytes         - number of bytes
-     * @param {number} [precision]      - defines the number of decimal points of the result
+     * @param {number} numBytes                 - number of bytes
+     * @param {number} [precision]              - defines the number of decimal points of the result
      * @return {number}
      */
 
 • TkService.bytesToMb(numBytes, precision = 2)
     /**
      * Converts the number of bytes to megabytes
-     * @param {number} numBytes         - number of bytes
-     * @param {number} [precision]      - defines the number of decimal points of the result
+     * @param {number} numBytes                 - number of bytes
+     * @param {number} [precision]              - defines the number of decimal points of the result
      * @return {number}
+     */
+
+• TkService.getParamsURL(srcUrl, options)
+    /**
+     * Parse parameters URL to object
+     *
+     * - Convert parameter without value → param_name: true
+     * - Convert value: val1 → param_name: val1
+     * - Convert value: val1:val2 → param_name: { val1: val2 }
+     * - Convert value: val1,val2,val3 → param_name: [val1, val2, val3]
+     * - Convert value: val1:val2,val3:val4 → param_name: { val1: val2, val3: val4 }
+     *
+     * @param {string} [srcUrl]                 - source string URL (if not set in case client side → used self.location.href)
+     * @param {object} [options]                - options
+     * @param {boolean} [options.keysLowerCase] - convert all parameters names to lower case (default: false)
+     * @param {boolean} [options.valsLowerCase] - convert all strings values to lower case (default: false)
      */
 ~~~
 
