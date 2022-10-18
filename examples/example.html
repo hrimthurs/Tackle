@@ -5,12 +5,13 @@
             const arrNum1 = [4, 1, 3]
             const arrNum2 = [1, 2, 3, 4, 2, 5, 2]
             const arrStr1 = ['Zxb', 'Baz', 'Zxa', 'Abc', 'Zxb', 'Zac', 'Bca', 'Zaa', 'Aaa']
-            const arrMix1 = [1, true, 'str', 555, 3, 555]
+            const arrMix1 = [1, true, 'str', -555.123124, 3.1, 555]
             const objMix1 = { a: 1, b: [true, 2, 3.26456], c: 'str', d: { sub: -0.321 } }
+            const strUrl1 = 'https://example.com/search/entity?key=true,{d:"asd", q:123}&text=car%2BOR%2Bhome&order_by=publication_time,2,3,false&noobj=field1:true,field2false&js=asd:{"key1":12,"arr":[1,true,{"sub":"strSub"}]}&from=suggest_post:-12&arr=a:3,v:,s:!!!&alert&fromSearchLine=true&area=2'
             const func1 = (a, b = 100) => a + b
         </script>
 
-        <!-- V1 -->
+        <!-- USE FULL -->
         <script src="../dist/Tackle.js"></script>
         <script>
             console.log(Tackle.TkArray.getArray(12), Tackle.TkArray.getArray(arrNum2, true), Tackle.TkArray.getArray(arrStr1, true))
@@ -39,18 +40,26 @@
             console.log(Tackle.TkString.formatNumber(19, 5), Tackle.TkString.formatNumber(-19, 5), Tackle.TkString.formatNumber(19, 5, 1), Tackle.TkString.formatNumber(-19, 5, 1))
             console.log(Tackle.TkString.getHash('Hashed string'), Tackle.TkString.getHash('Hashed string', 234))
 
+
             const func1Memoize = Tackle.TkFunction.decoMemoize(func1, this)
             console.log(func1Memoize(4, 6), func1Memoize(4), func1Memoize(4, 6))
 
+
             console.log(Tackle.TkService.bytesToKb(1_024))
             console.log(Tackle.TkService.bytesToMb(1_048_576))
-            console.log(Tackle.TkService.getParamsURL())
-            console.log(Tackle.TkService.getParamsURL('https://example.com/search/entity?text=car%2BOR%2Bhome&order_by=publication_time,2,3,false&noobj=field1:true,field2false&from=suggest_post:-12&arr=a:3,v:,s:!!!&alert&fromSearchLine=true&area=2'))
+
+            console.log(Tackle.TkService.trimFloat(5, 2), Tackle.TkService.trimFloat(true, 5), Tackle.TkService.trimFloat(arrMix1, 3, true))
+            console.log(Tackle.TkService.trimFloat(objMix1, 2))
+
+            let tmp1 = Tackle.TkService.getParamsURL(strUrl1)
+            console.log(tmp1)
+            let tmp2 = Tackle.TkService.setParamsURL('https://example.com', tmp1)
+            console.log(JSON.stringify(tmp1) === JSON.stringify(Tackle.TkService.getParamsURL(tmp2)), tmp2.href)
 
             console.log('------------------------------------')
         </script>
 
-        <!-- V2 -->
+        <!-- USE PARTIAL -->
         <script src="../dist/TkArray.js"></script>
         <script>
             console.log(TkArray.getArray(12), TkArray.getArray(arrNum2, true), TkArray.getArray(arrStr1, true))
@@ -94,8 +103,17 @@
         <script>
             console.log(TkService.bytesToKb(1_024))
             console.log(TkService.bytesToMb(1_048_576))
+
+            console.log(TkService.trimFloat(5, 2), TkService.trimFloat(true, 5), TkService.trimFloat(arrMix1, 3, true))
+            console.log(TkService.trimFloat(objMix1, 2))
+
             console.log(TkService.getParamsURL())
             console.log(TkService.getParamsURL('https://example.com/search/entity?text=car%2BOR%2Bhome&order_by=publication_time,2,3,false&noobj=field1:true,field2false&from=suggest_post:-12&arr=a:3,v:,s:!!!&alert&fromSearchLine=true&area=2'))
+
+            let tmp3 = TkService.getParamsURL(strUrl1)
+            console.log(tmp3)
+            let tmp4 = TkService.setParamsURL('https://example.com', tmp3)
+            console.log(JSON.stringify(tmp3) === JSON.stringify(TkService.getParamsURL(tmp4)), tmp4.href)
         </script>
 
     </body>

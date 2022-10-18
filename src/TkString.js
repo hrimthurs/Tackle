@@ -25,40 +25,6 @@
     }
 
     /**
-     * Converts the value to string
-     * @param {any} srcVal                      - source value
-     * @param {object} [options]                - options
-     * @param {boolean} [options.json]          - save or remove json markup (default: true)
-     * @param {number} [options.floatPrecision] - number of decimal points of the float values (default: 0 → not change original value)
-     * @return {string}
-     */
-    static stringify(srcVal, options = {}) {
-        let useOptions = {
-            json: true,
-            floatPrecision: 0,
-            ...options
-        }
-
-        const numFixed = v => useOptions.floatPrecision && (typeof v === 'number')
-            ? Number(v.toFixed(useOptions.floatPrecision))
-            : v
-
-        let res = typeof srcVal === 'object'
-            ? JSON.stringify(srcVal, (k, v) => numFixed(v))
-            : numFixed(srcVal).toString()
-
-        if (!useOptions.json) {
-            res = res
-                .replace(/(\{|,)"(\w+)"\:/g, '$1 $2: ')
-                .replace(/(\}+)/g, ' $1')
-                .replace(/,\{/g, ', {')
-                .replace(/\{\s+\}/g, '{}')
-        }
-
-        return res
-    }
-
-    /**
      * Returns hash of the string
      * @param {string} srcStr                   - source string
      * @param {number} [seed]                   - hashing is relative to this value

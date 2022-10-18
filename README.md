@@ -213,16 +213,6 @@ const { TkArray, TkObject, TkString, TkFunction, TkService } = require('@hrimthu
      * @return {string}
      */
 
-• TkString.stringify(srcVal, options)
-    /**
-     * Converts the value to string
-     * @param {any} srcVal                      - source value
-     * @param {object} [options]                - options
-     * @param {boolean} [options.json]          - save or remove json markup (default: true)
-     * @param {number} [options.floatPrecision] - number of decimal points of the float values (default: 0 → not change original value)
-     * @return {string}
-     */
-
 • TkString.getHash(srcStr, seed = 0)
     /**
      * Returns hash of the string
@@ -263,20 +253,49 @@ const { TkArray, TkObject, TkString, TkFunction, TkService } = require('@hrimthu
      * @return {number}
      */
 
+• TkService.trimFloat(srcVal, precision, stringify = false)
+    /**
+     * Trimming float numbers with a given precision
+     * @param {any} srcVal                      - value with containing float numbers
+     * @param {number} precision                - defines the number of decimal points of the result float numbers
+     * @param {boolean} [stringify]             - return the result as converted to string
+     * @return {any|string}
+     */
+
 • TkService.getParamsURL(srcUrl, options)
     /**
-     * Parse parameters URL to object
+     * Get parameters from URL to object
      *
-     * - Convert parameter without value → param_name: true
-     * - Convert value: val1 → param_name: val1
-     * - Convert value: val1:val2 → param_name: { val1: val2 }
-     * - Convert value: val1,val2,val3 → param_name: [val1, val2, val3]
-     * - Convert value: val1:val2,val3:val4 → param_name: { val1: val2, val3: val4 }
+     * Converts:
+     * - param_name without value → param_name: true
+     * - param_name=val1 → param_name: val1
+     * - param_name=val1:val2 → param_name: {val1: val2}
+     * - param_name=val1,val2,val3 → param_name: [val1, val2, val3]
+     * - param_name=val1:val2,val3:val4 → param_name: {val1: val2, val3: val4}
+     * - value/subvalue json-string → param_name: <json-parse>
      *
-     * @param {string} [srcUrl]                 - source string URL (if not set in case client side → used self.location.href)
+     * @param {string|URL} [srcUrl]             - source URL (if not set in case client side → used self.location.href)
      * @param {object} [options]                - options
      * @param {boolean} [options.keysLowerCase] - convert all parameters names to lower case (default: false)
      * @param {boolean} [options.valsLowerCase] - convert all strings values to lower case (default: false)
+     * @return {object}
+     */
+
+• TkService.setParamsURL(url, params = {}, encode = false)
+    /**
+     * Set parameters from object to URL
+     *
+     * Converts:
+     * - param_name: val1 → param_name=val1
+     * - param_name: {val1: val2} → param_name=val1:val2
+     * - param_name: [val1, val2, val3] → param_name=val1,val2,val3
+     * - param_name: {val1: val2, val3: val4} → param_name=val1:val2,val3:val4
+     * - subvalue object of array/object → <json-string>
+     *
+     * @param {string|URL} url                  - source string URL or exist URL-object
+     * @param {object} [params]                 - source object to set as parameters URL (default: {})
+     * @param {boolean} [encode]                - use encode URI for result (default: false)
+     * @return {URL}
      */
 ~~~
 

@@ -6,8 +6,9 @@ const arrNum1 = [4, 1, 3]
 const arrNum2 = [1, 2, 3, 4, 2, 5, 2]
 const arrStr1 = ['str1', 'strN', 'str3', 'strN']
 const arrStr2 = ['Zxb', 'Baz', 'Zxa', 'Abc', 'Zxb', 'Zac', 'Bca', 'Zaa', 'Aaa']
-const arrMix1 = [1, true, 'str', 555, 3, 555]
+const arrMix1 = [1, true, 'str', -555.123124, 3.1, 555]
 const objMix1 = { a: 1, b: [true, 2, 3.26456], c: 'str', d: { sub: -0.321, e: null, f: {}}}
+const strUrl1 = 'https://example.com/search/entity?key=true,{d:"asd", q:123}&text=car%2BOR%2Bhome&order_by=publication_time,2,3,false&noobj=field1:true,field2false&js=asd:{"key1":12,"arr":[1,true,{"sub":"strSub"}]}&from=suggest_post:-12&arr=a:3,v:,s:!!!&alert&fromSearchLine=true&area=2'
 const func1 = function (a, b) { return a + b }
 const func2 = (a, b = 100) => a + b
 
@@ -47,10 +48,7 @@ console.log(' 3.', Tackle.TkString.formatNumber(10009, 5), Tackle.TkString.forma
 console.log(' 4.', TkString.formatNumber(1.402, 5), TkString.formatNumber(-1.4, 5), TkString.formatNumber(1.42, 5, 2), TkString.formatNumber(-1.402, 5))
 console.log(' 5.', Tackle.TkString.formatNumber(100009, 5), Tackle.TkString.formatNumber(-10009, 5), Tackle.TkString.formatNumber(1009, 5, 1), Tackle.TkString.formatNumber(-1009, 5, 1))
 console.log(' 6.', TkString.formatNumber(1.4002, 5), TkString.formatNumber(-1.004, 5), TkString.formatNumber(1.42, 5, 4), TkString.formatNumber(-1.4002, 5))
-console.log(' 7.', Tackle.TkString.stringify(5), Tackle.TkString.stringify(true), Tackle.TkString.stringify(arrMix1))
-console.log(' 8.', Tackle.TkString.stringify(objMix1, { floatPrecision: 2 }))
-console.log(' 9.', TkString.stringify(objMix1, { json: false }))
-console.log('10.', Tackle.TkString.getHash('Hashed string'), TkString.getHash('Hashed string', 234))
+console.log(' 7.', Tackle.TkString.getHash('Hashed string'), TkString.getHash('Hashed string', 234))
 
 
 console.log('\nFUNCTION:')
@@ -62,7 +60,11 @@ console.log(' 2.', func2Memoize(4, 6), func2Memoize(4), func2Memoize(4, 6))
 
 
 console.log('\nSERVICE:')
-console.log(' 1.', Tackle.TkService.bytesToKb(1_024), TkService.bytesToKb(1_000, 5))
-console.log(' 2.', Tackle.TkService.bytesToMb(1_048_576), TkService.bytesToMb(1_000_100, 5))
-console.log(' 3.', Tackle.TkService.getParamsURL())
-console.log(' 4.', TkService.getParamsURL('https://example.com/search/entity?text=car%2BOR%2Bhome&order_by=publication_time,2,3,false&noobj=field1:true,field2false&from=suggest_post:-12&arr=a:3,v:,s:!!!&alert&fromSearchLine=true&area=2'))
+console.log(' 1.', Tackle.TkService.bytesToKb(1_024), TkService.bytesToKb(1_000, 5), TkService.bytesToKb(1_000))
+console.log(' 2.', Tackle.TkService.bytesToMb(1_048_576), TkService.bytesToMb(1_000_100, 5), TkService.bytesToMb(1_000_100))
+console.log(' 3.', Tackle.TkService.trimFloat(5, 2), Tackle.TkService.trimFloat(true, 5), Tackle.TkService.trimFloat(arrMix1, 3, true))
+console.log(' 4.', TkService.trimFloat(objMix1, 2))
+let tmp1 = Tackle.TkService.getParamsURL(strUrl1)
+console.log(' 5.', tmp1)
+let tmp2 = Tackle.TkService.setParamsURL('https://example.com', tmp1)
+console.log(' 6.', JSON.stringify(tmp1) === JSON.stringify(TkService.getParamsURL(tmp2)), tmp2.href)

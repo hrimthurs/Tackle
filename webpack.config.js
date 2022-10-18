@@ -54,8 +54,15 @@ const cfgProd = {
             minify: TerserPlugin.uglifyJsMinify,
             extractComments: false,
             terserOptions: {
-                output: { comments: false },
-                mangle: { reserved: [] }
+                output: {
+                    comments: false
+                },
+                mangle: {
+                    reserved: []        // - unmangled names
+                },
+                compress: {
+                    unsafe: true        // - if unchanged proto Object/Array
+                }
             }
         })]
     }
