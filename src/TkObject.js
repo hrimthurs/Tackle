@@ -1,7 +1,7 @@
-﻿const getHashString = require('./TkString.js').getHash
-const getArray = require('./TkArray.js').getArray
+﻿import TkString from './TkString.js'
+import TkArray from './TkArray.js'
 
-module.exports = class TkObject {
+export default class TkObject {
 
     /**
      * Checks if the checkVal is an javascript object
@@ -26,7 +26,7 @@ module.exports = class TkObject {
     static excludeKeys(srcObj, skipPathKeys, modifySrc = false) {
         let res = modifySrc ? srcObj : this.clone(srcObj)
 
-        let arrSkipKeys = getArray(skipPathKeys)
+        let arrSkipKeys = TkArray.getArray(skipPathKeys)
         arrSkipKeys.forEach(pathKey => this.setValue(res, pathKey, null, (root, key) => delete root[key]))
 
         return res
@@ -109,7 +109,7 @@ module.exports = class TkObject {
      * @return {string}
      */
     static getHash(srcObj, skipPathKeys = null, seed = 0) {
-        return getHashString(JSON.stringify(this.excludeKeys(srcObj, skipPathKeys)), seed)
+        return TkString.getHash(JSON.stringify(this.excludeKeys(srcObj, skipPathKeys)), seed)
     }
 
 }

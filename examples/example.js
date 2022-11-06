@@ -1,5 +1,10 @@
-﻿const Tackle = require('../src/index.js')
-const { TkArray, TkObject, TkString, TkFunction, TkService } = require('../src/index.js')
+﻿// ESM
+import Tackle from '../src/index.js'
+import { TkArray, TkObject, TkString, TkFunction, TkService } from '../src/index.js'
+
+// CommonJS (only outside NodeJS "module")
+// const Tackle = require('@hrimthurs/tackle')
+// const { TkArray, TkObject, TkString, TkFunction, TkService } = require('@hrimthurs/tackle')
 
 
 const arrNum1 = [4, 1, 3]

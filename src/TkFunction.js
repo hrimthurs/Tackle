@@ -1,4 +1,4 @@
-﻿module.exports = class TkFunction {
+﻿export default class TkFunction {
 
     /**
      * Returns function decorator that implements memoization

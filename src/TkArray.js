@@ -1,4 +1,4 @@
-﻿module.exports = class TkArray {
+﻿export default class TkArray {
 
     /**
      * Returns array regardless of type srcVal

@@ -1,4 +1,4 @@
-﻿module.exports = class TkString {
+﻿export default class TkString {
 
     /**
      * Converts a numeric value to a string of the specified length with adding '0' (at the beginning for integer, ending for float).

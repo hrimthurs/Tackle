@@ -1,6 +1,6 @@
 {
   "name": "@hrimthurs/tackle",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "Various auxiliary tools for working in JavaScript projects",
   "author": "",
   "license": "MIT",
@@ -12,6 +12,8 @@
     "routines"
   ],
   "main": "./src/index.js",
+  "module": "./src/index.js",
+  "type": "module",
   "scripts": {
     "run:example": "node ./examples/example.js",
     "build:dist": "webpack --env build_prod part=Tackle && webpack --env build_prod part=TkArray,src/TkArray && webpack --env build_prod part=TkString,src/TkString && webpack --env build_prod part=TkObject,src/TkObject && webpack --env build_prod part=TkFunction,src/TkFunction && webpack --env build_prod part=TkService,src/TkService",

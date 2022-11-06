@@ -1,4 +1,4 @@
-﻿module.exports = class TkService {
+﻿export default class TkService {
 
     /**
      * Converts the number of bytes to kilobytes

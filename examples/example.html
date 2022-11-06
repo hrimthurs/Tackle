@@ -62,6 +62,8 @@
         <!-- USE PARTIAL -->
         <script src="../dist/TkArray.js"></script>
         <script>
+            TkArray = TkArray.default
+
             console.log(TkArray.getArray(12), TkArray.getArray(arrNum2, true), TkArray.getArray(arrStr1, true))
             console.log(TkArray.getUniqValues(arrNum2), TkArray.getUniqValues(arrStr1))
             console.log(TkArray.excludeValues(arrNum2, 2), TkArray.getUniqValues(arrStr1, ['Aaa', 'Zxb']))
@@ -71,6 +73,8 @@
 
         <script src="../dist/TkObject.js"></script>
         <script>
+            TkObject = TkObject.default
+
             let copyObj2 = TkObject.clone(objMix1)
             console.log(TkObject.isObjectJs(copyObj2), TkObject.isObjectJs(copyObj2, 'qqq'), copyObj2)
             console.log(TkObject.excludeKeys(objMix1, 'b'))
@@ -89,18 +93,24 @@
 
         <script src="../dist/TkString.js"></script>
         <script>
+            TkString = TkString.default
+
             console.log(TkString.formatNumber(19, 5), TkString.formatNumber(-19, 5), TkString.formatNumber(19, 5, 1), TkString.formatNumber(-19, 5, 1))
             console.log(TkString.getHash('Hashed string'), TkString.getHash('Hashed string', 234))
         </script>
 
         <script src="../dist/TkFunction.js"></script>
         <script>
+            TkFunction = TkFunction.default
+
             const func2Memoize = TkFunction.decoMemoize(func1, this)
             console.log(func2Memoize(4, 6), func2Memoize(4), func2Memoize(4, 6))
         </script>
 
         <script src="../dist/TkService.js"></script>
         <script>
+            TkService = TkService.default
+            
             console.log(TkService.bytesToKb(1_024))
             console.log(TkService.bytesToMb(1_048_576))
 

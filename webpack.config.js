@@ -1,4 +1,11 @@
-const path = require('path')
+import path from 'node:path'
+
+import { createRequire } from 'node:module'
+const require = createRequire(import.meta.url)
+
+import { fileURLToPath } from 'node:url'
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
+
 const webpack = require('webpack')
 const TerserPlugin = require('terser-webpack-plugin')
 
@@ -75,7 +82,7 @@ const cfgDev = {
     optimization: { minimize: false }
 }
 
-module.exports = env => {
+export default env => {
     const [
         buildName = 'build',
         srcPath = require('./package.json').main
