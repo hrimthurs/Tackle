@@ -36,56 +36,84 @@ const { TkArray, TkObject, TkString, TkFunction, TkService } = require('@hrimthu
 
 * Connection full:
 
-    [![GitHub file size in bytes](https://img.shields.io/github/size/hrimthurs/tackle/dist/Tackle.js?label=Tackle.js)](https://github.com/hrimthurs/tackle/blob/master/dist/Tackle.js)
+    [![GitHub file size in bytes](https://img.shields.io/github/size/hrimthurs/tackle/build/Tackle.min.js?label=Tackle.min.js)](https://github.com/hrimthurs/tackle/blob/master/build/Tackle.min.js)
+    [![GitHub file size in bytes](https://img.shields.io/github/size/hrimthurs/tackle/build/Tackle.min.legacy.js?label=Tackle.min.legacy.js)](https://github.com/hrimthurs/tackle/blob/master/build/Tackle.min.legacy.js)
 
     ~~~ html
-    <script src="Tackle.js"></script>
+    <script src="Tackle.min.js"></script>
+    <!-- OR TRANSPILED: <script src="Tackle.min.legacy.js"></script> -->
     <script> Tackle. ... </script>
     ~~~
 
 * Connection part of working with **arrays**:
 
-    [![GitHub file size in bytes](https://img.shields.io/github/size/hrimthurs/tackle/dist/TkArray.js?label=TkArray.js)](https://github.com/hrimthurs/tackle/blob/master/dist/TkArray.js)
+    [![GitHub file size in bytes](https://img.shields.io/github/size/hrimthurs/tackle/build/TkArray.min.js?label=TkArray.min.js)](https://github.com/hrimthurs/tackle/blob/master/build/TkArray.min.js)
+    [![GitHub file size in bytes](https://img.shields.io/github/size/hrimthurs/tackle/build/TkArray.min.legacy.js?label=TkArray.min.legacy.js)](https://github.com/hrimthurs/tackle/blob/master/build/TkArray.min.legacy.js)
 
     ~~~ html
-    <script src="TkArray.js"></script>
+    <script src="TkArray.min.js"></script>
+    <!-- OR TRANSPILED: <script src="TkArray.min.legacy.js"></script> -->
     <script> TkArray. ... </script>
     ~~~
 
 * Connection part of working with **objects**:
 
-    [![GitHub file size in bytes](https://img.shields.io/github/size/hrimthurs/tackle/dist/TkObject.js?label=TkObject.js)](https://github.com/hrimthurs/tackle/blob/master/dist/TkObject.js)
+    [![GitHub file size in bytes](https://img.shields.io/github/size/hrimthurs/tackle/build/TkObject.min.js?label=TkObject.min.js)](https://github.com/hrimthurs/tackle/blob/master/build/TkObject.min.js)
+    [![GitHub file size in bytes](https://img.shields.io/github/size/hrimthurs/tackle/build/TkObject.min.legacy.js?label=TkObject.min.legacy.js)](https://github.com/hrimthurs/tackle/blob/master/build/TkObject.min.legacy.js)
 
     ~~~ html
-    <script src="TkObject.js"></script>
+    <script src="TkObject.min.js"></script>
+    <!-- OR TRANSPILED: <script src="TkObject.min.legacy.js"></script> -->
     <script> TkObject. ... </script>
     ~~~
 
 * Connection part of working with **strings**:
 
-    [![GitHub file size in bytes](https://img.shields.io/github/size/hrimthurs/tackle/dist/TkString.js?label=TkString.js)](https://github.com/hrimthurs/tackle/blob/master/dist/TkString.js)
+    [![GitHub file size in bytes](https://img.shields.io/github/size/hrimthurs/tackle/build/TkString.min.js?label=TkString.min.js)](https://github.com/hrimthurs/tackle/blob/master/build/TkString.min.js)
+    [![GitHub file size in bytes](https://img.shields.io/github/size/hrimthurs/tackle/build/TkString.min.legacy.js?label=TkString.min.legacy.js)](https://github.com/hrimthurs/tackle/blob/master/build/TkString.min.legacy.js)
 
     ~~~ html
-    <script src="TkString.js"></script>
+    <script src="TkString.min.js"></script>
+    <!-- OR TRANSPILED: <script src="TkString.min.legacy.js"></script> -->
     <script> TkString. ... </script>
     ~~~
 
 * Connection part of working with **functions**:
 
-    [![GitHub file size in bytes](https://img.shields.io/github/size/hrimthurs/tackle/dist/TkFunction.js?label=TkFunction.js)](https://github.com/hrimthurs/tackle/blob/master/dist/TkFunction.js)
+    [![GitHub file size in bytes](https://img.shields.io/github/size/hrimthurs/tackle/build/TkFunction.min.js?label=TkFunction.min.js)](https://github.com/hrimthurs/tackle/blob/master/build/TkFunction.min.js)
+    [![GitHub file size in bytes](https://img.shields.io/github/size/hrimthurs/tackle/build/TkFunction.min.legacy.js?label=TkFunction.min.legacy.js)](https://github.com/hrimthurs/tackle/blob/master/build/TkFunction.min.legacy.js)
 
     ~~~ html
-    <script src="TkFunction.js"></script>
+    <script src="TkFunction.min.js"></script>
+    <!-- OR TRANSPILED: <script src="TkFunction.min.legacy.js"></script> -->
     <script> TkFunction. ... </script>
     ~~~
 
 * Connection part of working with **others**:
 
-    [![GitHub file size in bytes](https://img.shields.io/github/size/hrimthurs/tackle/dist/TkService.js?label=TkService.js)](https://github.com/hrimthurs/tackle/blob/master/dist/TkService.js)
+    [![GitHub file size in bytes](https://img.shields.io/github/size/hrimthurs/tackle/build/TkService.min.js?label=TkService.min.js)](https://github.com/hrimthurs/tackle/blob/master/build/TkService.min.js)
+    [![GitHub file size in bytes](https://img.shields.io/github/size/hrimthurs/tackle/build/TkService.min.legacy.js?label=TkService.min.legacy.js)](https://github.com/hrimthurs/tackle/blob/master/build/TkService.min.legacy.js)
 
     ~~~ html
-    <script src="TkService.js"></script>
+    <script src="TkService.min.js"></script>
+    <!-- OR TRANSPILED: <script src="TkService.min.legacy.js"></script> -->
     <script> TkService. ... </script>
+    ~~~
+
+## WebPack Tree Shaking
+
+- **ON** optimization.minimizer:
+    ~~~ javascript
+    import Tackle from 'tackle'             → full package
+    import * as Tackle from 'tackle'        → used submodules
+    import { Part } from 'tackle'           → used submodules
+    ~~~
+
+- **OFF** optimization.minimizer:
+    ~~~ javascript
+    import Tackle from 'tackle'             → used submodules
+    import * as Tackle from 'tackle'        → used functions
+    import { Part } from 'tackle'           → used functions
     ~~~
 
 ## API
@@ -167,13 +195,24 @@ const { TkArray, TkObject, TkString, TkFunction, TkService } = require('@hrimthu
 • TkObject.setValue(srcObj, pathKey, value, cbAction = null)
     /**
      * Sets value to object field by pathKey
-     * @param {object} srcObj                           - source object
-     * @param {string} pathKey                          - key (name or chain names)
-     * @param {any} value                               - value
-     * @param {function(object, string):any} [cbAction] - callback action for success set
+     * @param {object} srcObj                                   - source object
+     * @param {string} pathKey                                  - key (name or chain names)
+     * @param {any} value                                       - value
+     * @param {function(object, string):any} [cbAction]         - callback action for success set
      *      - arg0 - parent object of the setting field
      *      - arg1 - finite key of the setting field
      * @return {boolean|any} true/false as a success set value, or result cbAction (if given)
+     */
+
+• TkObject.enumeration(srcObj, cbAction)
+    /**
+     * Enumeration all object fields
+     * @param {object} srcObj                                   - source object
+     * @param {function(any, string, string[]):any} cbAction    - callback action for every field
+     *      - arg0 - field current value
+     *      - arg1 - field key
+     *      - arg2 - all fields keys
+     * @return {object} new object based on the results of cbAction calls
      */
 
 • TkObject.merge(srcObjects)

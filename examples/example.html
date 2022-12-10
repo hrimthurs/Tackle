@@ -12,7 +12,8 @@
         </script>
 
         <!-- USE FULL -->
-        <script src="../dist/Tackle.js"></script>
+        <script src="../build/Tackle.min.js"></script>
+        <!-- <script src="../build/Tackle.min.legacy.js"></script> -->
         <script>
             console.log(Tackle.TkArray.getArray(12), Tackle.TkArray.getArray(arrNum2, true), Tackle.TkArray.getArray(arrStr1, true))
             console.log(Tackle.TkArray.getUniqValues(arrNum2), Tackle.TkArray.getUniqValues(arrStr1))
@@ -60,7 +61,8 @@
         </script>
 
         <!-- USE PARTIAL -->
-        <script src="../dist/TkArray.js"></script>
+        <script src="../build/TkArray.min.js"></script>
+        <!-- <script src="../build/TkArray.min.legacy.js"></script> -->
         <script>
             console.log(TkArray.getArray(12), TkArray.getArray(arrNum2, true), TkArray.getArray(arrStr1, true))
             console.log(TkArray.getUniqValues(arrNum2), TkArray.getUniqValues(arrStr1))
@@ -69,7 +71,8 @@
             console.log(TkArray.isSubArray(arrNum1, arrNum2), TkArray.isSubArray(arrNum1, arrNum2, true))
         </script>
 
-        <script src="../dist/TkObject.js"></script>
+        <script src="../build/TkObject.min.js"></script>
+        <!-- <script src="../build/TkObject.min.legacy.js"></script> -->
         <script>
             let copyObj2 = TkObject.clone(objMix1)
             console.log(TkObject.isObjectJs(copyObj2), TkObject.isObjectJs(copyObj2, 'qqq'), copyObj2)
@@ -87,19 +90,22 @@
             console.log(TkObject.getHash(objMix1, ['a', 'c']), TkObject.getHash(objMix1, ['a', 'c'], 12))
         </script>
 
-        <script src="../dist/TkString.js"></script>
+        <script src="../build/TkString.min.js"></script>
+        <!-- <script src="../build/TkString.min.legacy.js"></script> -->
         <script>
             console.log(TkString.formatNumber(19, 5), TkString.formatNumber(-19, 5), TkString.formatNumber(19, 5, 1), TkString.formatNumber(-19, 5, 1))
             console.log(TkString.getHash('Hashed string'), TkString.getHash('Hashed string', 234))
         </script>
 
-        <script src="../dist/TkFunction.js"></script>
+        <script src="../build/TkFunction.min.js"></script>
+        <!-- <script src="../build/TkFunction.min.legacy.js"></script> -->
         <script>
             const func2Memoize = TkFunction.decoMemoize(func1, this)
             console.log(func2Memoize(4, 6), func2Memoize(4), func2Memoize(4, 6))
         </script>
 
-        <script src="../dist/TkService.js"></script>
+        <script src="../build/TkService.min.js"></script>
+        <!-- <script src="../build/TkService.min.legacy.js"></script> -->
         <script>
             console.log(TkService.bytesToKb(1_024))
             console.log(TkService.bytesToMb(1_048_576))
