@@ -204,6 +204,20 @@ function setValue(srcObj, pathKey, value, cbAction = null) {
 }
 
 /**
+ * Enumeration all object fields
+ * @param {object} srcObj                                   - source object
+ * @param {function(any, string, string[]):any} cbAction    - callback action for every field
+ *      - arg0 - field current value
+ *      - arg1 - field key
+ *      - arg2 - all fields keys
+ * @return {object} new object based on the results of cbAction calls
+ */
+function enumeration(srcObj, cbAction) {
+    let allKeys = Object.keys(srcObj);
+    return Object.fromEntries(allKeys.map(key => [key, cbAction(srcObj[key], key, allKeys)]))
+}
+
+/**
  * Deep merge objects into a new object
  * @param {...object} srcObjects            - source objects
  * @return {object}
@@ -236,7 +250,7 @@ function getHash(srcObj, skipPathKeys = null, seed = 0) {
     return getHash$1(JSON.stringify(excludeKeys(srcObj, skipPathKeys)), seed)
 }
 
-var TkObject = { isObjectJs, excludeKeys, getValue, setValue, merge, clone, getHash };
+var TkObject = { isObjectJs, excludeKeys, getValue, setValue, enumeration, merge, clone, getHash };
 
 /**
  * Returns function decorator that implements memoization

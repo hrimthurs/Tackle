@@ -124,4 +124,4 @@ export function getHash(srcObj, skipPathKeys = null, seed = 0) {
     return getHashString(JSON.stringify(excludeKeys(srcObj, skipPathKeys)), seed)
 }
 
-export default { isObjectJs, excludeKeys, getValue, setValue, merge, clone, getHash }
+export default { isObjectJs, excludeKeys, getValue, setValue, enumeration, merge, clone, getHash }
