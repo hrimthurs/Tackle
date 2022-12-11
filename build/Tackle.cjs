@@ -1,3 +1,4 @@
+/* @hrimthurs/tackle 1.6.2 https://github.com/hrimthurs/Tackle @license MIT */
 'use strict';
 
 Object.defineProperty(exports, '__esModule', { value: true });
