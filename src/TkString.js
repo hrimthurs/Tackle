@@ -23,10 +23,10 @@ export function formatNumber(srcNum, lenTotal, precision = 0) {
 }
 
 /**
- * Returns hash of the string
+ * Returns the hash of the string with a length of 16 characters
  * @param {string} srcStr                   - source string
  * @param {number} [seed]                   - hashing is relative to this value
- * @return {string}
+ * @return {string} string of hex values with a length of 16 characters
  */
 export function getHash(srcStr, seed = 0) {
     const factor = {

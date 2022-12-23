@@ -1,4 +1,4 @@
-/* @hrimthurs/tackle 1.6.2 https://github.com/hrimthurs/Tackle @license MIT */
+/* @hrimthurs/tackle 1.7.0 https://github.com/hrimthurs/Tackle @license MIT */
 'use strict';
 
 Object.defineProperty(exports, '__esModule', { value: true });
@@ -100,10 +100,10 @@ function formatNumber(srcNum, lenTotal, precision = 0) {
 }
 
 /**
- * Returns hash of the string
+ * Returns the hash of the string with a length of 16 characters
  * @param {string} srcStr                   - source string
  * @param {number} [seed]                   - hashing is relative to this value
- * @return {string}
+ * @return {string} string of hex values with a length of 16 characters
  */
 function getHash$1(srcStr, seed = 0) {
     const factor = {
@@ -241,11 +241,11 @@ function clone(srcObj) {
 }
 
 /**
- * Returns hash of the object
+ * Returns the hash of the object with a length of 16 characters
  * @param {object} srcObj                   - source object
  * @param {string|string[]} [skipPathKeys]  - not hash values with these keys (names or chains names)
  * @param {number} [seed]                   - hashing is relative to this value
- * @return {string}
+ * @return {string} string of hex values with a length of 16 characters
  */
 function getHash(srcObj, skipPathKeys = null, seed = 0) {
     return getHash$1(JSON.stringify(excludeKeys(srcObj, skipPathKeys)), seed)
@@ -401,6 +401,42 @@ function setParamsURL(url, params = {}, encode = false) {
     return res
 }
 
+/**
+ * Generates a unique ID in the format of a hash string of 16 characters length
+ * @param {string} [initialStr]             - initial string for generate
+ * @return {string} string of hex values with a length of 16 characters
+ */
+function generateHashUID(initialStr = '') {
+    const numRandom = 10 + Math.trunc(Math.random() * 10);
+    const strRandom = new Array(numRandom).fill(0).map(v => Math.random()).join();
+
+    return getHash$1(initialStr + Date.now() + strRandom, Math.random())
+}
+
+/**
+ * Generates a universal unique ID in the format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+ * @return {string} string hex values
+ */
+function generateUUID() {
+	const d0 = Math.random() * 0xffffffff | 0;
+	const d1 = Math.random() * 0xffffffff | 0;
+	const d2 = Math.random() * 0xffffffff | 0;
+	const d3 = Math.random() * 0xffffffff | 0;
+
+	const uuid =
+        _strHex[d0 & 0xff] + _strHex[d0>>8 & 0xff] + _strHex[d0>>16 & 0xff] + _strHex[d0>>24 & 0xff] + '-' +
+		_strHex[d1 & 0xff] + _strHex[d1>>8 & 0xff] + '-' +
+        _strHex[d1>>16 & 0x0f | 0x40] + _strHex[d1>>24 & 0xff] + '-' +
+		_strHex[d2 & 0x3f | 0x80] + _strHex[d2>>8 & 0xff] + '-' +
+        _strHex[d2>>16 & 0xff] + _strHex[d2>>24 & 0xff] + _strHex[d3 & 0xff] + _strHex[d3>>8 & 0xff] + _strHex[d3>>16 & 0xff] + _strHex[d3>>24 & 0xff];
+
+	return uuid.toLowerCase()
+}
+
+/////////////////////////////////////////////////   PRIVATE   /////////////////////////////////////////////////
+
+const _strHex = new Array(256).fill(0).map((val, ind) => (ind < 16 ? '0' : '') + ind.toString(16));
+
 function _paramURLtoArray(srcStr) {
     let res = [];
 
@@ -449,7 +485,7 @@ function _tryStrToObj(srcStr) {
     catch { return srcStr }
 }
 
-var TkService = { bytesToKb, bytesToMb, trimFloat, getParamsURL, setParamsURL };
+var TkService = { bytesToKb, bytesToMb, trimFloat, getParamsURL, setParamsURL, generateHashUID, generateUUID };
 
 var Tackle = { TkArray, TkString, TkObject, TkFunction, TkService };
 

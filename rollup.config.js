@@ -6,7 +6,9 @@ import pkg from './package.json' assert { type: 'json' }
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url))
+const __filename = global['__filename'] = fileURLToPath(import.meta.url)
+const __dirname = global['__dirname'] = path.dirname(__filename)
+
 const srcFolder = path.join(__dirname, './src')
 const dstFolder = path.join(__dirname, './build')
 

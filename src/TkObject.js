@@ -114,11 +114,11 @@ export function clone(srcObj) {
 }
 
 /**
- * Returns hash of the object
+ * Returns the hash of the object with a length of 16 characters
  * @param {object} srcObj                   - source object
  * @param {string|string[]} [skipPathKeys]  - not hash values with these keys (names or chains names)
  * @param {number} [seed]                   - hashing is relative to this value
- * @return {string}
+ * @return {string} string of hex values with a length of 16 characters
  */
 export function getHash(srcObj, skipPathKeys = null, seed = 0) {
     return getHashString(JSON.stringify(excludeKeys(srcObj, skipPathKeys)), seed)

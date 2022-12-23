@@ -231,11 +231,11 @@ const { TkArray, TkObject, TkString, TkFunction, TkService } = require('@hrimthu
 
 • TkObject.getHash(srcObj, skipKeys = null, seed = 0)
     /**
-     * Returns hash of the object
+     * Returns the hash of the object with a length of 16 characters
      * @param {object} srcObj                   - source object
      * @param {string|string[]} [skipPathKeys]  - not hash values with these keys
      * @param {number} [seed]                   - hashing is relative to this value
-     * @return {string}
+     * @return {string} string of hex values with a length of 16 characters
      */
 ~~~
 
@@ -254,10 +254,10 @@ const { TkArray, TkObject, TkString, TkFunction, TkService } = require('@hrimthu
 
 • TkString.getHash(srcStr, seed = 0)
     /**
-     * Returns hash of the string
+     * Returns the hash of the string with a length of 16 characters
      * @param {string} srcStr                   - source string
      * @param {number} [seed]                   - hashing is relative to this value
-     * @return {string}
+     * @return {string} string of hex values with a length of 16 characters
      */
 ~~~
 
@@ -335,6 +335,19 @@ const { TkArray, TkObject, TkString, TkFunction, TkService } = require('@hrimthu
      * @param {object} [params]                 - source object to set as parameters URL (default: {})
      * @param {boolean} [encode]                - use encode URI for result (default: false)
      * @return {URL}
+     */
+
+• TkService.generateHashUID(initialStr = '')
+    /**
+     * Generates a unique ID in the format of a hash string of 16 characters length
+     * @param {string} [initialStr]             - initial string for generate
+     * @return {string} string of hex values with a length of 16 characters
+     */
+
+• TkService.generateUUID()
+    /**
+     * Generates a universal unique ID in the format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+     * @return {string} string hex values
      */
 ~~~
 
