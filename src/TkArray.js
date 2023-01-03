@@ -2,7 +2,7 @@
  * Returns array regardless of type srcVal
  * @param {any} srcVal              - source value
  * @param {boolean} [uniqValues]    - true → returns array of unique values
- * @return {any[]}
+ * @returns {any[]}
  */
 export function getArray(srcVal, uniqValues = false) {
     let array = Array.isArray(srcVal)
@@ -16,7 +16,7 @@ export function getArray(srcVal, uniqValues = false) {
  * Returns array of unique values
  * @param {any[]} srcArr            - source array
  * @param {boolean} [modifySrc]     - true → modifies the original array
- * @return {any[]}
+ * @returns {any[]}
  */
 export function getUniqValues(srcArr, modifySrc = false) {
     let res = [...new Set(srcArr)]
@@ -30,7 +30,7 @@ export function getUniqValues(srcArr, modifySrc = false) {
  * @param {any[]} srcArr            - source array
  * @param {any|any[]} skipValues    - values for exclude
  * @param {boolean} [modifySrc]     - true → modifies the original array
- * @return {any[]}
+ * @returns {any[]}
  */
 export function excludeValues(srcArr, skipValues, modifySrc = false) {
     let arrSkipValues = getArray(skipValues)
@@ -44,7 +44,7 @@ export function excludeValues(srcArr, skipValues, modifySrc = false) {
  * Returns array with sorted strings
  * @param {string[]} srcArrStr      - source array strings
  * @param {boolean} [modifySrc]     - true → modifies the original array
- * @return {string[]}
+ * @returns {string[]}
  */
 export function sortArrayStr(srcArrStr, modifySrc = false) {
     let res = srcArrStr.sort((a, b) => a.localeCompare(b))
@@ -58,7 +58,7 @@ export function sortArrayStr(srcArrStr, modifySrc = false) {
  * @param {any[]} subArr            - sub array
  * @param {any[]} mainArr           - main array
  * @param {boolean} [strictEqual]   - true → arrays must be equivalent
- * @return {boolean}
+ * @returns {boolean}
  */
 export function isSubArray(subArr, mainArr, strictEqual = false) {
     let suitableSize = strictEqual

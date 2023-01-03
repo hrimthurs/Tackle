@@ -1,9 +1,9 @@
-/* @hrimthurs/tackle 1.7.0 https://github.com/hrimthurs/Tackle @license MIT */
+/* @hrimthurs/tackle 1.8.0 https://github.com/hrimthurs/Tackle @license MIT */
 /**
  * Returns array regardless of type srcVal
  * @param {any} srcVal              - source value
  * @param {boolean} [uniqValues]    - true → returns array of unique values
- * @return {any[]}
+ * @returns {any[]}
  */
 function getArray(srcVal, uniqValues = false) {
     let array = Array.isArray(srcVal)
@@ -17,7 +17,7 @@ function getArray(srcVal, uniqValues = false) {
  * Returns array of unique values
  * @param {any[]} srcArr            - source array
  * @param {boolean} [modifySrc]     - true → modifies the original array
- * @return {any[]}
+ * @returns {any[]}
  */
 function getUniqValues(srcArr, modifySrc = false) {
     let res = [...new Set(srcArr)];
@@ -31,7 +31,7 @@ function getUniqValues(srcArr, modifySrc = false) {
  * @param {any[]} srcArr            - source array
  * @param {any|any[]} skipValues    - values for exclude
  * @param {boolean} [modifySrc]     - true → modifies the original array
- * @return {any[]}
+ * @returns {any[]}
  */
 function excludeValues(srcArr, skipValues, modifySrc = false) {
     let arrSkipValues = getArray(skipValues);
@@ -45,7 +45,7 @@ function excludeValues(srcArr, skipValues, modifySrc = false) {
  * Returns array with sorted strings
  * @param {string[]} srcArrStr      - source array strings
  * @param {boolean} [modifySrc]     - true → modifies the original array
- * @return {string[]}
+ * @returns {string[]}
  */
 function sortArrayStr(srcArrStr, modifySrc = false) {
     let res = srcArrStr.sort((a, b) => a.localeCompare(b));
@@ -59,7 +59,7 @@ function sortArrayStr(srcArrStr, modifySrc = false) {
  * @param {any[]} subArr            - sub array
  * @param {any[]} mainArr           - main array
  * @param {boolean} [strictEqual]   - true → arrays must be equivalent
- * @return {boolean}
+ * @returns {boolean}
  */
 function isSubArray(subArr, mainArr, strictEqual = false) {
     let suitableSize = strictEqual
@@ -77,7 +77,7 @@ var TkArray = { getArray, getUniqValues, excludeValues, sortArrayStr, isSubArray
  * @param {any} srcNum                      - source number
  * @param {number} lenTotal                 - expected length result
  * @param {number} [precision]              - number of decimal points of the result (0 → not change original value)
- * @return {string}
+ * @returns {string}
  */
 function formatNumber(srcNum, lenTotal, precision = 0) {
     const absNum = Math.abs(srcNum);
@@ -99,7 +99,7 @@ function formatNumber(srcNum, lenTotal, precision = 0) {
  * Returns the hash of the string with a length of 16 characters
  * @param {string} srcStr                   - source string
  * @param {number} [seed]                   - hashing is relative to this value
- * @return {string} string of hex values with a length of 16 characters
+ * @returns {string} string of hex values with a length of 16 characters
  */
 function getHash$1(srcStr, seed = 0) {
     const factor = {
@@ -128,7 +128,7 @@ var TkString = { formatNumber, getHash: getHash$1 };
  * Checks if the checkVal is an javascript object
  * @param {any} checkVal                    - check value
  * @param {string} [checkKey]               - checks for the presence of the checkKey in the object
- * @return {boolean}
+ * @returns {boolean}
  */
 function isObjectJs(checkVal, checkKey = null) {
     return (typeof checkVal === 'object')
@@ -142,7 +142,7 @@ function isObjectJs(checkVal, checkKey = null) {
  * @param {object} srcObj                   - source object
  * @param {string|string[]} [skipPathKeys]  - exclude keys (names or chains names)
  * @param {boolean} [modifySrc]             - true → modifies the original object
- * @return {object}
+ * @returns {object}
  */
 function excludeKeys(srcObj, skipPathKeys, modifySrc = false) {
     let res = modifySrc ? srcObj : clone(srcObj);
@@ -157,7 +157,7 @@ function excludeKeys(srcObj, skipPathKeys, modifySrc = false) {
  * Gets the values of the object's fields by pathKeys
  * @param {object} srcObj                   - source object
  * @param {...string} pathKeys              - keys (names or chains names)
- * @return {any|any[]} for single pathKey return value, for a few pathKeys return array values
+ * @returns {any|any[]} for single pathKey return value, for a few pathKeys return array values
  */
 function getValue(srcObj, ...pathKeys) {
     let chainKeys = pathKeys.map(name => name.split('.'));
@@ -177,7 +177,7 @@ function getValue(srcObj, ...pathKeys) {
  * @param {function(object, string):any} [cbAction]         - callback action for success set
  *      - arg0 - parent object of the setting field
  *      - arg1 - finite key of the setting field
- * @return {boolean|any} true/false as a success set value, or result cbAction (if given)
+ * @returns {boolean|any} true/false as a success set value, or result cbAction (if given)
  */
 function setValue(srcObj, pathKey, value, cbAction = null) {
     let res = false;
@@ -207,7 +207,7 @@ function setValue(srcObj, pathKey, value, cbAction = null) {
  *      - arg0 - field current value
  *      - arg1 - field key
  *      - arg2 - all fields keys
- * @return {object} new object based on the results of cbAction calls
+ * @returns {object} new object based on the results of cbAction calls
  */
 function enumeration(srcObj, cbAction) {
     let allKeys = Object.keys(srcObj);
@@ -217,7 +217,7 @@ function enumeration(srcObj, cbAction) {
 /**
  * Deep merge objects into a new object
  * @param {...object} srcObjects            - source objects
- * @return {object}
+ * @returns {object}
  */
 function merge(...srcObjects) {
     return srcObjects.reduce((objA, objB) => (
@@ -230,7 +230,7 @@ function merge(...srcObjects) {
 /**
  * Creates an independent clone of the object
  * @param {object} srcObj                   - source object
- * @return {object}
+ * @returns {object}
  */
 function clone(srcObj) {
     return JSON.parse(JSON.stringify(srcObj))
@@ -241,7 +241,7 @@ function clone(srcObj) {
  * @param {object} srcObj                   - source object
  * @param {string|string[]} [skipPathKeys]  - not hash values with these keys (names or chains names)
  * @param {number} [seed]                   - hashing is relative to this value
- * @return {string} string of hex values with a length of 16 characters
+ * @returns {string} string of hex values with a length of 16 characters
  */
 function getHash(srcObj, skipPathKeys = null, seed = 0) {
     return getHash$1(JSON.stringify(excludeKeys(srcObj, skipPathKeys)), seed)
@@ -253,7 +253,7 @@ var TkObject = { isObjectJs, excludeKeys, getValue, setValue, enumeration, merge
  * Returns function decorator that implements memoization
  * @param {function} srcFunc        - source function
  * @param {object} [context]        - function execution context
- * @return {function}
+ * @returns {function}
  */
 function decoMemoize(srcFunc, context = globalThis) {
     let cache = new Map();
@@ -277,7 +277,7 @@ var TkFunction = { decoMemoize };
  * Converts the number of bytes to kilobytes
  * @param {number} numBytes                 - number of bytes
  * @param {number} [precision]              - defines the number of decimal points of the result
- * @return {number}
+ * @returns {number}
  */
 function bytesToKb(numBytes, precision = 2) {
     return trimFloat(numBytes / 1024, precision)
@@ -287,7 +287,7 @@ function bytesToKb(numBytes, precision = 2) {
  * Converts the number of bytes to megabytes
  * @param {number} numBytes                 - number of bytes
  * @param {number} [precision]              - defines the number of decimal points of the result
- * @return {number}
+ * @returns {number}
  */
 function bytesToMb(numBytes, precision = 2) {
     return trimFloat(numBytes / 1048576, precision)
@@ -298,7 +298,7 @@ function bytesToMb(numBytes, precision = 2) {
  * @param {any} srcVal                      - value with containing float numbers
  * @param {number} precision                - defines the number of decimal points of the result float numbers
  * @param {boolean} [stringify]             - return the result as converted to string
- * @return {any|string}
+ * @returns {any|string}
  */
 function trimFloat(srcVal, precision, stringify = false) {
     let res = _valToStr(srcVal, { 'number': v => Number(v.toFixed(precision)) });
@@ -320,7 +320,7 @@ function trimFloat(srcVal, precision, stringify = false) {
  * @param {object} [options]                - options
  * @param {boolean} [options.keysLowerCase] - convert all parameters names to lower case (default: false)
  * @param {boolean} [options.valsLowerCase] - convert all strings values to lower case (default: false)
- * @return {object}
+ * @returns {object}
  */
 function getParamsURL(srcUrl = null, options = {}) {
     const useOptions = {
@@ -373,7 +373,7 @@ function getParamsURL(srcUrl = null, options = {}) {
  * @param {string|URL} url                  - source string URL or exist URL-object
  * @param {object} [params]                 - source object to set as parameters URL (default: {})
  * @param {boolean} [encode]                - use encode URI for result (default: false)
- * @return {URL}
+ * @returns {URL}
  */
 function setParamsURL(url, params = {}, encode = false) {
     let res = typeof url === 'string' ? _tryMakeURL(url) : url;
@@ -400,7 +400,7 @@ function setParamsURL(url, params = {}, encode = false) {
 /**
  * Generates a unique ID in the format of a hash string of 16 characters length
  * @param {string} [initialStr]             - initial string for generate
- * @return {string} string of hex values with a length of 16 characters
+ * @returns {string} string of hex values with a length of 16 characters
  */
 function generateHashUID(initialStr = '') {
     const numRandom = 10 + Math.trunc(Math.random() * 10);
@@ -411,7 +411,7 @@ function generateHashUID(initialStr = '') {
 
 /**
  * Generates a universal unique ID in the format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
- * @return {string} string hex values
+ * @returns {string} string hex values
  */
 function generateUUID() {
 	const d0 = Math.random() * 0xffffffff | 0;
@@ -427,6 +427,39 @@ function generateUUID() {
         _strHex[d2>>16 & 0xff] + _strHex[d2>>24 & 0xff] + _strHex[d3 & 0xff] + _strHex[d3>>8 & 0xff] + _strHex[d3>>16 & 0xff] + _strHex[d3>>24 & 0xff];
 
 	return uuid.toLowerCase()
+}
+
+/**
+ * Creates a promise that is guaranteed to be fulfilled after a timeout
+ * @param {number} limTimeout               - timeout promise (ms)
+ * @param {object} [options]                - options
+ * @param {function} [options.func]         - promise-wrapped function (default: null)
+ * @param {Array} [options.args]            - arguments for promise-wrapped function (default: empty)
+ * @param {function(function, NodeJS.Timeout):void} [options.cbCreate] - callback after create promise (default: empty)
+ *      - arg0 - promise resolve function
+ *      - arg1 - timeout id
+ * @param {boolean} [options.timeoutReject] - call reject on timeout (default: false → call resolve without args)
+ * @returns {Promise}
+ */
+function PromiseTimeout(limTimeout, { func = null, args = [], cbCreate = (resolve, idTimeout) => {}, timeoutReject = false }) {
+    return new Promise(async (resolve, reject) => {
+        const idTimeout = setTimeout(() => {
+            if (timeoutReject) reject(new Error('timeout'));
+            else resolve();
+        }, limTimeout);
+
+        cbCreate(resolve, idTimeout);
+
+        if (func) {
+            try {
+                resolve(await func(...args));
+            } catch (error) {
+                reject(error);
+            } finally {
+                clearTimeout(idTimeout);
+            }
+        }
+    })
 }
 
 /////////////////////////////////////////////////   PRIVATE   /////////////////////////////////////////////////
@@ -481,7 +514,7 @@ function _tryStrToObj(srcStr) {
     catch { return srcStr }
 }
 
-var TkService = { bytesToKb, bytesToMb, trimFloat, getParamsURL, setParamsURL, generateHashUID, generateUUID };
+var TkService = { bytesToKb, bytesToMb, trimFloat, getParamsURL, setParamsURL, generateHashUID, generateUUID, PromiseTimeout };
 
 var Tackle = { TkArray, TkString, TkObject, TkFunction, TkService };
 

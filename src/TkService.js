@@ -4,7 +4,7 @@
  * Converts the number of bytes to kilobytes
  * @param {number} numBytes                 - number of bytes
  * @param {number} [precision]              - defines the number of decimal points of the result
- * @return {number}
+ * @returns {number}
  */
 export function bytesToKb(numBytes, precision = 2) {
     return trimFloat(numBytes / 1024, precision)
@@ -14,7 +14,7 @@ export function bytesToKb(numBytes, precision = 2) {
  * Converts the number of bytes to megabytes
  * @param {number} numBytes                 - number of bytes
  * @param {number} [precision]              - defines the number of decimal points of the result
- * @return {number}
+ * @returns {number}
  */
 export function bytesToMb(numBytes, precision = 2) {
     return trimFloat(numBytes / 1048576, precision)
@@ -25,7 +25,7 @@ export function bytesToMb(numBytes, precision = 2) {
  * @param {any} srcVal                      - value with containing float numbers
  * @param {number} precision                - defines the number of decimal points of the result float numbers
  * @param {boolean} [stringify]             - return the result as converted to string
- * @return {any|string}
+ * @returns {any|string}
  */
 export function trimFloat(srcVal, precision, stringify = false) {
     let res = _valToStr(srcVal, { 'number': v => Number(v.toFixed(precision)) })
@@ -47,7 +47,7 @@ export function trimFloat(srcVal, precision, stringify = false) {
  * @param {object} [options]                - options
  * @param {boolean} [options.keysLowerCase] - convert all parameters names to lower case (default: false)
  * @param {boolean} [options.valsLowerCase] - convert all strings values to lower case (default: false)
- * @return {object}
+ * @returns {object}
  */
 export function getParamsURL(srcUrl = null, options = {}) {
     const useOptions = {
@@ -100,7 +100,7 @@ export function getParamsURL(srcUrl = null, options = {}) {
  * @param {string|URL} url                  - source string URL or exist URL-object
  * @param {object} [params]                 - source object to set as parameters URL (default: {})
  * @param {boolean} [encode]                - use encode URI for result (default: false)
- * @return {URL}
+ * @returns {URL}
  */
 export function setParamsURL(url, params = {}, encode = false) {
     let res = typeof url === 'string' ? _tryMakeURL(url) : url
@@ -127,7 +127,7 @@ export function setParamsURL(url, params = {}, encode = false) {
 /**
  * Generates a unique ID in the format of a hash string of 16 characters length
  * @param {string} [initialStr]             - initial string for generate
- * @return {string} string of hex values with a length of 16 characters
+ * @returns {string} string of hex values with a length of 16 characters
  */
 function generateHashUID(initialStr = '') {
     const numRandom = 10 + Math.trunc(Math.random() * 10)
@@ -138,7 +138,7 @@ function generateHashUID(initialStr = '') {
 
 /**
  * Generates a universal unique ID in the format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
- * @return {string} string hex values
+ * @returns {string} string hex values
  */
 function generateUUID() {
 	const d0 = Math.random() * 0xffffffff | 0
@@ -154,6 +154,39 @@ function generateUUID() {
         _strHex[d2>>16 & 0xff] + _strHex[d2>>24 & 0xff] + _strHex[d3 & 0xff] + _strHex[d3>>8 & 0xff] + _strHex[d3>>16 & 0xff] + _strHex[d3>>24 & 0xff]
 
 	return uuid.toLowerCase()
+}
+
+/**
+ * Creates a promise that is guaranteed to be fulfilled after a timeout
+ * @param {number} limTimeout               - timeout promise (ms)
+ * @param {object} [options]                - options
+ * @param {function} [options.func]         - promise-wrapped function (default: null)
+ * @param {Array} [options.args]            - arguments for promise-wrapped function (default: empty)
+ * @param {function(function, NodeJS.Timeout):void} [options.cbCreate] - callback after create promise (default: empty)
+ *      - arg0 - promise resolve function
+ *      - arg1 - timeout id
+ * @param {boolean} [options.timeoutReject] - call reject on timeout (default: false → call resolve without args)
+ * @returns {Promise}
+ */
+function PromiseTimeout(limTimeout, { func = null, args = [], cbCreate = (resolve, idTimeout) => {}, timeoutReject = false }) {
+    return new Promise(async (resolve, reject) => {
+        const idTimeout = setTimeout(() => {
+            if (timeoutReject) reject(new Error('timeout'))
+            else resolve()
+        }, limTimeout)
+
+        cbCreate(resolve, idTimeout)
+
+        if (func) {
+            try {
+                resolve(await func(...args))
+            } catch (error) {
+                reject(error)
+            } finally {
+                clearTimeout(idTimeout)
+            }
+        }
+    })
 }
 
 /////////////////////////////////////////////////   PRIVATE   /////////////////////////////////////////////////
@@ -208,4 +241,4 @@ function _tryStrToObj(srcStr) {
     catch { return srcStr }
 }
 
-export default { bytesToKb, bytesToMb, trimFloat, getParamsURL, setParamsURL, generateHashUID, generateUUID }
+export default { bytesToKb, bytesToMb, trimFloat, getParamsURL, setParamsURL, generateHashUID, generateUUID, PromiseTimeout }

@@ -126,7 +126,7 @@ const { TkArray, TkObject, TkString, TkFunction, TkService } = require('@hrimthu
      * Returns array regardless of type srcVal
      * @param {any} srcVal              - source value
      * @param {boolean} [uniqValues]    - true → returns array of unique values
-     * @return {any[]}
+     * @returns {any[]}
      */
 
 • TkArray.getUniqValues(srcArr, modifySrc = false)
@@ -134,7 +134,7 @@ const { TkArray, TkObject, TkString, TkFunction, TkService } = require('@hrimthu
      * Returns array of unique values
      * @param {any[]} srcArr            - source array
      * @param {boolean} [modifySrc]     - true → modifies the original array
-     * @return {any[]}
+     * @returns {any[]}
      */
 
 • TkArray.excludeValues(srcArr, skipValues, modifySrc = false)
@@ -143,7 +143,7 @@ const { TkArray, TkObject, TkString, TkFunction, TkService } = require('@hrimthu
      * @param {any[]} srcArr            - source array
      * @param {any|any[]} skipValues    - values for exclude
      * @param {boolean} [modifySrc]     - true → modifies the original array
-     * @return {any[]}
+     * @returns {any[]}
      */
 
 • TkArray.sortArrayStr(srcArrStr, modifySrc = false)
@@ -151,7 +151,7 @@ const { TkArray, TkObject, TkString, TkFunction, TkService } = require('@hrimthu
      * Returns array with sorted strings
      * @param {string[]} srcArrStr      - source array strings
      * @param {boolean} [modifySrc]     - true → modifies the original array
-     * @return {string[]}
+     * @returns {string[]}
      */
 
 • TkArray.isSubArray(subArr, mainArr, strictEqual = false)
@@ -160,7 +160,7 @@ const { TkArray, TkObject, TkString, TkFunction, TkService } = require('@hrimthu
      * @param {any[]} subArr            - sub array
      * @param {any[]} mainArr           - main array
      * @param {boolean} [strictEqual]   - true → arrays must be equivalent
-     * @return {boolean}
+     * @returns {boolean}
      */
 ~~~
 
@@ -172,7 +172,7 @@ const { TkArray, TkObject, TkString, TkFunction, TkService } = require('@hrimthu
      * Checks if the checkVal is an javascript object
      * @param {any} checkVal                    - check value
      * @param {string} [checkKey]               - checks for the presence of the checkKey in the object
-     * @return {boolean}
+     * @returns {boolean}
      */
 
 • TkObject.excludeKeys(srcObj, skipKeys, modifySrc = false)
@@ -181,7 +181,7 @@ const { TkArray, TkObject, TkString, TkFunction, TkService } = require('@hrimthu
      * @param {object} srcObj                   - source object
      * @param {string|string[]} [skipPathKeys]  - exclude keys (names or chains names)
      * @param {boolean} [modifySrc]             - true → modifies the original object
-     * @return {object}
+     * @returns {object}
      */
 
 • TkObject.getValue(srcObj, ...pathKeys)
@@ -189,7 +189,7 @@ const { TkArray, TkObject, TkString, TkFunction, TkService } = require('@hrimthu
      * Gets the values of the object's fields by pathKeys
      * @param {object} srcObj                   - source object
      * @param {...string} pathKeys              - keys (names or chains names)
-     * @return {any|any[]} for single pathKey return value, for a few pathKeys return array values
+     * @returns {any|any[]} for single pathKey return value, for a few pathKeys return array values
      */
 
 • TkObject.setValue(srcObj, pathKey, value, cbAction = null)
@@ -201,7 +201,7 @@ const { TkArray, TkObject, TkString, TkFunction, TkService } = require('@hrimthu
      * @param {function(object, string):any} [cbAction]         - callback action for success set
      *      - arg0 - parent object of the setting field
      *      - arg1 - finite key of the setting field
-     * @return {boolean|any} true/false as a success set value, or result cbAction (if given)
+     * @returns {boolean|any} true/false as a success set value, or result cbAction (if given)
      */
 
 • TkObject.enumeration(srcObj, cbAction)
@@ -212,21 +212,21 @@ const { TkArray, TkObject, TkString, TkFunction, TkService } = require('@hrimthu
      *      - arg0 - field current value
      *      - arg1 - field key
      *      - arg2 - all fields keys
-     * @return {object} new object based on the results of cbAction calls
+     * @returns {object} new object based on the results of cbAction calls
      */
 
 • TkObject.merge(srcObjects)
     /**
      * Deep merge objects into a new object
      * @param {...object} srcObjects            - source objects
-     * @return {object}
+     * @returns {object}
      */
 
 • TkObject.clone(srcObj)
     /**
      * Creates an independent clone of the object
      * @param {object} srcObj                   - source object
-     * @return {object}
+     * @returns {object}
      */
 
 • TkObject.getHash(srcObj, skipKeys = null, seed = 0)
@@ -235,7 +235,7 @@ const { TkArray, TkObject, TkString, TkFunction, TkService } = require('@hrimthu
      * @param {object} srcObj                   - source object
      * @param {string|string[]} [skipPathKeys]  - not hash values with these keys
      * @param {number} [seed]                   - hashing is relative to this value
-     * @return {string} string of hex values with a length of 16 characters
+     * @returns {string} string of hex values with a length of 16 characters
      */
 ~~~
 
@@ -249,7 +249,7 @@ const { TkArray, TkObject, TkString, TkFunction, TkService } = require('@hrimthu
      * @param {any} srcNum                      - source number
      * @param {number} lenTotal                 - expected length result
      * @param {number} [precision]              - number of decimal points of the result (0 → not change original value)
-     * @return {string}
+     * @returns {string}
      */
 
 • TkString.getHash(srcStr, seed = 0)
@@ -257,7 +257,7 @@ const { TkArray, TkObject, TkString, TkFunction, TkService } = require('@hrimthu
      * Returns the hash of the string with a length of 16 characters
      * @param {string} srcStr                   - source string
      * @param {number} [seed]                   - hashing is relative to this value
-     * @return {string} string of hex values with a length of 16 characters
+     * @returns {string} string of hex values with a length of 16 characters
      */
 ~~~
 
@@ -269,7 +269,7 @@ const { TkArray, TkObject, TkString, TkFunction, TkService } = require('@hrimthu
      * Returns function decorator that implements memoization
      * @param {function} srcFunc        - source function
      * @param {object} [context]        - function execution context
-     * @return {function}
+     * @returns {function}
      */
 ~~~
 
@@ -281,7 +281,7 @@ const { TkArray, TkObject, TkString, TkFunction, TkService } = require('@hrimthu
      * Converts the number of bytes to kilobytes
      * @param {number} numBytes                 - number of bytes
      * @param {number} [precision]              - defines the number of decimal points of the result
-     * @return {number}
+     * @returns {number}
      */
 
 • TkService.bytesToMb(numBytes, precision = 2)
@@ -289,7 +289,7 @@ const { TkArray, TkObject, TkString, TkFunction, TkService } = require('@hrimthu
      * Converts the number of bytes to megabytes
      * @param {number} numBytes                 - number of bytes
      * @param {number} [precision]              - defines the number of decimal points of the result
-     * @return {number}
+     * @returns {number}
      */
 
 • TkService.trimFloat(srcVal, precision, stringify = false)
@@ -298,7 +298,7 @@ const { TkArray, TkObject, TkString, TkFunction, TkService } = require('@hrimthu
      * @param {any} srcVal                      - value with containing float numbers
      * @param {number} precision                - defines the number of decimal points of the result float numbers
      * @param {boolean} [stringify]             - return the result as converted to string
-     * @return {any|string}
+     * @returns {any|string}
      */
 
 • TkService.getParamsURL(srcUrl, options)
@@ -317,7 +317,7 @@ const { TkArray, TkObject, TkString, TkFunction, TkService } = require('@hrimthu
      * @param {object} [options]                - options
      * @param {boolean} [options.keysLowerCase] - convert all parameters names to lower case (default: false)
      * @param {boolean} [options.valsLowerCase] - convert all strings values to lower case (default: false)
-     * @return {object}
+     * @returns {object}
      */
 
 • TkService.setParamsURL(url, params = {}, encode = false)
@@ -334,20 +334,34 @@ const { TkArray, TkObject, TkString, TkFunction, TkService } = require('@hrimthu
      * @param {string|URL} url                  - source string URL or exist URL-object
      * @param {object} [params]                 - source object to set as parameters URL (default: {})
      * @param {boolean} [encode]                - use encode URI for result (default: false)
-     * @return {URL}
+     * @returns {URL}
      */
 
 • TkService.generateHashUID(initialStr = '')
     /**
      * Generates a unique ID in the format of a hash string of 16 characters length
      * @param {string} [initialStr]             - initial string for generate
-     * @return {string} string of hex values with a length of 16 characters
+     * @returns {string} string of hex values with a length of 16 characters
      */
 
 • TkService.generateUUID()
     /**
      * Generates a universal unique ID in the format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
-     * @return {string} string hex values
+     * @returns {string} string hex values
+     */
+
+• TkService.PromiseTimeout(limTimeout, { func = null, args = [], cbCreate = (resolve, idTimeout) => {}, timeoutReject = false })
+    /**
+     * Creates a promise that is guaranteed to be fulfilled after a timeout
+     * @param {number} limTimeout               - timeout promise (ms)
+     * @param {object} [options]                - options
+     * @param {function} [options.func]         - promise-wrapped function (default: null)
+     * @param {Array} [options.args]            - arguments for promise-wrapped function (default: empty)
+     * @param {function(function, NodeJS.Timeout):void} [options.cbCreate] - callback after create promise (default: empty)
+     *      - arg0 - promise resolve function
+     *      - arg1 - timeout id
+     * @param {boolean} [options.timeoutReject] - call reject on timeout (default: false → call resolve without args)
+     * @returns {Promise}
      */
 ~~~
 

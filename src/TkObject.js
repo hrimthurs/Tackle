@@ -5,7 +5,7 @@ import { getHash as getHashString } from './TkString.js'
  * Checks if the checkVal is an javascript object
  * @param {any} checkVal                    - check value
  * @param {string} [checkKey]               - checks for the presence of the checkKey in the object
- * @return {boolean}
+ * @returns {boolean}
  */
 export function isObjectJs(checkVal, checkKey = null) {
     return (typeof checkVal === 'object')
@@ -19,7 +19,7 @@ export function isObjectJs(checkVal, checkKey = null) {
  * @param {object} srcObj                   - source object
  * @param {string|string[]} [skipPathKeys]  - exclude keys (names or chains names)
  * @param {boolean} [modifySrc]             - true → modifies the original object
- * @return {object}
+ * @returns {object}
  */
 export function excludeKeys(srcObj, skipPathKeys, modifySrc = false) {
     let res = modifySrc ? srcObj : clone(srcObj)
@@ -34,7 +34,7 @@ export function excludeKeys(srcObj, skipPathKeys, modifySrc = false) {
  * Gets the values of the object's fields by pathKeys
  * @param {object} srcObj                   - source object
  * @param {...string} pathKeys              - keys (names or chains names)
- * @return {any|any[]} for single pathKey return value, for a few pathKeys return array values
+ * @returns {any|any[]} for single pathKey return value, for a few pathKeys return array values
  */
 export function getValue(srcObj, ...pathKeys) {
     let chainKeys = pathKeys.map(name => name.split('.'))
@@ -54,7 +54,7 @@ export function getValue(srcObj, ...pathKeys) {
  * @param {function(object, string):any} [cbAction]         - callback action for success set
  *      - arg0 - parent object of the setting field
  *      - arg1 - finite key of the setting field
- * @return {boolean|any} true/false as a success set value, or result cbAction (if given)
+ * @returns {boolean|any} true/false as a success set value, or result cbAction (if given)
  */
 export function setValue(srcObj, pathKey, value, cbAction = null) {
     let res = false
@@ -84,7 +84,7 @@ export function setValue(srcObj, pathKey, value, cbAction = null) {
  *      - arg0 - field current value
  *      - arg1 - field key
  *      - arg2 - all fields keys
- * @return {object} new object based on the results of cbAction calls
+ * @returns {object} new object based on the results of cbAction calls
  */
 export function enumeration(srcObj, cbAction) {
     let allKeys = Object.keys(srcObj)
@@ -94,7 +94,7 @@ export function enumeration(srcObj, cbAction) {
 /**
  * Deep merge objects into a new object
  * @param {...object} srcObjects            - source objects
- * @return {object}
+ * @returns {object}
  */
 export function merge(...srcObjects) {
     return srcObjects.reduce((objA, objB) => (
@@ -107,7 +107,7 @@ export function merge(...srcObjects) {
 /**
  * Creates an independent clone of the object
  * @param {object} srcObj                   - source object
- * @return {object}
+ * @returns {object}
  */
 export function clone(srcObj) {
     return JSON.parse(JSON.stringify(srcObj))
@@ -118,7 +118,7 @@ export function clone(srcObj) {
  * @param {object} srcObj                   - source object
  * @param {string|string[]} [skipPathKeys]  - not hash values with these keys (names or chains names)
  * @param {number} [seed]                   - hashing is relative to this value
- * @return {string} string of hex values with a length of 16 characters
+ * @returns {string} string of hex values with a length of 16 characters
  */
 export function getHash(srcObj, skipPathKeys = null, seed = 0) {
     return getHashString(JSON.stringify(excludeKeys(srcObj, skipPathKeys)), seed)

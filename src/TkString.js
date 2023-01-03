@@ -4,7 +4,7 @@
  * @param {any} srcNum                      - source number
  * @param {number} lenTotal                 - expected length result
  * @param {number} [precision]              - number of decimal points of the result (0 → not change original value)
- * @return {string}
+ * @returns {string}
  */
 export function formatNumber(srcNum, lenTotal, precision = 0) {
     const absNum = Math.abs(srcNum)
@@ -26,7 +26,7 @@ export function formatNumber(srcNum, lenTotal, precision = 0) {
  * Returns the hash of the string with a length of 16 characters
  * @param {string} srcStr                   - source string
  * @param {number} [seed]                   - hashing is relative to this value
- * @return {string} string of hex values with a length of 16 characters
+ * @returns {string} string of hex values with a length of 16 characters
  */
 export function getHash(srcStr, seed = 0) {
     const factor = {
