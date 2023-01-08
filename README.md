@@ -9,6 +9,7 @@ Various auxiliary tools/routines for working in JavaScript projects
 ## Installation
 
 You can use this package on the server side as well as the client side.
+> Other than ```TkBrowser```, which can only be used in the browser
 
 ### [Node.js](http://nodejs.org/):
 
@@ -22,14 +23,14 @@ npm install @hrimthurs/tackle
 
 ~~~ javascript
 import Tackle from '@hrimthurs/tackle'
-import { TkArray, TkObject, TkString, TkFunction, TkService } from '@hrimthurs/tackle'
+import { TkArray, TkObject, TkString, TkFunction, TkService, TkBrowser } from '@hrimthurs/tackle'
 ~~~
 
 ### CommonJS:
 
 ~~~ javascript
 const Tackle = require('@hrimthurs/tackle')
-const { TkArray, TkObject, TkString, TkFunction, TkService } = require('@hrimthurs/tackle')
+const { TkArray, TkObject, TkString, TkFunction, TkService, TkBrowser } = require('@hrimthurs/tackle')
 ~~~
 
 ### HTML tag \<script\>:
@@ -98,6 +99,17 @@ const { TkArray, TkObject, TkString, TkFunction, TkService } = require('@hrimthu
     <script src="TkService.min.js"></script>
     <!-- OR TRANSPILED: <script src="TkService.min.legacy.js"></script> -->
     <script> TkService. ... </script>
+    ~~~
+
+* Connection part of working with **page**:
+
+    [![GitHub file size in bytes](https://img.shields.io/github/size/hrimthurs/tackle/build/TkBrowser.min.js?label=TkBrowser.min.js)](https://github.com/hrimthurs/tackle/blob/master/build/TkBrowser.min.js)
+    [![GitHub file size in bytes](https://img.shields.io/github/size/hrimthurs/tackle/build/TkBrowser.min.legacy.js?label=TkBrowser.min.legacy.js)](https://github.com/hrimthurs/tackle/blob/master/build/TkBrowser.min.legacy.js)
+
+    ~~~ html
+    <script src="TkBrowser.min.js"></script>
+    <!-- OR TRANSPILED: <script src="TkBrowser.min.legacy.js"></script> -->
+    <script> TkBrowser. ... </script>
     ~~~
 
 ## WebPack Tree Shaking
@@ -377,6 +389,39 @@ const { TkArray, TkObject, TkString, TkFunction, TkService } = require('@hrimthu
      *      - arg1 - timeout id
      * @param {boolean} [options.timeoutReject] Call reject on timeout (default: false → call resolve without args)
      * @returns {Promise}
+     */
+~~~
+
+### TkBrowser (only be used in the browser):
+
+~~~ javascript
+• TkBrowser.createHTMLElement(tagName, elParent, options = {})
+    /**
+     * Creates an HTML element
+     * @param {string} tagName                  Type of element to be created
+     * @param {HTMLElement} elParent            Parent HTML element (page root: document.body)
+     * @param {object} [options]
+     * @param {boolean} [options.insertFirst]   Add an element as first of the children nodes of parent (default: false → add as last)
+     * @param {object[]} [options.subElements]  Entries of elements to recursively create as children (default: empty)
+     * @param {Object<string,string>} [options.attributes]      Keys/values of attributes who sets to the element (default: empty)
+     * @param {string|Object<string,string>} [options.style]    Keys/values (or cssText) of the style to be set for the element (default: empty)
+     * @param {string|string[]} [options.class]                 Class/Classes to be set for the element (default: empty)
+     * @param {Object<string,string>} [options.properties]      Keys/values of properties to be set for the element (default: empty)
+     * @returns {HTMLElement}
+     */
+
+• TkBrowser.setDivResizer(elDiv, handler)
+    /**
+     * Set resize handler for div HTML element
+     * @param {HTMLElement} elDiv               Div HTML element
+     * @param {function({width:number,height:number}):void} handler Handler function
+     */
+
+• TkBrowser.interceptErrors(handler, preventDefault = true)
+    /**
+     * Intercepting on page "error" and "unhandledrejection" events
+     * @param {function(string):void} handler   Callback with error message on errors events
+     * @param {boolean} [preventDefault]        Prevent default errors events (default: true)
      */
 ~~~
 

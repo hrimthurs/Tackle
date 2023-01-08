@@ -1,10 +1,10 @@
 ﻿// ESM:
 import Tackle from '../build/Tackle.js'
-import { TkArray, TkString, TkObject, TkFunction, TkService } from '../build/Tackle.js'
+import { TkArray, TkString, TkObject, TkFunction, TkService, TkBrowser } from '../build/Tackle.js'
 
 // CommonJS:
 // const Tackle = require('../build/Tackle.cjs')
-// const { TkArray, TkString, TkObject, TkFunction, TkService } = require('../build/Tackle.cjs')
+// const { TkArray, TkString, TkObject, TkFunction, TkService, TkBrowser } = require('../build/Tackle.cjs')
 
 const arrNum1 = [4, 1, 3]
 const arrNum2 = [1, 2, 3, 4, 2, 5, 2]

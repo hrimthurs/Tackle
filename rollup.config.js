@@ -50,5 +50,7 @@ export default [
     roll('TkFunction', 'umd', '[name].min.js', pluginsMin),
     roll('TkFunction', 'umd', '[name].min.legacy.js', pluginsMinES5),
     roll('TkService', 'umd', '[name].min.js', pluginsMin),
-    roll('TkService', 'umd', '[name].min.legacy.js', pluginsMinES5)
+    roll('TkService', 'umd', '[name].min.legacy.js', pluginsMinES5),
+    roll('TkBrowser', 'umd', '[name].min.js', pluginsMin),
+    roll('TkBrowser', 'umd', '[name].min.legacy.js', pluginsMinES5)
 ]
