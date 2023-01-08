@@ -1,4 +1,4 @@
-/* @hrimthurs/tackle 1.9.1 https://github.com/hrimthurs/Tackle @license MIT */
+/* @hrimthurs/tackle 1.9.2 https://github.com/hrimthurs/Tackle @license MIT */
 /**
  * Returns array regardless of type srcVal
  * @param {any} srcVal                      Source value
@@ -241,7 +241,7 @@ function enumeration(srcObj, cbAction, deep = false) {
                     configurable: true
                 });
 
-                val = tryConvertToArray(this.enumeration(srcVal, cbAction, deep));
+                val = tryConvertToArray(enumeration(srcVal, cbAction, deep));
             }
 
             delete srcVal[processedFlag];

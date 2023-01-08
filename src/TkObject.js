@@ -118,7 +118,7 @@ export function enumeration(srcObj, cbAction, deep = false) {
                     configurable: true
                 })
 
-                val = tryConvertToArray(this.enumeration(srcVal, cbAction, deep))
+                val = tryConvertToArray(enumeration(srcVal, cbAction, deep))
             }
 
             delete srcVal[processedFlag]
