@@ -1,2 +1,2 @@
-/* @hrimthurs/tackle 1.8.0 https://github.com/hrimthurs/Tackle @license MIT */
+/* @hrimthurs/tackle 1.9.0 https://github.com/hrimthurs/Tackle @license MIT */
 !function(e,o){"object"==typeof exports&&"undefined"!=typeof module?o(exports):"function"==typeof define&&define.amd?define(["exports"],o):o((e="undefined"!=typeof globalThis?globalThis:e||self).TkFunction={})}(this,(function(e){"use strict";function o(e){var o=arguments.length>1&&void 0!==arguments[1]?arguments[1]:globalThis,n=new Map;return function(){var t,i=[].join.call(arguments);return n.has(i)?t=n.get(i):(t=e.apply(o,arguments),n.set(i,t)),t}}var n={decoMemoize:o};e.decoMemoize=o,e.default=n,Object.defineProperty(e,"__esModule",{value:!0})}));

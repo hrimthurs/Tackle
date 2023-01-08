@@ -1,8 +1,8 @@
-/* @hrimthurs/tackle 1.8.0 https://github.com/hrimthurs/Tackle @license MIT */
+/* @hrimthurs/tackle 1.9.0 https://github.com/hrimthurs/Tackle @license MIT */
 /**
  * Returns array regardless of type srcVal
- * @param {any} srcVal              - source value
- * @param {boolean} [uniqValues]    - true → returns array of unique values
+ * @param {any} srcVal                      Source value
+ * @param {boolean} [uniqValues]            Returns array of unique values (default: false)
  * @returns {any[]}
  */
 function getArray(srcVal, uniqValues = false) {
@@ -15,9 +15,9 @@ function getArray(srcVal, uniqValues = false) {
 
 /**
  * Returns array of unique values
- * @param {any[]} srcArr            - source array
- * @param {boolean} [modifySrc]     - true → modifies the original array
- * @returns {any[]}
+ * @param {any[]} srcArr                    Source array
+ * @param {boolean} [modifySrc]             Modify the original array (default: false)
+ * @returns {any[]}                         Array with unique values
  */
 function getUniqValues(srcArr, modifySrc = false) {
     let res = [...new Set(srcArr)];
@@ -28,9 +28,9 @@ function getUniqValues(srcArr, modifySrc = false) {
 
 /**
  * Returns array without elements with values from skipValues
- * @param {any[]} srcArr            - source array
- * @param {any|any[]} skipValues    - values for exclude
- * @param {boolean} [modifySrc]     - true → modifies the original array
+ * @param {any[]} srcArr                    Source array
+ * @param {any|any[]} skipValues            Values for exclude
+ * @param {boolean} [modifySrc]             Modify the original array (default: false)
  * @returns {any[]}
  */
 function excludeValues(srcArr, skipValues, modifySrc = false) {
@@ -43,9 +43,9 @@ function excludeValues(srcArr, skipValues, modifySrc = false) {
 
 /**
  * Returns array with sorted strings
- * @param {string[]} srcArrStr      - source array strings
- * @param {boolean} [modifySrc]     - true → modifies the original array
- * @returns {string[]}
+ * @param {string[]} srcArrStr              Source array strings
+ * @param {boolean} [modifySrc]             Modify the original array (default: false)
+ * @returns {string[]}                      Array with sorted strings
  */
 function sortArrayStr(srcArrStr, modifySrc = false) {
     let res = srcArrStr.sort((a, b) => a.localeCompare(b));
@@ -56,9 +56,9 @@ function sortArrayStr(srcArrStr, modifySrc = false) {
 
 /**
  * Checks is all elements of array subArr are present in array mainArr
- * @param {any[]} subArr            - sub array
- * @param {any[]} mainArr           - main array
- * @param {boolean} [strictEqual]   - true → arrays must be equivalent
+ * @param {any[]} subArr                    Sub array
+ * @param {any[]} mainArr                   Main array
+ * @param {boolean} [strictEqual]           Arrays must be equivalent (default: false)
  * @returns {boolean}
  */
 function isSubArray(subArr, mainArr, strictEqual = false) {
@@ -74,10 +74,10 @@ var TkArray = { getArray, getUniqValues, excludeValues, sortArrayStr, isSubArray
 /**
  * Converts a numeric value to a string of the specified length with adding '0' (at the beginning for integer, ending for float).
  * If the length of the original number is greater than lenTotal - no change occurs
- * @param {any} srcNum                      - source number
- * @param {number} lenTotal                 - expected length result
- * @param {number} [precision]              - number of decimal points of the result (0 → not change original value)
- * @returns {string}
+ * @param {any} srcNum                      Source number
+ * @param {number} lenTotal                 Expected length result
+ * @param {number} [precision]              Number of decimal points of the result (default: 0 → not change original value)
+ * @returns {string}                        String with formatted number
  */
 function formatNumber(srcNum, lenTotal, precision = 0) {
     const absNum = Math.abs(srcNum);
@@ -97,9 +97,9 @@ function formatNumber(srcNum, lenTotal, precision = 0) {
 
 /**
  * Returns the hash of the string with a length of 16 characters
- * @param {string} srcStr                   - source string
- * @param {number} [seed]                   - hashing is relative to this value
- * @returns {string} string of hex values with a length of 16 characters
+ * @param {string} srcStr                   Source string
+ * @param {number} [seed]                   Hashing is relative to this value (default: 0)
+ * @returns {string}                        String of hex values with a length of 16 characters
  */
 function getHash$1(srcStr, seed = 0) {
     const factor = {
@@ -126,8 +126,8 @@ var TkString = { formatNumber, getHash: getHash$1 };
 
 /**
  * Checks if the checkVal is an javascript object
- * @param {any} checkVal                    - check value
- * @param {string} [checkKey]               - checks for the presence of the checkKey in the object
+ * @param {any} checkVal                    Check value
+ * @param {string} [checkKey]               Checks for the presence of the checkKey in the object (default: null)
  * @returns {boolean}
  */
 function isObjectJs(checkVal, checkKey = null) {
@@ -139,9 +139,9 @@ function isObjectJs(checkVal, checkKey = null) {
 
 /**
  * Returns object that does not contain fields with skipKeys keys
- * @param {object} srcObj                   - source object
- * @param {string|string[]} [skipPathKeys]  - exclude keys (names or chains names)
- * @param {boolean} [modifySrc]             - true → modifies the original object
+ * @param {object} srcObj                   Source object
+ * @param {string|string[]} [skipPathKeys]  Exclude keys (names or chains names) (default: empty)
+ * @param {boolean} [modifySrc]             Modify the original object (default: false)
  * @returns {object}
  */
 function excludeKeys(srcObj, skipPathKeys, modifySrc = false) {
@@ -155,9 +155,9 @@ function excludeKeys(srcObj, skipPathKeys, modifySrc = false) {
 
 /**
  * Gets the values of the object's fields by pathKeys
- * @param {object} srcObj                   - source object
- * @param {...string} pathKeys              - keys (names or chains names)
- * @returns {any|any[]} for single pathKey return value, for a few pathKeys return array values
+ * @param {object} srcObj                   Source object
+ * @param {...string} pathKeys              Keys (names or chains names)
+ * @returns {any|any[]}                     For single pathKey return value, for a few pathKeys return array values
  */
 function getValue(srcObj, ...pathKeys) {
     let chainKeys = pathKeys.map(name => name.split('.'));
@@ -171,13 +171,13 @@ function getValue(srcObj, ...pathKeys) {
 
 /**
  * Sets value to object field by pathKey
- * @param {object} srcObj                                   - source object
- * @param {string} pathKey                                  - key (name or chain names)
- * @param {any} value                                       - value
- * @param {function(object, string):any} [cbAction]         - callback action for success set
+ * @param {object} srcObj                   Source object
+ * @param {string} pathKey                  Key (name or chain names)
+ * @param {any} value                       Value
+ * @param {function(object, string):any} [cbAction] Callback action for success set (default: null)
  *      - arg0 - parent object of the setting field
  *      - arg1 - finite key of the setting field
- * @returns {boolean|any} true/false as a success set value, or result cbAction (if given)
+ * @returns {boolean|any}                   True/false as a success set value, or result cbAction (if given)
  */
 function setValue(srcObj, pathKey, value, cbAction = null) {
     let res = false;
@@ -201,22 +201,59 @@ function setValue(srcObj, pathKey, value, cbAction = null) {
 }
 
 /**
+ * Try convert object to array
+ * @param {object} srcObj                   Source object
+ * @returns {Array|object}                  Array if possible convert, else - source object
+ */
+function tryConvertToArray(srcObj) {
+    const allKeys = Object.keys(srcObj);
+
+    if ((allKeys.length > 0) && allKeys.every((key) => !Number.isNaN(Number(key)))) {
+        let res = [];
+        allKeys.forEach((key) => res[key] = srcObj[key]);
+        return res
+    } else return srcObj
+}
+
+/**
  * Enumeration all object fields
- * @param {object} srcObj                                   - source object
- * @param {function(any, string, string[]):any} cbAction    - callback action for every field
+ * @param {object} srcObj                   Source object
+ * @param {function(any, string, string[]):any} cbAction Callback action for every field
  *      - arg0 - field current value
  *      - arg1 - field key
  *      - arg2 - all fields keys
- * @returns {object} new object based on the results of cbAction calls
+ * @param {boolean} [deep]                  Recursive enumeration all subobjects (default: false)
+ * @returns {object}                        New object based on the results of cbAction calls
  */
-function enumeration(srcObj, cbAction) {
-    let allKeys = Object.keys(srcObj);
-    return Object.fromEntries(allKeys.map(key => [key, cbAction(srcObj[key], key, allKeys)]))
+function enumeration(srcObj, cbAction, deep = false) {
+    const processedFlag = '__TackleEnumAlreadyProcessed__';
+    const allKeys = Object.keys(srcObj);
+
+    return Object.fromEntries(allKeys.map(key => {
+        let srcVal = srcObj[key];
+        let val = cbAction(srcVal, key, allKeys) ?? srcVal;
+
+        if (deep && (typeof srcVal === 'object') && (srcVal !== null)) {
+            if (!srcVal[processedFlag]) {
+                Object.defineProperty(srcVal, processedFlag, {
+                    value: true,
+                    writable: false,
+                    configurable: true
+                });
+
+                val = this.TryConvertToArray(this.enumeration(srcVal, cbAction, deep));
+            }
+
+            delete srcVal[processedFlag];
+        }
+
+        return [key, val]
+    }))
 }
 
 /**
  * Deep merge objects into a new object
- * @param {...object} srcObjects            - source objects
+ * @param {...object} srcObjects            Source objects
  * @returns {object}
  */
 function merge(...srcObjects) {
@@ -229,31 +266,54 @@ function merge(...srcObjects) {
 
 /**
  * Creates an independent clone of the object
- * @param {object} srcObj                   - source object
- * @returns {object}
+ * @param {object} srcObj                   Source object
+ * @returns {object}                        Clone of the object
  */
 function clone(srcObj) {
     return JSON.parse(JSON.stringify(srcObj))
 }
 
 /**
+ * Collects an array of transferable values (use for web worker)
+ * @param {object} srcObj                   Source object
+ * @returns {Array}                         Array of transferable values
+ */
+function getArrayTransferable(srcObj) {
+    const transferableNamesClasses = [
+        'ArrayBuffer', 'MessagePort',
+        'ReadableStream', 'WritableStream', 'TransformStream',
+        'ImageBitmap', 'AudioData', 'VideoFrame',
+        'OffscreenCanvas', 'RTCDataChannel'
+    ];
+
+    let res = [];
+
+    enumeration(srcObj, (val) => {
+        const isTransferable = transferableNamesClasses.some((checkName) => val.constructor.name === checkName);
+        if (isTransferable) res.push(val);
+    }, true);
+
+    return res
+}
+
+/**
  * Returns the hash of the object with a length of 16 characters
- * @param {object} srcObj                   - source object
- * @param {string|string[]} [skipPathKeys]  - not hash values with these keys (names or chains names)
- * @param {number} [seed]                   - hashing is relative to this value
- * @returns {string} string of hex values with a length of 16 characters
+ * @param {object} srcObj                   Source object
+ * @param {string|string[]} [skipPathKeys]  Not hash values with these keys (names or chains names)
+ * @param {number} [seed]                   Hashing is relative to this value
+ * @returns {string}                        String of hex values with a length of 16 characters
  */
 function getHash(srcObj, skipPathKeys = null, seed = 0) {
     return getHash$1(JSON.stringify(excludeKeys(srcObj, skipPathKeys)), seed)
 }
 
-var TkObject = { isObjectJs, excludeKeys, getValue, setValue, enumeration, merge, clone, getHash };
+var TkObject = { isObjectJs, excludeKeys, getValue, setValue, tryConvertToArray, enumeration, merge, clone, getArrayTransferable, getHash };
 
 /**
  * Returns function decorator that implements memoization
- * @param {function} srcFunc        - source function
- * @param {object} [context]        - function execution context
- * @returns {function}
+ * @param {function} srcFunc                Source function
+ * @param {object} [context]                Function execution context (default: globalThis)
+ * @returns {function}                      Memoized decorator
  */
 function decoMemoize(srcFunc, context = globalThis) {
     let cache = new Map();
@@ -275,9 +335,9 @@ var TkFunction = { decoMemoize };
 
 /**
  * Converts the number of bytes to kilobytes
- * @param {number} numBytes                 - number of bytes
- * @param {number} [precision]              - defines the number of decimal points of the result
- * @returns {number}
+ * @param {number} numBytes                 Number of bytes
+ * @param {number} [precision]              Defines the number of decimal points of the result (default: 2)
+ * @returns {number}                        Number of kilobytes
  */
 function bytesToKb(numBytes, precision = 2) {
     return trimFloat(numBytes / 1024, precision)
@@ -285,9 +345,9 @@ function bytesToKb(numBytes, precision = 2) {
 
 /**
  * Converts the number of bytes to megabytes
- * @param {number} numBytes                 - number of bytes
- * @param {number} [precision]              - defines the number of decimal points of the result
- * @returns {number}
+ * @param {number} numBytes                 Number of bytes
+ * @param {number} [precision]              Defines the number of decimal points of the result (default: 2)
+ * @returns {number}                        Number of megabytes
  */
 function bytesToMb(numBytes, precision = 2) {
     return trimFloat(numBytes / 1048576, precision)
@@ -295,13 +355,13 @@ function bytesToMb(numBytes, precision = 2) {
 
 /**
  * Trimming float numbers with a given precision
- * @param {any} srcVal                      - value with containing float numbers
- * @param {number} precision                - defines the number of decimal points of the result float numbers
- * @param {boolean} [stringify]             - return the result as converted to string
+ * @param {any} srcVal                      Value with containing float numbers
+ * @param {number} precision                Defines the number of decimal points of the result float numbers
+ * @param {boolean} [stringify]             Return the result as converted to string (default: false)
  * @returns {any|string}
  */
 function trimFloat(srcVal, precision, stringify = false) {
-    let res = _valToStr(srcVal, { 'number': v => Number(v.toFixed(precision)) });
+    let res = _valToStr(srcVal, { 'number': (v) => Number(v.toFixed(precision)) });
     return stringify ? res : JSON.parse(res)
 }
 
@@ -316,11 +376,11 @@ function trimFloat(srcVal, precision, stringify = false) {
  * - param_name=val1:val2,val3:val4 → param_name: {val1: val2, val3: val4}
  * - value/subvalue json-string → param_name: <json-parse>
  *
- * @param {string|URL} [srcUrl]             - source URL (if not set in case client side → used self.location.href)
- * @param {object} [options]                - options
- * @param {boolean} [options.keysLowerCase] - convert all parameters names to lower case (default: false)
- * @param {boolean} [options.valsLowerCase] - convert all strings values to lower case (default: false)
- * @returns {object}
+ * @param {string|URL} [srcUrl]             Source URL (in case client side default: self.location.href)
+ * @param {object} [options]                Options
+ * @param {boolean} [options.keysLowerCase] Convert all parameters names to lower case (default: false)
+ * @param {boolean} [options.valsLowerCase] Convert all strings values to lower case (default: false)
+ * @returns {object}                        Object with parameters
  */
 function getParamsURL(srcUrl = null, options = {}) {
     const useOptions = {
@@ -370,10 +430,10 @@ function getParamsURL(srcUrl = null, options = {}) {
  * - param_name: {val1: val2, val3: val4} → param_name=val1:val2,val3:val4
  * - subvalue object of array/object → <json-string>
  *
- * @param {string|URL} url                  - source string URL or exist URL-object
- * @param {object} [params]                 - source object to set as parameters URL (default: {})
- * @param {boolean} [encode]                - use encode URI for result (default: false)
- * @returns {URL}
+ * @param {string|URL} url                  Source string URL or exist URL-object
+ * @param {object} [params]                 Source object to set as parameters URL (default: {})
+ * @param {boolean} [encode]                Use encode URI for result (default: false)
+ * @returns {URL}                           Instance URL with parameters
  */
 function setParamsURL(url, params = {}, encode = false) {
     let res = typeof url === 'string' ? _tryMakeURL(url) : url;
@@ -384,8 +444,8 @@ function setParamsURL(url, params = {}, encode = false) {
 
             if (typeof value === 'object') {
                 let obj = Array.isArray(value)
-                    ? value.map(val => _valToStr(val, { 'string': v => v }))
-                    : Object.entries(value).map(rec => `${rec[0]}:${_valToStr(rec[1], { 'string': v => v })}`);
+                    ? value.map((val) => _valToStr(val, { 'string': (v) => v }))
+                    : Object.entries(value).map((rec) => `${rec[0]}:${_valToStr(rec[1], { 'string': (v) => v })}`);
 
                 value = obj.join(',');
             }
@@ -399,19 +459,19 @@ function setParamsURL(url, params = {}, encode = false) {
 
 /**
  * Generates a unique ID in the format of a hash string of 16 characters length
- * @param {string} [initialStr]             - initial string for generate
- * @returns {string} string of hex values with a length of 16 characters
+ * @param {string} [initialStr]             Initial string for generate (default: empty)
+ * @returns {string}                        String of hex values with a length of 16 characters
  */
 function generateHashUID(initialStr = '') {
     const numRandom = 10 + Math.trunc(Math.random() * 10);
-    const strRandom = new Array(numRandom).fill(0).map(v => Math.random()).join();
+    const strRandom = new Array(numRandom).fill(0).map(() => Math.random()).join();
 
     return getHash$1(initialStr + Date.now() + strRandom, Math.random())
 }
 
 /**
  * Generates a universal unique ID in the format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
- * @returns {string} string hex values
+ * @returns {string}                        String hex values
  */
 function generateUUID() {
 	const d0 = Math.random() * 0xffffffff | 0;
@@ -431,14 +491,14 @@ function generateUUID() {
 
 /**
  * Creates a promise that is guaranteed to be fulfilled after a timeout
- * @param {number} limTimeout               - timeout promise (ms)
- * @param {object} [options]                - options
- * @param {function} [options.func]         - promise-wrapped function (default: null)
- * @param {Array} [options.args]            - arguments for promise-wrapped function (default: empty)
- * @param {function(function, NodeJS.Timeout):void} [options.cbCreate] - callback after create promise (default: empty)
+ * @param {number} limTimeout               Timeout promise (ms)
+ * @param {object} [options]                Options
+ * @param {function} [options.func]         Promise-wrapped function (default: null)
+ * @param {Array} [options.args]            Arguments for promise-wrapped function (default: empty)
+ * @param {function(function, number):void} [options.cbCreate] Callback after create promise (default: empty)
  *      - arg0 - promise resolve function
  *      - arg1 - timeout id
- * @param {boolean} [options.timeoutReject] - call reject on timeout (default: false → call resolve without args)
+ * @param {boolean} [options.timeoutReject] Call reject on timeout (default: false → call resolve without args)
  * @returns {Promise}
  */
 function PromiseTimeout(limTimeout, { func = null, args = [], cbCreate = (resolve, idTimeout) => {}, timeoutReject = false }) {
@@ -491,7 +551,7 @@ function _paramURLtoArray(srcStr) {
     }
 
     return (cntBracket == 0) && (cntQuotes % 2 == 0)
-        ? res.concat(saveItems).map(val => val === '' || _tryStrToObj(val))
+        ? res.concat(saveItems).map((val) => val === '' || _tryStrToObj(val))
         : [srcStr]
 }
 

@@ -124,42 +124,42 @@ const { TkArray, TkObject, TkString, TkFunction, TkService } = require('@hrimthu
 • TkArray.getArray(srcVal, uniqValues = false)
     /**
      * Returns array regardless of type srcVal
-     * @param {any} srcVal              - source value
-     * @param {boolean} [uniqValues]    - true → returns array of unique values
+     * @param {any} srcVal                      Source value
+     * @param {boolean} [uniqValues]            Returns array of unique values (default: false)
      * @returns {any[]}
      */
 
 • TkArray.getUniqValues(srcArr, modifySrc = false)
     /**
      * Returns array of unique values
-     * @param {any[]} srcArr            - source array
-     * @param {boolean} [modifySrc]     - true → modifies the original array
-     * @returns {any[]}
+     * @param {any[]} srcArr                    Source array
+     * @param {boolean} [modifySrc]             Modify the original array (default: false)
+     * @returns {any[]}                         Array with unique values
      */
 
 • TkArray.excludeValues(srcArr, skipValues, modifySrc = false)
     /**
      * Returns array without elements with values from skipValues
-     * @param {any[]} srcArr            - source array
-     * @param {any|any[]} skipValues    - values for exclude
-     * @param {boolean} [modifySrc]     - true → modifies the original array
+     * @param {any[]} srcArr                    Source array
+     * @param {any|any[]} skipValues            Values for exclude
+     * @param {boolean} [modifySrc]             Modify the original array (default: false)
      * @returns {any[]}
      */
 
 • TkArray.sortArrayStr(srcArrStr, modifySrc = false)
     /**
      * Returns array with sorted strings
-     * @param {string[]} srcArrStr      - source array strings
-     * @param {boolean} [modifySrc]     - true → modifies the original array
-     * @returns {string[]}
+     * @param {string[]} srcArrStr              Source array strings
+     * @param {boolean} [modifySrc]             Modify the original array (default: false)
+     * @returns {string[]}                      Array with sorted strings
      */
 
 • TkArray.isSubArray(subArr, mainArr, strictEqual = false)
     /**
      * Checks is all elements of array subArr are present in array mainArr
-     * @param {any[]} subArr            - sub array
-     * @param {any[]} mainArr           - main array
-     * @param {boolean} [strictEqual]   - true → arrays must be equivalent
+     * @param {any[]} subArr                    Sub array
+     * @param {any[]} mainArr                   Main array
+     * @param {boolean} [strictEqual]           Arrays must be equivalent (default: false)
      * @returns {boolean}
      */
 ~~~
@@ -167,75 +167,90 @@ const { TkArray, TkObject, TkString, TkFunction, TkService } = require('@hrimthu
 ### TkObject:
 
 ~~~ javascript
-• TkObject.isObjectJs(srcVal, checkKey)
+• TkObject.isObjectJs(srcVal, checkKey = null)
     /**
      * Checks if the checkVal is an javascript object
-     * @param {any} checkVal                    - check value
-     * @param {string} [checkKey]               - checks for the presence of the checkKey in the object
+     * @param {any} checkVal                    Check value
+     * @param {string} [checkKey]               Checks for the presence of the checkKey in the object (default: null)
      * @returns {boolean}
      */
 
 • TkObject.excludeKeys(srcObj, skipKeys, modifySrc = false)
     /**
      * Returns object that does not contain fields with skipKeys keys
-     * @param {object} srcObj                   - source object
-     * @param {string|string[]} [skipPathKeys]  - exclude keys (names or chains names)
-     * @param {boolean} [modifySrc]             - true → modifies the original object
+     * @param {object} srcObj                   Source object
+     * @param {string|string[]} [skipPathKeys]  Exclude keys (names or chains names) (default: empty)
+     * @param {boolean} [modifySrc]             Modify the original object (default: false)
      * @returns {object}
      */
 
 • TkObject.getValue(srcObj, ...pathKeys)
     /**
      * Gets the values of the object's fields by pathKeys
-     * @param {object} srcObj                   - source object
-     * @param {...string} pathKeys              - keys (names or chains names)
-     * @returns {any|any[]} for single pathKey return value, for a few pathKeys return array values
+     * @param {object} srcObj                   Source object
+     * @param {...string} pathKeys              Keys (names or chains names)
+     * @returns {any|any[]}                     For single pathKey return value, for a few pathKeys return array values
      */
 
 • TkObject.setValue(srcObj, pathKey, value, cbAction = null)
     /**
      * Sets value to object field by pathKey
-     * @param {object} srcObj                                   - source object
-     * @param {string} pathKey                                  - key (name or chain names)
-     * @param {any} value                                       - value
-     * @param {function(object, string):any} [cbAction]         - callback action for success set
+     * @param {object} srcObj                   Source object
+     * @param {string} pathKey                  Key (name or chain names)
+     * @param {any} value                       Value
+     * @param {function(object, string):any} [cbAction] Callback action for success set (default: null)
      *      - arg0 - parent object of the setting field
      *      - arg1 - finite key of the setting field
-     * @returns {boolean|any} true/false as a success set value, or result cbAction (if given)
+     * @returns {boolean|any}                   True/false as a success set value, or result cbAction (if given)
+     */
+
+• TkObject.tryConvertToArray(srcObj)
+    /**
+     * Try convert object to array
+     * @param {object} srcObj                   Source object
+     * @returns {Array|object}                  Array if possible convert, else - source object
      */
 
 • TkObject.enumeration(srcObj, cbAction)
     /**
      * Enumeration all object fields
-     * @param {object} srcObj                                   - source object
-     * @param {function(any, string, string[]):any} cbAction    - callback action for every field
+     * @param {object} srcObj                   Source object
+     * @param {function(any, string, string[]):any} cbAction Callback action for every field
      *      - arg0 - field current value
      *      - arg1 - field key
      *      - arg2 - all fields keys
-     * @returns {object} new object based on the results of cbAction calls
+     * @param {boolean} [deep]                  Recursive enumeration all subobjects (default: false)
+     * @returns {object}                        New object based on the results of cbAction calls
      */
 
 • TkObject.merge(srcObjects)
     /**
      * Deep merge objects into a new object
-     * @param {...object} srcObjects            - source objects
+     * @param {...object} srcObjects            Source objects
      * @returns {object}
      */
 
 • TkObject.clone(srcObj)
     /**
      * Creates an independent clone of the object
-     * @param {object} srcObj                   - source object
-     * @returns {object}
+     * @param {object} srcObj                   Source object
+     * @returns {object}                        Clone of the object
+     */
+
+• TkObject.getArrayTransferable(srcObj)
+    /**
+     * Collects an array of transferable values (use for web worker)
+     * @param {object} srcObj                   Source object
+     * @returns {Array}                         Array of transferable values
      */
 
 • TkObject.getHash(srcObj, skipKeys = null, seed = 0)
     /**
      * Returns the hash of the object with a length of 16 characters
-     * @param {object} srcObj                   - source object
-     * @param {string|string[]} [skipPathKeys]  - not hash values with these keys
-     * @param {number} [seed]                   - hashing is relative to this value
-     * @returns {string} string of hex values with a length of 16 characters
+     * @param {object} srcObj                   Source object
+     * @param {string|string[]} [skipPathKeys]  Not hash values with these keys (names or chains names)
+     * @param {number} [seed]                   Hashing is relative to this value
+     * @returns {string}                        String of hex values with a length of 16 characters
      */
 ~~~
 
@@ -246,18 +261,18 @@ const { TkArray, TkObject, TkString, TkFunction, TkService } = require('@hrimthu
     /**
      * Converts a numeric value to a string of the specified length with adding '0' (at the beginning for integer, ending for float).
      * If the length of the original number is greater than lenTotal - no change occurs
-     * @param {any} srcNum                      - source number
-     * @param {number} lenTotal                 - expected length result
-     * @param {number} [precision]              - number of decimal points of the result (0 → not change original value)
-     * @returns {string}
+     * @param {any} srcNum                      Source number
+     * @param {number} lenTotal                 Expected length result
+     * @param {number} [precision]              Number of decimal points of the result (default: 0 → not change original value)
+     * @returns {string}                        String with formatted number
      */
 
 • TkString.getHash(srcStr, seed = 0)
     /**
      * Returns the hash of the string with a length of 16 characters
-     * @param {string} srcStr                   - source string
-     * @param {number} [seed]                   - hashing is relative to this value
-     * @returns {string} string of hex values with a length of 16 characters
+     * @param {string} srcStr                   Source string
+     * @param {number} [seed]                   Hashing is relative to this value (default: 0)
+     * @returns {string}                        String of hex values with a length of 16 characters
      */
 ~~~
 
@@ -267,9 +282,9 @@ const { TkArray, TkObject, TkString, TkFunction, TkService } = require('@hrimthu
 • TkFunction.decoMemoize(srcFunc, context = globalThis)
     /**
      * Returns function decorator that implements memoization
-     * @param {function} srcFunc        - source function
-     * @param {object} [context]        - function execution context
-     * @returns {function}
+     * @param {function} srcFunc                Source function
+     * @param {object} [context]                Function execution context (default: globalThis)
+     * @returns {function}                      Memoized decorator
      */
 ~~~
 
@@ -279,25 +294,25 @@ const { TkArray, TkObject, TkString, TkFunction, TkService } = require('@hrimthu
 • TkService.bytesToKb(numBytes, precision = 2)
     /**
      * Converts the number of bytes to kilobytes
-     * @param {number} numBytes                 - number of bytes
-     * @param {number} [precision]              - defines the number of decimal points of the result
-     * @returns {number}
+     * @param {number} numBytes                 Number of bytes
+     * @param {number} [precision]              Defines the number of decimal points of the result (default: 2)
+     * @returns {number}                        Number of kilobytes
      */
 
 • TkService.bytesToMb(numBytes, precision = 2)
     /**
      * Converts the number of bytes to megabytes
-     * @param {number} numBytes                 - number of bytes
-     * @param {number} [precision]              - defines the number of decimal points of the result
-     * @returns {number}
+     * @param {number} numBytes                 Number of bytes
+     * @param {number} [precision]              Defines the number of decimal points of the result (default: 2)
+     * @returns {number}                        Number of megabytes
      */
 
 • TkService.trimFloat(srcVal, precision, stringify = false)
     /**
      * Trimming float numbers with a given precision
-     * @param {any} srcVal                      - value with containing float numbers
-     * @param {number} precision                - defines the number of decimal points of the result float numbers
-     * @param {boolean} [stringify]             - return the result as converted to string
+     * @param {any} srcVal                      Value with containing float numbers
+     * @param {number} precision                Defines the number of decimal points of the result float numbers
+     * @param {boolean} [stringify]             Return the result as converted to string (default: false)
      * @returns {any|string}
      */
 
@@ -313,11 +328,11 @@ const { TkArray, TkObject, TkString, TkFunction, TkService } = require('@hrimthu
      * - param_name=val1:val2,val3:val4 → param_name: {val1: val2, val3: val4}
      * - value/subvalue json-string → param_name: <json-parse>
      *
-     * @param {string|URL} [srcUrl]             - source URL (if not set in case client side → used self.location.href)
-     * @param {object} [options]                - options
-     * @param {boolean} [options.keysLowerCase] - convert all parameters names to lower case (default: false)
-     * @param {boolean} [options.valsLowerCase] - convert all strings values to lower case (default: false)
-     * @returns {object}
+     * @param {string|URL} [srcUrl]             Source URL (in case client side default: self.location.href)
+     * @param {object} [options]                Options
+     * @param {boolean} [options.keysLowerCase] Convert all parameters names to lower case (default: false)
+     * @param {boolean} [options.valsLowerCase] Convert all strings values to lower case (default: false)
+     * @returns {object}                        Object with parameters
      */
 
 • TkService.setParamsURL(url, params = {}, encode = false)
@@ -331,36 +346,36 @@ const { TkArray, TkObject, TkString, TkFunction, TkService } = require('@hrimthu
      * - param_name: {val1: val2, val3: val4} → param_name=val1:val2,val3:val4
      * - subvalue object of array/object → <json-string>
      *
-     * @param {string|URL} url                  - source string URL or exist URL-object
-     * @param {object} [params]                 - source object to set as parameters URL (default: {})
-     * @param {boolean} [encode]                - use encode URI for result (default: false)
-     * @returns {URL}
+     * @param {string|URL} url                  Source string URL or exist URL-object
+     * @param {object} [params]                 Source object to set as parameters URL (default: {})
+     * @param {boolean} [encode]                Use encode URI for result (default: false)
+     * @returns {URL}                           Instance URL with parameters
      */
 
 • TkService.generateHashUID(initialStr = '')
     /**
      * Generates a unique ID in the format of a hash string of 16 characters length
-     * @param {string} [initialStr]             - initial string for generate
-     * @returns {string} string of hex values with a length of 16 characters
+     * @param {string} [initialStr]             Initial string for generate (default: empty)
+     * @returns {string}                        String of hex values with a length of 16 characters
      */
 
 • TkService.generateUUID()
     /**
      * Generates a universal unique ID in the format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
-     * @returns {string} string hex values
+     * @returns {string}                        String hex values
      */
 
 • TkService.PromiseTimeout(limTimeout, { func = null, args = [], cbCreate = (resolve, idTimeout) => {}, timeoutReject = false })
     /**
      * Creates a promise that is guaranteed to be fulfilled after a timeout
-     * @param {number} limTimeout               - timeout promise (ms)
-     * @param {object} [options]                - options
-     * @param {function} [options.func]         - promise-wrapped function (default: null)
-     * @param {Array} [options.args]            - arguments for promise-wrapped function (default: empty)
-     * @param {function(function, NodeJS.Timeout):void} [options.cbCreate] - callback after create promise (default: empty)
+     * @param {number} limTimeout               Timeout promise (ms)
+     * @param {object} [options]                Options
+     * @param {function} [options.func]         Promise-wrapped function (default: null)
+     * @param {Array} [options.args]            Arguments for promise-wrapped function (default: empty)
+     * @param {function(function, number):void} [options.cbCreate] Callback after create promise (default: empty)
      *      - arg0 - promise resolve function
      *      - arg1 - timeout id
-     * @param {boolean} [options.timeoutReject] - call reject on timeout (default: false → call resolve without args)
+     * @param {boolean} [options.timeoutReject] Call reject on timeout (default: false → call resolve without args)
      * @returns {Promise}
      */
 ~~~

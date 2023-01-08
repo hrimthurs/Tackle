@@ -2,9 +2,9 @@
 
 /**
  * Converts the number of bytes to kilobytes
- * @param {number} numBytes                 - number of bytes
- * @param {number} [precision]              - defines the number of decimal points of the result
- * @returns {number}
+ * @param {number} numBytes                 Number of bytes
+ * @param {number} [precision]              Defines the number of decimal points of the result (default: 2)
+ * @returns {number}                        Number of kilobytes
  */
 export function bytesToKb(numBytes, precision = 2) {
     return trimFloat(numBytes / 1024, precision)
@@ -12,9 +12,9 @@ export function bytesToKb(numBytes, precision = 2) {
 
 /**
  * Converts the number of bytes to megabytes
- * @param {number} numBytes                 - number of bytes
- * @param {number} [precision]              - defines the number of decimal points of the result
- * @returns {number}
+ * @param {number} numBytes                 Number of bytes
+ * @param {number} [precision]              Defines the number of decimal points of the result (default: 2)
+ * @returns {number}                        Number of megabytes
  */
 export function bytesToMb(numBytes, precision = 2) {
     return trimFloat(numBytes / 1048576, precision)
@@ -22,13 +22,13 @@ export function bytesToMb(numBytes, precision = 2) {
 
 /**
  * Trimming float numbers with a given precision
- * @param {any} srcVal                      - value with containing float numbers
- * @param {number} precision                - defines the number of decimal points of the result float numbers
- * @param {boolean} [stringify]             - return the result as converted to string
+ * @param {any} srcVal                      Value with containing float numbers
+ * @param {number} precision                Defines the number of decimal points of the result float numbers
+ * @param {boolean} [stringify]             Return the result as converted to string (default: false)
  * @returns {any|string}
  */
 export function trimFloat(srcVal, precision, stringify = false) {
-    let res = _valToStr(srcVal, { 'number': v => Number(v.toFixed(precision)) })
+    let res = _valToStr(srcVal, { 'number': (v) => Number(v.toFixed(precision)) })
     return stringify ? res : JSON.parse(res)
 }
 
@@ -43,11 +43,11 @@ export function trimFloat(srcVal, precision, stringify = false) {
  * - param_name=val1:val2,val3:val4 → param_name: {val1: val2, val3: val4}
  * - value/subvalue json-string → param_name: <json-parse>
  *
- * @param {string|URL} [srcUrl]             - source URL (if not set in case client side → used self.location.href)
- * @param {object} [options]                - options
- * @param {boolean} [options.keysLowerCase] - convert all parameters names to lower case (default: false)
- * @param {boolean} [options.valsLowerCase] - convert all strings values to lower case (default: false)
- * @returns {object}
+ * @param {string|URL} [srcUrl]             Source URL (in case client side default: self.location.href)
+ * @param {object} [options]                Options
+ * @param {boolean} [options.keysLowerCase] Convert all parameters names to lower case (default: false)
+ * @param {boolean} [options.valsLowerCase] Convert all strings values to lower case (default: false)
+ * @returns {object}                        Object with parameters
  */
 export function getParamsURL(srcUrl = null, options = {}) {
     const useOptions = {
@@ -97,10 +97,10 @@ export function getParamsURL(srcUrl = null, options = {}) {
  * - param_name: {val1: val2, val3: val4} → param_name=val1:val2,val3:val4
  * - subvalue object of array/object → <json-string>
  *
- * @param {string|URL} url                  - source string URL or exist URL-object
- * @param {object} [params]                 - source object to set as parameters URL (default: {})
- * @param {boolean} [encode]                - use encode URI for result (default: false)
- * @returns {URL}
+ * @param {string|URL} url                  Source string URL or exist URL-object
+ * @param {object} [params]                 Source object to set as parameters URL (default: {})
+ * @param {boolean} [encode]                Use encode URI for result (default: false)
+ * @returns {URL}                           Instance URL with parameters
  */
 export function setParamsURL(url, params = {}, encode = false) {
     let res = typeof url === 'string' ? _tryMakeURL(url) : url
@@ -111,8 +111,8 @@ export function setParamsURL(url, params = {}, encode = false) {
 
             if (typeof value === 'object') {
                 let obj = Array.isArray(value)
-                    ? value.map(val => _valToStr(val, { 'string': v => v }))
-                    : Object.entries(value).map(rec => `${rec[0]}:${_valToStr(rec[1], { 'string': v => v })}`)
+                    ? value.map((val) => _valToStr(val, { 'string': (v) => v }))
+                    : Object.entries(value).map((rec) => `${rec[0]}:${_valToStr(rec[1], { 'string': (v) => v })}`)
 
                 value = obj.join(',')
             }
@@ -126,19 +126,19 @@ export function setParamsURL(url, params = {}, encode = false) {
 
 /**
  * Generates a unique ID in the format of a hash string of 16 characters length
- * @param {string} [initialStr]             - initial string for generate
- * @returns {string} string of hex values with a length of 16 characters
+ * @param {string} [initialStr]             Initial string for generate (default: empty)
+ * @returns {string}                        String of hex values with a length of 16 characters
  */
 function generateHashUID(initialStr = '') {
     const numRandom = 10 + Math.trunc(Math.random() * 10)
-    const strRandom = new Array(numRandom).fill(0).map(v => Math.random()).join()
+    const strRandom = new Array(numRandom).fill(0).map(() => Math.random()).join()
 
     return getHashString(initialStr + Date.now() + strRandom, Math.random())
 }
 
 /**
  * Generates a universal unique ID in the format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
- * @returns {string} string hex values
+ * @returns {string}                        String hex values
  */
 function generateUUID() {
 	const d0 = Math.random() * 0xffffffff | 0
@@ -158,14 +158,14 @@ function generateUUID() {
 
 /**
  * Creates a promise that is guaranteed to be fulfilled after a timeout
- * @param {number} limTimeout               - timeout promise (ms)
- * @param {object} [options]                - options
- * @param {function} [options.func]         - promise-wrapped function (default: null)
- * @param {Array} [options.args]            - arguments for promise-wrapped function (default: empty)
- * @param {function(function, NodeJS.Timeout):void} [options.cbCreate] - callback after create promise (default: empty)
+ * @param {number} limTimeout               Timeout promise (ms)
+ * @param {object} [options]                Options
+ * @param {function} [options.func]         Promise-wrapped function (default: null)
+ * @param {Array} [options.args]            Arguments for promise-wrapped function (default: empty)
+ * @param {function(function, number):void} [options.cbCreate] Callback after create promise (default: empty)
  *      - arg0 - promise resolve function
  *      - arg1 - timeout id
- * @param {boolean} [options.timeoutReject] - call reject on timeout (default: false → call resolve without args)
+ * @param {boolean} [options.timeoutReject] Call reject on timeout (default: false → call resolve without args)
  * @returns {Promise}
  */
 function PromiseTimeout(limTimeout, { func = null, args = [], cbCreate = (resolve, idTimeout) => {}, timeoutReject = false }) {
@@ -218,7 +218,7 @@ function _paramURLtoArray(srcStr) {
     }
 
     return (cntBracket == 0) && (cntQuotes % 2 == 0)
-        ? res.concat(saveItems).map(val => val === '' || _tryStrToObj(val))
+        ? res.concat(saveItems).map((val) => val === '' || _tryStrToObj(val))
         : [srcStr]
 }
 

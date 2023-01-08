@@ -1,8 +1,8 @@
 ﻿/**
  * Returns function decorator that implements memoization
- * @param {function} srcFunc        - source function
- * @param {object} [context]        - function execution context
- * @returns {function}
+ * @param {function} srcFunc                Source function
+ * @param {object} [context]                Function execution context (default: globalThis)
+ * @returns {function}                      Memoized decorator
  */
 export function decoMemoize(srcFunc, context = globalThis) {
     let cache = new Map()
