@@ -1,4 +1,4 @@
-/* @hrimthurs/tackle 1.10.0 https://github.com/hrimthurs/Tackle @license MIT */
+/* @hrimthurs/tackle 1.10.1 https://github.com/hrimthurs/Tackle @license MIT */
 /**
  * Returns array regardless of type srcVal
  * @param {any} srcVal                      Source value
@@ -657,7 +657,7 @@ function createHTMLElement(tagName, elParent, options = {}) {
 
 /**
  * Set resize handler for div HTML element
- * @param {HTMLElement} elDiv               Div HTML element
+ * @param {HTMLDivElement} elDiv            Div HTML element
  * @param {function({width:number,height:number}):void} handler Handler function
  */
 function setDivResizer(elDiv, handler) {
@@ -666,12 +666,14 @@ function setDivResizer(elDiv, handler) {
         attributes: { frameborder: 'no' }
     });
 
+    const contentWindow = elResizer['contentWindow'];
+
     let prevSize = {
         width: null,
         height: null
     };
 
-    elResizer['contentWindow'].addEventListener('resize', () => {
+    contentWindow.addEventListener('resize', () => {
         let { width, height } = getComputedStyle(elResizer);
 
         const newSize = {
@@ -684,6 +686,8 @@ function setDivResizer(elDiv, handler) {
             prevSize = newSize;
         }
     });
+
+    contentWindow.dispatchEvent(new Event('resize'));
 }
 
 /**

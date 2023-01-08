@@ -79,7 +79,7 @@ export function createHTMLElement(tagName, elParent, options = {}) {
 
 /**
  * Set resize handler for div HTML element
- * @param {HTMLElement} elDiv               Div HTML element
+ * @param {HTMLDivElement} elDiv            Div HTML element
  * @param {function({width:number,height:number}):void} handler Handler function
  */
 export function setDivResizer(elDiv, handler) {
@@ -88,12 +88,14 @@ export function setDivResizer(elDiv, handler) {
         attributes: { frameborder: 'no' }
     })
 
+    const contentWindow = elResizer['contentWindow']
+
     let prevSize = {
         width: null,
         height: null
     }
 
-    elResizer['contentWindow'].addEventListener('resize', () => {
+    contentWindow.addEventListener('resize', () => {
         let { width, height } = getComputedStyle(elResizer)
 
         const newSize = {
@@ -106,6 +108,8 @@ export function setDivResizer(elDiv, handler) {
             prevSize = newSize
         }
     })
+
+    contentWindow.dispatchEvent(new Event('resize'))
 }
 
 /**
