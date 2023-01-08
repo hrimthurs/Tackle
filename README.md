@@ -365,7 +365,7 @@ const { TkArray, TkObject, TkString, TkFunction, TkService } = require('@hrimthu
      * @returns {string}                        String hex values
      */
 
-• TkService.PromiseTimeout(limTimeout, { func = null, args = [], cbCreate = (resolve, idTimeout) => {}, timeoutReject = false })
+• TkService.promiseTimeout(limTimeout, { func = null, args = [], cbCreate = (resolve, idTimeout) => {}, timeoutReject = false })
     /**
      * Creates a promise that is guaranteed to be fulfilled after a timeout
      * @param {number} limTimeout               Timeout promise (ms)

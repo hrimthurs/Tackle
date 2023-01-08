@@ -168,7 +168,7 @@ function generateUUID() {
  * @param {boolean} [options.timeoutReject] Call reject on timeout (default: false → call resolve without args)
  * @returns {Promise}
  */
-function PromiseTimeout(limTimeout, { func = null, args = [], cbCreate = (resolve, idTimeout) => {}, timeoutReject = false }) {
+function promiseTimeout(limTimeout, { func = null, args = [], cbCreate = (resolve, idTimeout) => {}, timeoutReject = false }) {
     return new Promise(async (resolve, reject) => {
         const idTimeout = setTimeout(() => {
             if (timeoutReject) reject(new Error('timeout'))
@@ -241,4 +241,4 @@ function _tryStrToObj(srcStr) {
     catch { return srcStr }
 }
 
-export default { bytesToKb, bytesToMb, trimFloat, getParamsURL, setParamsURL, generateHashUID, generateUUID, PromiseTimeout }
+export default { bytesToKb, bytesToMb, trimFloat, getParamsURL, setParamsURL, generateHashUID, generateUUID, promiseTimeout }

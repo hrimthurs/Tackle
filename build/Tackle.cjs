@@ -1,4 +1,4 @@
-/* @hrimthurs/tackle 1.9.2 https://github.com/hrimthurs/Tackle @license MIT */
+/* @hrimthurs/tackle 1.9.3 https://github.com/hrimthurs/Tackle @license MIT */
 'use strict';
 
 Object.defineProperty(exports, '__esModule', { value: true });
@@ -505,7 +505,7 @@ function generateUUID() {
  * @param {boolean} [options.timeoutReject] Call reject on timeout (default: false → call resolve without args)
  * @returns {Promise}
  */
-function PromiseTimeout(limTimeout, { func = null, args = [], cbCreate = (resolve, idTimeout) => {}, timeoutReject = false }) {
+function promiseTimeout(limTimeout, { func = null, args = [], cbCreate = (resolve, idTimeout) => {}, timeoutReject = false }) {
     return new Promise(async (resolve, reject) => {
         const idTimeout = setTimeout(() => {
             if (timeoutReject) reject(new Error('timeout'));
@@ -578,7 +578,7 @@ function _tryStrToObj(srcStr) {
     catch { return srcStr }
 }
 
-var TkService = { bytesToKb, bytesToMb, trimFloat, getParamsURL, setParamsURL, generateHashUID, generateUUID, PromiseTimeout };
+var TkService = { bytesToKb, bytesToMb, trimFloat, getParamsURL, setParamsURL, generateHashUID, generateUUID, promiseTimeout };
 
 var Tackle = { TkArray, TkString, TkObject, TkFunction, TkService };
 
