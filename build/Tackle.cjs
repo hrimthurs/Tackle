@@ -1,4 +1,4 @@
-/* @hrimthurs/tackle 1.9.0 https://github.com/hrimthurs/Tackle @license MIT */
+/* @hrimthurs/tackle 1.9.1 https://github.com/hrimthurs/Tackle @license MIT */
 'use strict';
 
 Object.defineProperty(exports, '__esModule', { value: true });
@@ -245,7 +245,7 @@ function enumeration(srcObj, cbAction, deep = false) {
                     configurable: true
                 });
 
-                val = this.TryConvertToArray(this.enumeration(srcVal, cbAction, deep));
+                val = tryConvertToArray(this.enumeration(srcVal, cbAction, deep));
             }
 
             delete srcVal[processedFlag];
