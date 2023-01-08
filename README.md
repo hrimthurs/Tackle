@@ -413,7 +413,7 @@ const { TkArray, TkObject, TkString, TkFunction, TkService, TkBrowser } = requir
 • TkBrowser.setDivResizer(elDiv, handler)
     /**
      * Set resize handler for div HTML element
-     * @param {HTMLDivElement} elDiv            Div HTML element
+     * @param {HTMLElement} elDiv               Div HTML element
      * @param {function({width:number,height:number}):void} handler Handler function
      */
 

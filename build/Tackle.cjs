@@ -1,4 +1,4 @@
-/* @hrimthurs/tackle 1.10.1 https://github.com/hrimthurs/Tackle @license MIT */
+/* @hrimthurs/tackle 1.10.2 https://github.com/hrimthurs/Tackle @license MIT */
 'use strict';
 
 Object.defineProperty(exports, '__esModule', { value: true });
@@ -661,7 +661,7 @@ function createHTMLElement(tagName, elParent, options = {}) {
 
 /**
  * Set resize handler for div HTML element
- * @param {HTMLDivElement} elDiv            Div HTML element
+ * @param {HTMLElement} elDiv               Div HTML element
  * @param {function({width:number,height:number}):void} handler Handler function
  */
 function setDivResizer(elDiv, handler) {

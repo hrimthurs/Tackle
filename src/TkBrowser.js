@@ -79,7 +79,7 @@ export function createHTMLElement(tagName, elParent, options = {}) {
 
 /**
  * Set resize handler for div HTML element
- * @param {HTMLDivElement} elDiv            Div HTML element
+ * @param {HTMLElement} elDiv               Div HTML element
  * @param {function({width:number,height:number}):void} handler Handler function
  */
 export function setDivResizer(elDiv, handler) {
