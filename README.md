@@ -406,8 +406,15 @@ const { TkArray, TkObject, TkString, TkFunction, TkService, TkBrowser } = requir
      * @param {Object<string,string>} [options.attributes]      Keys/values of attributes who sets to the element (default: empty)
      * @param {string|Object<string,string>} [options.style]    Keys/values (or cssText) of the style to be set for the element (default: empty)
      * @param {string|string[]} [options.class]                 Class/Classes to be set for the element (default: empty)
-     * @param {Object<string,string>} [options.properties]      Keys/values of properties to be set for the element (default: empty)
+     * @param {Object<string,string>} [options.properties]      Keys/values of exist properties to be set for the element (default: empty)
      * @returns {HTMLElement}
+     */
+
+• TkBrowser.getSizeHTMLElement(element)
+    /**
+     * Returns real computed size of HTML element
+     * @param {HTMLElement} element             HTML element
+     * @returns {{width:number,height:number}}  Size of element
      */
 
 • TkBrowser.setDivResizer(elDiv, handler)

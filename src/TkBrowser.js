@@ -8,14 +8,14 @@
  * @param {Object<string,string>} [options.attributes]      Keys/values of attributes who sets to the element (default: empty)
  * @param {string|Object<string,string>} [options.style]    Keys/values (or cssText) of the style to be set for the element (default: empty)
  * @param {string|string[]} [options.class]                 Class/Classes to be set for the element (default: empty)
- * @param {Object<string,string>} [options.properties]      Keys/values of properties to be set for the element (default: empty)
+ * @param {Object<string,string>} [options.properties]      Keys/values of exist properties to be set for the element (default: empty)
  * @returns {HTMLElement}
  */
 export function createHTMLElement(tagName, elParent, options = {}) {
     const element = document.createElement(tagName)
 
-    let insertFirst = options.insertFirst ?? false
-    let subElements = options.subElements ?? []
+    const insertFirst = options.insertFirst ?? false
+    const subElements = options.subElements ?? []
 
     Object.entries(options).forEach((recProperty) => {
         const [propName, propVal] = recProperty
@@ -47,9 +47,7 @@ export function createHTMLElement(tagName, elParent, options = {}) {
 
             case 'class':
                 if (isValArray) {
-                    propVal.forEach((rec) => {
-                        element.classList.add(rec)
-                    })
+                    propVal.forEach((rec) => element.classList.add(rec))
                 } else if (isValString) {
                     element.classList.add(propVal)
                 }
@@ -78,6 +76,20 @@ export function createHTMLElement(tagName, elParent, options = {}) {
 }
 
 /**
+ * Returns real computed size of HTML element
+ * @param {HTMLElement} element             HTML element
+ * @returns {{width:number,height:number}}  Size of element
+ */
+export function getSizeHTMLElement(element) {
+    const { width, height } = getComputedStyle(element)
+
+    return {
+        width: parseInt(width, 10) + 1,
+        height: parseInt(height, 10) + 1
+    }
+}
+
+/**
  * Set resize handler for div HTML element
  * @param {HTMLElement} elDiv               Div HTML element
  * @param {function({width:number,height:number}):void} handler Handler function
@@ -96,12 +108,7 @@ export function setDivResizer(elDiv, handler) {
     }
 
     contentWindow.addEventListener('resize', () => {
-        let { width, height } = getComputedStyle(elResizer)
-
-        const newSize = {
-            width: parseInt(width, 10) + 1,
-            height: parseInt(height, 10) + 1
-        }
+        const newSize = getSizeHTMLElement(elResizer)
 
         if ((prevSize.width !== newSize.width) || (prevSize.height !== newSize.height)) {
             handler(newSize)
@@ -129,4 +136,4 @@ export function interceptErrors(handler, preventDefault = true) {
     })
 }
 
-export default { createHTMLElement, setDivResizer, interceptErrors }
+export default { createHTMLElement, getSizeHTMLElement, setDivResizer, interceptErrors }
