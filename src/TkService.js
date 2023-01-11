@@ -1,6 +1,10 @@
 ﻿import { getHash as getHashString } from './TkString.js'
 
 /**
+ * @typedef {import('./Tackle').TObjectJS} TObjectJS Type of object JS
+ */
+
+/**
  * Converts the number of bytes to kilobytes
  * @param {number} numBytes                 Number of bytes
  * @param {number} [precision]              Defines the number of decimal points of the result (default: 2)
@@ -47,7 +51,7 @@ export function trimFloat(srcVal, precision, stringify = false) {
  * @param {object} [options]                Options
  * @param {boolean} [options.keysLowerCase] Convert all parameters names to lower case (default: false)
  * @param {boolean} [options.valsLowerCase] Convert all strings values to lower case (default: false)
- * @returns {object}                        Object with parameters
+ * @returns {TObjectJS}                     Object with parameters
  */
 export function getParamsURL(srcUrl = null, options = {}) {
     const useOptions = {
@@ -98,7 +102,7 @@ export function getParamsURL(srcUrl = null, options = {}) {
  * - subvalue object of array/object → <json-string>
  *
  * @param {string|URL} url                  Source string URL or exist URL-object
- * @param {object} [params]                 Source object to set as parameters URL (default: {})
+ * @param {TObjectJS} [params]              Source object to set as parameters URL (default: {})
  * @param {boolean} [encode]                Use encode URI for result (default: false)
  * @returns {URL}                           Instance URL with parameters
  */
@@ -189,6 +193,8 @@ function promiseTimeout(limTimeout, { func = null, args = [], cbCreate = (resolv
     })
 }
 
+export default { bytesToKb, bytesToMb, trimFloat, getParamsURL, setParamsURL, generateHashUID, generateUUID, promiseTimeout }
+
 /////////////////////////////////////////////////   PRIVATE   /////////////////////////////////////////////////
 
 const _strHex = new Array(256).fill(0).map((val, ind) => (ind < 16 ? '0' : '') + ind.toString(16))
@@ -240,5 +246,3 @@ function _tryStrToObj(srcStr) {
     try { return JSON.parse(srcStr.replace(/^["'](.*)["']$/, '$1')) }
     catch { return srcStr }
 }
-
-export default { bytesToKb, bytesToMb, trimFloat, getParamsURL, setParamsURL, generateHashUID, generateUUID, promiseTimeout }
