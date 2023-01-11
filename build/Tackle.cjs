@@ -1,4 +1,4 @@
-/* @hrimthurs/tackle 1.11.0 https://github.com/hrimthurs/Tackle @license MIT */
+/* @hrimthurs/tackle 1.12.0 https://github.com/hrimthurs/Tackle @license MIT */
 'use strict';
 
 Object.defineProperty(exports, '__esModule', { value: true });
@@ -129,7 +129,7 @@ function getHash$1(srcStr, seed = 0) {
 var TkString = { formatNumber, getHash: getHash$1 };
 
 /**
- * @typedef {{[key:string]:any}} TObjectJS  Type of object JS
+ * @typedef {import('./Tackle').TObjectJS} TObjectJS Type of object JS
  */
 
 /**
@@ -179,120 +179,72 @@ function getValue(srcObj, ...pathKeys) {
 
 /**
  * Sets value to object field by pathKey
- * @param {TObjectJS} srcObj                Source object
+ * @param {TObjectJS} dstObj                Destination object
  * @param {string} pathKey                  Key (name or chain names)
  * @param {any} value                       Value
- * @param {function(TObjectJS, string):any} [cbAction] Callback action for success set (default: null)
+ * @param {function(TObjectJS,string):any} [cbAction] Callback action for success set (default: null)
  *      - arg0 - parent object of the setting field
  *      - arg1 - finite key of the setting field
  * @returns {boolean|any}                   True/false as a success set value, or result cbAction (if given)
  */
-function setValue(srcObj, pathKey, value, cbAction = null) {
+function setValue(dstObj, pathKey, value, cbAction = null) {
     let res = false;
 
     let chainKeys = pathKey.split('.');
     if (chainKeys.length > 1) {
 
-        let lastKey = chainKeys.pop();
-        let parent = getValue(srcObj, chainKeys.join('.'));
+        const lastKey = chainKeys.pop();
+        let parent = getValue(dstObj, chainKeys.join('.'));
         if (isObjectJs(parent, lastKey)) {
             parent[lastKey] = value;
             res = (typeof cbAction === 'function') ? cbAction(parent, lastKey) : true;
         }
 
-    } else if (pathKey in srcObj) {
-        srcObj[pathKey] = value;
-        res = (typeof cbAction === 'function') ? cbAction(srcObj, pathKey) : true;
+    } else if (pathKey in dstObj) {
+        dstObj[pathKey] = value;
+        res = (typeof cbAction === 'function') ? cbAction(dstObj, pathKey) : true;
     }
 
     return res
 }
 
 /**
- * Try convert object to array
- * @param {TObjectJS} srcObj                Source object
- * @returns {Array|TObjectJS}               Array if possible convert, else - source object
+ * Sets values to exists object fields. Arrays are written in their entirety
+ * @param {TObjectJS} targetObj             Target object
+ * @param {TObjectJS} properties            Properties
+ * @param {boolean} [strictTypes]           Strict type matching of values (default: true)
  */
-function tryConvertToArray(srcObj) {
-    const allKeys = Object.keys(srcObj);
+function setProperties(targetObj, properties, strictTypes = true) {
+    traverse(properties, (val, key, chainKeysParents) => {
+        const isArrayVal = Array.isArray(val);
 
-    if ((allKeys.length > 0) && allKeys.every((key) => !Number.isNaN(Number(key)))) {
-        let res = [];
-        allKeys.forEach((key) => res[key] = srcObj[key]);
-        return res
-    } else return srcObj
+        if (isArrayVal || (val === null) || (typeof val !== 'object')) {
+            const chain = chainKeysParents !== ''
+                ? chainKeysParents + '.' + key
+                : key;
+
+            const srcVal = getValue(targetObj, chain);
+
+            if (!strictTypes || ((typeof srcVal === typeof val) && (Array.isArray(srcVal) === isArrayVal))) {
+                setValue(targetObj, chain, val);
+            }
+        }
+    }, true);
 }
 
-// /**
-//  * Enumeration all object fields
-//  * @param {TObjectJS} srcObj       Source object
-//  * @param {function(any, string, string[]):any} cbAction Callback action for every field
-//  *      - arg0 - field current value
-//  *      - arg1 - field key
-//  *      - arg2 - all fields keys
-//  * @param {boolean} [deep]                  Recursive enumeration all subobjects (default: false)
-//  * @returns {TObjectJS}            New object based on the results of cbAction calls
-//  */
-// export function enumeration(srcObj, cbAction, deep = false) {
-//     const processedFlag = '__TackleEnumAlreadyProcessed__'
-//     const allKeys = Object.keys(srcObj)
-
-//     return Object.fromEntries(allKeys.map(key => {
-//         let srcVal = srcObj[key]
-//         let val = cbAction(srcVal, key, allKeys) ?? srcVal
-
-//         if (deep && (typeof srcVal === 'object') && (srcVal !== null)) {
-//             if (!srcVal[processedFlag]) {
-//                 Object.defineProperty(srcVal, processedFlag, {
-//                     value: true,
-//                     writable: false,
-//                     configurable: true
-//                 })
-
-//                 val = tryConvertToArray(enumeration(srcVal, cbAction, deep))
-//             }
-
-//             delete srcVal[processedFlag]
-//         }
-
-//         return [key, val]
-//     }))
-// }
-
 /**
- * Enumeration all object fields
+ * Traverse object fields
  * @param {TObjectJS} srcObj                Source object
- * @param {function(any, string, string[]):any} cbAction Callback action for every field
+ * @param {function(any,string,string):any} cbAction Callback action for every field
  *      - arg0 - field current value
  *      - arg1 - field key
- *      - arg2 - all fields keys
- * @param {boolean} [deep]                  Recursive enumeration all subobjects (default: false)
+ *      - arg2 - chain keys parents
+ * @param {boolean} [deepObjects]           Recursive traverse all sub objects (default: false)
+ * @param {boolean} [deepArrays]            Recursive traverse all sub arrays (default: false)
  * @returns {TObjectJS}                     New object based on the results of cbAction calls
  */
- function enumeration(srcObj, cbAction, deep = false) {
-    const processedFlag = '__TackleEnumAlreadyProcessed__';
-    const allKeys = Object.keys(srcObj);
-
-    return Object.fromEntries(allKeys.map(key => {
-        let srcVal = srcObj[key];
-        let val = cbAction(srcVal, key, allKeys) ?? srcVal;
-
-        if (deep && (typeof srcVal === 'object') && (srcVal !== null)) {
-            if (!srcVal[processedFlag]) {
-                Object.defineProperty(srcVal, processedFlag, {
-                    value: true,
-                    writable: false,
-                    configurable: true
-                });
-
-                val = tryConvertToArray(enumeration(srcVal, cbAction, deep));
-            }
-
-            delete srcVal[processedFlag];
-        }
-
-        return [key, val]
-    }))
+function traverse(srcObj, cbAction, deepObjects = false, deepArrays = false) {
+    return _traverseObject(srcObj, cbAction, deepObjects, deepArrays)
 }
 
 /**
@@ -318,6 +270,21 @@ function clone(srcObj) {
 }
 
 /**
+ * Try convert object to array
+ * @param {TObjectJS} srcObj                Source object
+ * @returns {Array|TObjectJS}               Array if possible convert, else - source object
+ */
+ function tryConvertToArray(srcObj) {
+    const allKeys = Object.keys(srcObj);
+
+    if ((allKeys.length > 0) && allKeys.every((key) => !Number.isNaN(Number(key)))) {
+        let res = [];
+        allKeys.forEach((key) => res[key] = srcObj[key]);
+        return res
+    } else return srcObj
+}
+
+/**
  * Collects an array of transferable values (use for web worker)
  * @param {TObjectJS} srcObj                Source object
  * @returns {Array}                         Array of transferable values
@@ -332,10 +299,10 @@ function getArrayTransferable(srcObj) {
 
     let res = [];
 
-    enumeration(srcObj, (val) => {
+    traverse(srcObj, (val) => {
         const isTransferable = transferableNamesClasses.some((checkName) => val.constructor.name === checkName);
         if (isTransferable) res.push(val);
-    }, true);
+    }, true, true);
 
     return res
 }
@@ -351,7 +318,39 @@ function getHash(srcObj, skipPathKeys = null, seed = 0) {
     return getHash$1(JSON.stringify(excludeKeys(srcObj, skipPathKeys)), seed)
 }
 
-var TkObject = { isObjectJs, excludeKeys, getValue, setValue, tryConvertToArray, enumeration, merge, clone, getArrayTransferable, getHash };
+var TkObject = { isObjectJs, excludeKeys, getValue, setValue, setProperties, traverse, merge, clone, tryConvertToArray, getArrayTransferable, getHash };
+
+/////////////////////////////////////////////////   PRIVATE   /////////////////////////////////////////////////
+
+function _traverseObject(srcObj, cbAction, deepObjects, deepArrays, chainKeysParents = []) {
+    const processedFlag = '__TackleEnumAlreadyProcessed__';
+    const allKeys = Object.keys(srcObj);
+
+    return Object.fromEntries(allKeys.map(key => {
+        let srcVal = srcObj[key];
+        let val = cbAction(srcVal, key, chainKeysParents.join('.')) ?? srcVal;
+
+        if ((deepArrays && Array.isArray(srcVal)) || (deepObjects && isObjectJs(srcVal))) {
+            if (!srcVal[processedFlag]) {
+                Object.defineProperty(srcVal, processedFlag, {
+                    value: true,
+                    writable: false,
+                    configurable: true
+                });
+
+                let valRecursive = _traverseObject(srcVal, cbAction, deepObjects, deepArrays, chainKeysParents.concat(key));
+
+                val = Array.isArray(srcVal)
+                    ? tryConvertToArray(valRecursive)
+                    : valRecursive;
+            }
+
+            delete srcVal[processedFlag];
+        }
+
+        return [key, val]
+    }))
+}
 
 /**
  * Returns function decorator that implements memoization
@@ -376,6 +375,10 @@ function decoMemoize(srcFunc, context = globalThis) {
 }
 
 var TkFunction = { decoMemoize };
+
+/**
+ * @typedef {import('./Tackle').TObjectJS} TObjectJS Type of object JS
+ */
 
 /**
  * Converts the number of bytes to kilobytes
@@ -424,7 +427,7 @@ function trimFloat(srcVal, precision, stringify = false) {
  * @param {object} [options]                Options
  * @param {boolean} [options.keysLowerCase] Convert all parameters names to lower case (default: false)
  * @param {boolean} [options.valsLowerCase] Convert all strings values to lower case (default: false)
- * @returns {object}                        Object with parameters
+ * @returns {TObjectJS}                     Object with parameters
  */
 function getParamsURL(srcUrl = null, options = {}) {
     const useOptions = {
@@ -475,7 +478,7 @@ function getParamsURL(srcUrl = null, options = {}) {
  * - subvalue object of array/object → <json-string>
  *
  * @param {string|URL} url                  Source string URL or exist URL-object
- * @param {object} [params]                 Source object to set as parameters URL (default: {})
+ * @param {TObjectJS} [params]              Source object to set as parameters URL (default: {})
  * @param {boolean} [encode]                Use encode URI for result (default: false)
  * @returns {URL}                           Instance URL with parameters
  */
@@ -566,6 +569,8 @@ function promiseTimeout(limTimeout, { func = null, args = [], cbCreate = (resolv
     })
 }
 
+var TkService = { bytesToKb, bytesToMb, trimFloat, getParamsURL, setParamsURL, generateHashUID, generateUUID, promiseTimeout };
+
 /////////////////////////////////////////////////   PRIVATE   /////////////////////////////////////////////////
 
 const _strHex = new Array(256).fill(0).map((val, ind) => (ind < 16 ? '0' : '') + ind.toString(16));
@@ -618,17 +623,19 @@ function _tryStrToObj(srcStr) {
     catch { return srcStr }
 }
 
-var TkService = { bytesToKb, bytesToMb, trimFloat, getParamsURL, setParamsURL, generateHashUID, generateUUID, promiseTimeout };
+/**
+ * @typedef {import('./Tackle').TObjectJS} TObjectJS Type of object JS
+ */
 
 /**
  * Creates an HTML element
  * @param {string} tagName                  Type of element to be created
  * @param {HTMLElement} elParent            Parent HTML element (page root: document.body)
- * @param {object} [options]
+ * @param {object} [options]                Options
  * @param {boolean} [options.insertFirst]   Add an element as first of the children nodes of parent (default: false → add as last)
- * @param {object[]} [options.subElements]  Entries of elements to recursively create as children (default: empty)
+ * @param {TObjectJS[]} [options.subElements]               Entries of elements to recursively create as children (default: empty)
  * @param {Object<string,string>} [options.attributes]      Keys/values of attributes who sets to the element (default: empty)
- * @param {string|Object<string,string>} [options.style]    Keys/values (or cssText) of the style to be set for the element (default: empty)
+ * @param {string|Object<string,string>} [options.style]    Keys/values/cssText of the style to be set for the element (default: empty)
  * @param {string|string[]} [options.class]                 Class/Classes to be set for the element (default: empty)
  * @param {Object<string,string>} [options.properties]      Keys/values of exist properties to be set for the element (default: empty)
  * @returns {HTMLElement}
@@ -759,6 +766,10 @@ function interceptErrors(handler, preventDefault = true) {
 }
 
 var TkBrowser = { createHTMLElement, getSizeHTMLElement, setDivResizer, interceptErrors };
+
+/**
+ * @typedef {{[key:string]:any}} TObjectJS  Type of object JS
+ */
 
 var Tackle = { TkArray, TkString, TkObject, TkFunction, TkService, TkBrowser };
 
