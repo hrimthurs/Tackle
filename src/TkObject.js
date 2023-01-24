@@ -28,8 +28,9 @@ export function isObjectJs(checkVal, checkKey = null) {
 export function excludeKeys(srcObj, skipPathKeys, modifySrc = false) {
     let res = modifySrc ? srcObj : clone(srcObj)
 
-    let arrSkipKeys = getArray(skipPathKeys)
-    arrSkipKeys.forEach(pathKey => setValue(res, pathKey, null, (root, key) => delete root[key]))
+    getArray(skipPathKeys).forEach(pathKey => setValue(res, pathKey, null, {
+        cbAction: (root, key) => delete root[key]
+    }))
 
     return res
 }
@@ -55,27 +56,45 @@ export function getValue(srcObj, ...pathKeys) {
  * @param {TObjectJS} dstObj                Destination object
  * @param {string} pathKey                  Key (name or chain names)
  * @param {any} value                       Value
- * @param {function(TObjectJS,string):any} [cbAction] Callback action for success set (default: null)
+ * @param {object} [options]                Options
+ * @param {boolean} [options.onlyExist]     Set value to only exists fields or create new fields (default: true)
+ * @param {function(TObjectJS,string):any} [options.cbAction] Callback action for success set (default: empty)
  *      - arg0 - parent object of the setting field
  *      - arg1 - finite key of the setting field
  * @returns {boolean|any}                   True/false as a success set value, or result cbAction (if given)
  */
-export function setValue(dstObj, pathKey, value, cbAction = null) {
+function setValue(dstObj, pathKey, value, options = {}) {
     let res = false
+
+    const onlyExist = options.onlyExist ?? true
+    const cbAction = options.cbAction ?? (() => {})
 
     let chainKeys = pathKey.split('.')
     if (chainKeys.length > 1) {
 
-        const lastKey = chainKeys.pop()
-        let parent = getValue(dstObj, chainKeys.join('.'))
-        if (isObjectJs(parent, lastKey)) {
-            parent[lastKey] = value
-            res = (typeof cbAction === 'function') ? cbAction(parent, lastKey) : true
+        if (onlyExist) {
+            const lastKey = chainKeys.pop()
+            let parent = getValue(dstObj, chainKeys.join('.'))
+            if (isObjectJs(parent, lastKey)) {
+                parent[lastKey] = value
+                res = cbAction(parent, lastKey) ?? true
+            }
+        } else {
+            let node = dstObj
+
+            chainKeys.forEach((key, ind) => {
+                if (!(key in node)) {
+                    if (ind < chainKeys.length - 1) {
+                        node[key] = {}
+                        node = node[key]
+                    } else node[key] = value
+                }
+            })
         }
 
-    } else if (pathKey in dstObj) {
+    } else if (!onlyExist || (pathKey in dstObj)) {
         dstObj[pathKey] = value
-        res = (typeof cbAction === 'function') ? cbAction(dstObj, pathKey) : true
+        res = cbAction(dstObj, pathKey) ?? true
     }
 
     return res

@@ -215,7 +215,9 @@ const { TkArray, TkObject, TkString, TkFunction, TkService, TkBrowser } = requir
      * @param {TObjectJS} dstObj                Destination object
      * @param {string} pathKey                  Key (name or chain names)
      * @param {any} value                       Value
-     * @param {function(TObjectJS,string):any} [cbAction] Callback action for success set (default: null)
+     * @param {object} [options]                Options
+     * @param {boolean} [options.onlyExist]     Set value to only exists fields or create new fields (default: true)
+     * @param {function(TObjectJS,string):any} [options.cbAction] Callback action for success set (default: empty)
      *      - arg0 - parent object of the setting field
      *      - arg1 - finite key of the setting field
      * @returns {boolean|any}                   True/false as a success set value, or result cbAction (if given)

@@ -172,18 +172,18 @@ function generateUUID() {
  * @param {boolean} [options.timeoutReject] Call reject on timeout (default: false → call resolve without args)
  * @returns {Promise}
  */
-function promiseTimeout(limTimeout, { func = null, args = [], cbCreate = (resolve, idTimeout) => {}, timeoutReject = false }) {
+function promiseTimeout(limTimeout, options = {}) {
     return new Promise(async (resolve, reject) => {
         const idTimeout = setTimeout(() => {
-            if (timeoutReject) reject(new Error('timeout'))
+            if (options.timeoutReject) reject(new Error('timeout'))
             else resolve()
         }, limTimeout)
 
-        cbCreate(resolve, idTimeout)
+        options?.cbCreate(resolve, idTimeout)
 
-        if (func) {
+        if (options.func) {
             try {
-                resolve(await func(...args))
+                resolve(await options.func(...options.args ?? []))
             } catch (error) {
                 reject(error)
             } finally {

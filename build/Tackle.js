@@ -1,4 +1,4 @@
-/* @hrimthurs/tackle 1.12.0 https://github.com/hrimthurs/Tackle @license MIT */
+/* @hrimthurs/tackle 1.12.2 https://github.com/hrimthurs/Tackle @license MIT */
 /**
  * Returns array regardless of type srcVal
  * @param {any} srcVal                      Source value
@@ -151,8 +151,9 @@ function isObjectJs(checkVal, checkKey = null) {
 function excludeKeys(srcObj, skipPathKeys, modifySrc = false) {
     let res = modifySrc ? srcObj : clone(srcObj);
 
-    let arrSkipKeys = getArray(skipPathKeys);
-    arrSkipKeys.forEach(pathKey => setValue(res, pathKey, null, (root, key) => delete root[key]));
+    getArray(skipPathKeys).forEach(pathKey => setValue(res, pathKey, null, {
+        cbAction: (root, key) => delete root[key]
+    }));
 
     return res
 }
@@ -178,27 +179,45 @@ function getValue(srcObj, ...pathKeys) {
  * @param {TObjectJS} dstObj                Destination object
  * @param {string} pathKey                  Key (name or chain names)
  * @param {any} value                       Value
- * @param {function(TObjectJS,string):any} [cbAction] Callback action for success set (default: null)
+ * @param {object} [options]                Options
+ * @param {boolean} [options.onlyExist]     Set value to only exists fields or create new fields (default: true)
+ * @param {function(TObjectJS,string):any} [options.cbAction] Callback action for success set (default: empty)
  *      - arg0 - parent object of the setting field
  *      - arg1 - finite key of the setting field
  * @returns {boolean|any}                   True/false as a success set value, or result cbAction (if given)
  */
-function setValue(dstObj, pathKey, value, cbAction = null) {
+function setValue(dstObj, pathKey, value, options = {}) {
     let res = false;
+
+    const onlyExist = options.onlyExist ?? true;
+    const cbAction = options.cbAction ?? (() => {});
 
     let chainKeys = pathKey.split('.');
     if (chainKeys.length > 1) {
 
-        const lastKey = chainKeys.pop();
-        let parent = getValue(dstObj, chainKeys.join('.'));
-        if (isObjectJs(parent, lastKey)) {
-            parent[lastKey] = value;
-            res = (typeof cbAction === 'function') ? cbAction(parent, lastKey) : true;
+        if (onlyExist) {
+            const lastKey = chainKeys.pop();
+            let parent = getValue(dstObj, chainKeys.join('.'));
+            if (isObjectJs(parent, lastKey)) {
+                parent[lastKey] = value;
+                res = cbAction(parent, lastKey) ?? true;
+            }
+        } else {
+            let node = dstObj;
+
+            chainKeys.forEach((key, ind) => {
+                if (!(key in node)) {
+                    if (ind < chainKeys.length - 1) {
+                        node[key] = {};
+                        node = node[key];
+                    } else node[key] = value;
+                }
+            });
         }
 
-    } else if (pathKey in dstObj) {
+    } else if (!onlyExist || (pathKey in dstObj)) {
         dstObj[pathKey] = value;
-        res = (typeof cbAction === 'function') ? cbAction(dstObj, pathKey) : true;
+        res = cbAction(dstObj, pathKey) ?? true;
     }
 
     return res
@@ -544,18 +563,18 @@ function generateUUID() {
  * @param {boolean} [options.timeoutReject] Call reject on timeout (default: false → call resolve without args)
  * @returns {Promise}
  */
-function promiseTimeout(limTimeout, { func = null, args = [], cbCreate = (resolve, idTimeout) => {}, timeoutReject = false }) {
+function promiseTimeout(limTimeout, options = {}) {
     return new Promise(async (resolve, reject) => {
         const idTimeout = setTimeout(() => {
-            if (timeoutReject) reject(new Error('timeout'));
+            if (options.timeoutReject) reject(new Error('timeout'));
             else resolve();
         }, limTimeout);
 
-        cbCreate(resolve, idTimeout);
+        options?.cbCreate(resolve, idTimeout);
 
-        if (func) {
+        if (options.func) {
             try {
-                resolve(await func(...args));
+                resolve(await options.func(...options.args ?? []));
             } catch (error) {
                 reject(error);
             } finally {
