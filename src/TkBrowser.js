@@ -234,13 +234,6 @@ export function httpRequest(url, options = {}) {
             useOptions.cbFinal(xhr.status, xhr.response, useOptions.id)
         }
 
-        xhr.ontimeout = () => {
-            useOptions.cbError(408, useOptions.id)
-            if (useOptions.useReject) reject(408)
-            else resolve(null)
-            useOptions.cbFinal(408, null, useOptions.id)
-        }
-
         xhr.onprogress = (event) => {
             useOptions.cbProgress(event.loaded, event.total, useOptions.id)
         }

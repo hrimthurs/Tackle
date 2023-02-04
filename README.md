@@ -11,6 +11,8 @@ Various auxiliary tools/routines for working in JavaScript projects
 You can use this package on the server side as well as the client side.
 > Other than ```TkBrowser```, which can only be used in the browser
 
+> Other than ```TkNode```, which can only be used in the nodejs
+
 ### [Node.js](http://nodejs.org/):
 
 ~~~
@@ -23,14 +25,14 @@ npm install @hrimthurs/tackle
 
 ~~~ javascript
 import Tackle from '@hrimthurs/tackle'
-import { TkArray, TkObject, TkString, TkFunction, TkService, TkBrowser } from '@hrimthurs/tackle'
+import { TkArray, TkObject, TkString, TkFunction, TkService, TkBrowser, TkNode } from '@hrimthurs/tackle'
 ~~~
 
 ### CommonJS:
 
 ~~~ javascript
 const Tackle = require('@hrimthurs/tackle')
-const { TkArray, TkObject, TkString, TkFunction, TkService, TkBrowser } = require('@hrimthurs/tackle')
+const { TkArray, TkObject, TkString, TkFunction, TkService, TkBrowser, TkNode } = require('@hrimthurs/tackle')
 ~~~
 
 ### HTML tag \<script\>:
@@ -485,6 +487,24 @@ const { TkArray, TkObject, TkString, TkFunction, TkService, TkBrowser } = requir
      * Saves the passed value in JSON format
      * @param {string} fileName                 Name of file
      * @param {any} value                       Value to save
+     */
+~~~
+
+### TkNode (only be used in the nodejs):
+
+~~~ javascript
+• TkNode.traverseFiles({ root = './', include = [], exclude = [], recursive = true, cbAction = (fullPath, parts) => {} })
+    /**
+     * Traversing files in folders
+     * @param {object} options                  Options
+     * @param {string} [options.root]           Root for traversing (default: './')
+     * @param {string[]} [options.include]      Array of patterns of files/folders to includes in traversing (default: empty → all traversing)
+     * @param {string[]} [options.exclude]      Array of patterns of files/folders to excludes from traversing (default: empty → all traversing)
+     * @param {boolean} [options.recursive]     Recursive traversing of folders (default: true)
+     * @param {function(string,TParsedPath):void} [options.cbAction] Callback for every file (default: empty)
+     *      - arg0 - full path of file
+     *      - arg1 - parsed parts of path of file
+     * @returns {string[]}                      Array of full pathes of all traversed files
      */
 ~~~
 

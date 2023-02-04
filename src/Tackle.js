@@ -4,6 +4,7 @@ import TkObject from './TkObject.js'
 import TkFunction from './TkFunction.js'
 import TkService from './TkService.js'
 import TkBrowser from './TkBrowser.js'
+import TkNode from './TkNode.js'
 
-export default { TkArray, TkString, TkObject, TkFunction, TkService, TkBrowser }
-export { TkArray, TkString, TkObject, TkFunction, TkService, TkBrowser }
+export default { TkArray, TkString, TkObject, TkFunction, TkService, TkBrowser, TkNode }
+export { TkArray, TkString, TkObject, TkFunction, TkService, TkBrowser, TkNode }
