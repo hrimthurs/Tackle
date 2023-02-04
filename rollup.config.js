@@ -48,8 +48,8 @@ const pluginsMin = [excludeTkNode, terser]
 const pluginsMinES5 = [excludeTkNode, transpile, terser]
 
 export default [
-    roll('Tackle', 'esm', '[name].js'),
     roll('Tackle', 'cjs', '[name].cjs'),
+    roll('Tackle', 'esm', '[name].js', [excludeTkNode]),
     roll('Tackle', 'umd', '[name].min.js', pluginsMin),
     roll('Tackle', 'umd', '[name].min.legacy.js', pluginsMinES5),
     roll('TkArray', 'umd', '[name].min.js', pluginsMin),
