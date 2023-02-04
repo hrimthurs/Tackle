@@ -1,4 +1,4 @@
-/* @hrimthurs/tackle 1.14.1 https://github.com/hrimthurs/Tackle @license MIT */
+/* @hrimthurs/tackle 1.14.2 https://github.com/hrimthurs/Tackle @license MIT */
 /**
  * Returns array regardless of type srcVal
  * @param {any} srcVal                      Source value
@@ -937,26 +937,26 @@ function traverseFiles(root, options = {}) {
         ...options
     };
 
-    return _traverseFiles(useOptions, root, [])
+    return _traverseFiles(root, useOptions, [])
 }
 
-function _traverseFiles(options, parentDir, files) {
+function _traverseFiles(parentDir, options, files) {
     fs.readdirSync(parentDir).forEach((name) => {
         const pathEntity = path.join(parentDir, name);
         const parts = path.parse(pathEntity);
 
-        const isInclude = options.include
+        const isInclude = options.include.length > 0
             ? [pathEntity, parts.base, parts.name, parts.ext].some((check) => options.include.includes(check))
             : true;
 
-        const isExclude = options.exclude
+        const isExclude = options.exclude.length > 0
             ? [pathEntity, parts.base, parts.name, parts.ext].some((check) => options.exclude.includes(check))
             : false;
 
         const isDirectory = fs.statSync(pathEntity).isDirectory();
 
         if (isDirectory && !isExclude && (options.recursive)) {
-            _traverseFiles(options, pathEntity, files);
+            _traverseFiles(pathEntity, options, files);
         } else if (isInclude && !isExclude) {
             files.push(pathEntity);
             options.cbAction(pathEntity, parts);
