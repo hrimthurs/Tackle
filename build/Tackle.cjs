@@ -1,4 +1,4 @@
-/* @hrimthurs/tackle 1.14.0 https://github.com/hrimthurs/Tackle @license MIT */
+/* @hrimthurs/tackle 1.14.1 https://github.com/hrimthurs/Tackle @license MIT */
 'use strict';
 
 Object.defineProperty(exports, '__esModule', { value: true });
@@ -579,6 +579,7 @@ function promiseTimeout(limTimeout, options = {}) {
             else resolve();
         }, limTimeout);
 
+        // @ts-ignore
         options?.cbCreate(resolve, idTimeout);
 
         if (options.func) {
@@ -921,8 +922,8 @@ const path = require('path');
 
 /**
  * Traversing files in folders
- * @param {object} options                  Options
- * @param {string} [options.root]           Root for traversing (default: './')
+ * @param {string} root                     Root for traversing
+ * @param {object} [options]                Options
  * @param {string[]} [options.include]      Array of patterns of files/folders to includes in traversing (default: empty → all traversing)
  * @param {string[]} [options.exclude]      Array of patterns of files/folders to excludes from traversing (default: empty → all traversing)
  * @param {boolean} [options.recursive]     Recursive traversing of folders (default: true)
@@ -931,12 +932,16 @@ const path = require('path');
  *      - arg1 - parsed parts of path of file
  * @returns {string[]}                      Array of full pathes of all traversed files
  */
-function traverseFiles({ root = './', include = [], exclude = [], recursive = true, cbAction = (fullPath, parts) => {} }) {
-    const useRoot = !path.isAbsolute(root)
-        ? path.join(__dirname, root)
-        : root;
+function traverseFiles(root, options = {}) {
+    const useOptions = {
+        include: [],
+        exclude: [],
+        recursive: true,
+        cbAction: (fullPath, parts) => {},
+        ...options
+    };
 
-    return _traverseFiles({ include, exclude, recursive, cbAction }, useRoot, [])
+    return _traverseFiles(useOptions, root, [])
 }
 
 function _traverseFiles(options, parentDir, files) {

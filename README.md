@@ -493,11 +493,11 @@ const { TkArray, TkObject, TkString, TkFunction, TkService, TkBrowser, TkNode } 
 ### TkNode (only be used in the nodejs):
 
 ~~~ javascript
-• TkNode.traverseFiles({ root = './', include = [], exclude = [], recursive = true, cbAction = (fullPath, parts) => {} })
+• TkNode.traverseFiles(root, options = {})
     /**
      * Traversing files in folders
-     * @param {object} options                  Options
-     * @param {string} [options.root]           Root for traversing (default: './')
+     * @param {string} root                     Root for traversing
+     * @param {object} [options]                Options
      * @param {string[]} [options.include]      Array of patterns of files/folders to includes in traversing (default: empty → all traversing)
      * @param {string[]} [options.exclude]      Array of patterns of files/folders to excludes from traversing (default: empty → all traversing)
      * @param {boolean} [options.recursive]     Recursive traversing of folders (default: true)

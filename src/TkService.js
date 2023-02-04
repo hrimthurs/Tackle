@@ -184,6 +184,7 @@ function promiseTimeout(limTimeout, options = {}) {
             else resolve()
         }, limTimeout)
 
+        // @ts-ignore
         options?.cbCreate(resolve, idTimeout)
 
         if (options.func) {
