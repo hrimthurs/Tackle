@@ -1,6 +1,6 @@
 {
   "name": "@hrimthurs/tackle",
-  "version": "1.12.2",
+  "version": "1.13.0",
   "description": "Various auxiliary tools for working in JavaScript projects",
   "author": "@hrimthurs",
   "license": "MIT",
@@ -21,7 +21,7 @@
     }
   },
   "scripts": {
-    "run:example": "node ./examples/example.js",
+    "run": "node ./examples/example.js",
     "build": "rollup -c",
     "version": "npm view @hrimthurs/tackle version",
     "pub": "npm publish --access public"

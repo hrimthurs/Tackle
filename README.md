@@ -400,7 +400,7 @@ const { TkArray, TkObject, TkString, TkFunction, TkService, TkBrowser } = requir
      * @param {object} [options]                Options
      * @param {function} [options.func]         Promise-wrapped function (default: null)
      * @param {Array} [options.args]            Arguments for promise-wrapped function (default: empty)
-     * @param {function(function, number):void} [options.cbCreate] Callback after create promise (default: empty)
+     * @param {function(function,number):void} [options.cbCreate] Callback after create promise (default: empty)
      *      - arg0 - promise resolve function
      *      - arg1 - timeout id
      * @param {boolean} [options.timeoutReject] Call reject on timeout (default: false → call resolve without args)
@@ -445,6 +445,46 @@ const { TkArray, TkObject, TkString, TkFunction, TkService, TkBrowser } = requir
      * Intercepting on page "error" and "unhandledrejection" events
      * @param {function(string):void} handler   Callback with error message on errors events
      * @param {boolean} [preventDefault]        Prevent default errors events (default: true)
+     */
+
+• TkBrowser.httpRequest(url, options = {})
+    /**
+     * Implementation HTTP request
+     * @param {string} url                      Url of request
+     *
+     * @param {object} [options]                                    Options
+     * @param {'GET'|'POST'} [options.method]                       Method of request (default: 'GET')
+     * @param {XMLHttpRequestResponseType} [options.responseType]   Expected response type (default: 'arraybuffer')
+     * @param {TObjectJS} [options.params]                          Params of request. In case of a GET-request, this converted to url search params by TkService.setParamsURL → parsing on server by TkService.getParamsURL (default: empty)
+     * @param {Object<string,string>} [options.headers]             Headers of request (default: empty)
+     *
+     * @param {string} [options.id]             Id of request. Used in callbacks of request events (default: null)
+     * @param {number} [options.timeout]        Timeout of request (default: 10000)
+     * @param {boolean} [options.useCache]      Use request cached by browser (default: true)
+     * @param {boolean} [options.useReject]     Use promise rejection on failure of request (default: false → resolve null)
+     *
+     * @param {function(any,string):void} [options.cbLoad]          Callback on successful completion of the request (default: empty)
+     *      - arg0 - response body
+     *      - arg1 - request id
+     * @param {function(number,string):void} [options.cbError]      Callback on failure of the request (default: empty)
+     *      - arg0 - error status
+     *      - arg1 - request id
+     * @param {function(number,any,string):void} [options.cbFinal]  Callback on completion of the request (default: empty)
+     *      - arg0 - request status
+     *      - arg1 - response body
+     *      - arg2 - request id
+     * @param {function(number,number,string):void} [options.cbProgress] Callback on progress of the request (default: empty)
+     *      - arg0 - bytes loaded
+     *      - arg1 - bytes total
+     *      - arg2 - request id
+     * @returns {Promise}
+     */
+
+• TkBrowser.saveValAsJson(fileName, value)
+    /**
+     * Saves the passed value in JSON format
+     * @param {string} fileName                 Name of file
+     * @param {any} value                       Value to save
      */
 ~~~
 

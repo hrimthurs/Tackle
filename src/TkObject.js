@@ -2,7 +2,7 @@
 import { getHash as getHashString } from './TkString.js'
 
 /**
- * @typedef {import('./Tackle').TObjectJS} TObjectJS Type of object JS
+ * @typedef {{[key:string]:any}} TObjectJS  Type of object JS
  */
 
 /**

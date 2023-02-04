@@ -1,7 +1,3 @@
-/**
- * @typedef {{[key:string]:any}} TObjectJS  Type of object JS
- */
-
 import TkArray from './TkArray.js'
 import TkString from './TkString.js'
 import TkObject from './TkObject.js'

@@ -1,7 +1,7 @@
 ﻿import { getHash as getHashString } from './TkString.js'
 
 /**
- * @typedef {import('./Tackle').TObjectJS} TObjectJS Type of object JS
+ * @typedef {{[key:string]:any}} TObjectJS  Type of object JS
  */
 
 /**
@@ -95,11 +95,12 @@ export function getParamsURL(srcUrl = null, options = {}) {
  * Set parameters from object to URL
  *
  * Converts:
+ * - param_name: undefined → skip
  * - param_name: val1 → param_name=val1
  * - param_name: {val1: val2} → param_name=val1:val2
  * - param_name: [val1, val2, val3] → param_name=val1,val2,val3
  * - param_name: {val1: val2, val3: val4} → param_name=val1:val2,val3:val4
- * - subvalue object of array/object → <json-string>
+ * - empty array/object, subvalue object of array/object → <json-string>
  *
  * @param {string|URL} url                  Source string URL or exist URL-object
  * @param {TObjectJS} [params]              Source object to set as parameters URL (default: {})
@@ -108,20 +109,24 @@ export function getParamsURL(srcUrl = null, options = {}) {
  */
 export function setParamsURL(url, params = {}, encode = false) {
     let res = typeof url === 'string' ? _tryMakeURL(url) : url
-    if (res) {
 
+    if (res) {
         for (const key in params) {
             let value = params[key]
 
-            if (typeof value === 'object') {
-                let obj = Array.isArray(value)
-                    ? value.map((val) => _valToStr(val, { 'string': (v) => v }))
-                    : Object.entries(value).map((rec) => `${rec[0]}:${_valToStr(rec[1], { 'string': (v) => v })}`)
+            if (value !== undefined) {
+                if ((typeof value === 'object') && (value !== null)) {
+                    let obj = Array.isArray(value)
+                        ? value.map((val) => _valToStr(val, { 'string': (v) => v }))
+                        : Object.entries(value).map((rec) => `${rec[0]}:${_valToStr(rec[1], { 'string': (v) => v })}`)
 
-                value = obj.join(',')
+                    value = obj.length > 0
+                        ? obj.join(',')
+                        : _valToStr(value)
+                }
+
+                res.searchParams.set(key, encode ? encodeURIComponent(value) : value)
             }
-
-            res.searchParams.set(key, encode ? encodeURIComponent(value) : value)
         }
     }
 
@@ -166,7 +171,7 @@ function generateUUID() {
  * @param {object} [options]                Options
  * @param {function} [options.func]         Promise-wrapped function (default: null)
  * @param {Array} [options.args]            Arguments for promise-wrapped function (default: empty)
- * @param {function(function, number):void} [options.cbCreate] Callback after create promise (default: empty)
+ * @param {function(function,number):void} [options.cbCreate] Callback after create promise (default: empty)
  *      - arg0 - promise resolve function
  *      - arg1 - timeout id
  * @param {boolean} [options.timeoutReject] Call reject on timeout (default: false → call resolve without args)

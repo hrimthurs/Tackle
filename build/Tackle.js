@@ -1,4 +1,4 @@
-/* @hrimthurs/tackle 1.12.2 https://github.com/hrimthurs/Tackle @license MIT */
+/* @hrimthurs/tackle 1.13.0 https://github.com/hrimthurs/Tackle @license MIT */
 /**
  * Returns array regardless of type srcVal
  * @param {any} srcVal                      Source value
@@ -125,7 +125,7 @@ function getHash$1(srcStr, seed = 0) {
 var TkString = { formatNumber, getHash: getHash$1 };
 
 /**
- * @typedef {import('./Tackle').TObjectJS} TObjectJS Type of object JS
+ * @typedef {{[key:string]:any}} TObjectJS  Type of object JS
  */
 
 /**
@@ -392,7 +392,7 @@ function decoMemoize(srcFunc, context = globalThis) {
 var TkFunction = { decoMemoize };
 
 /**
- * @typedef {import('./Tackle').TObjectJS} TObjectJS Type of object JS
+ * @typedef {{[key:string]:any}} TObjectJS  Type of object JS
  */
 
 /**
@@ -486,11 +486,12 @@ function getParamsURL(srcUrl = null, options = {}) {
  * Set parameters from object to URL
  *
  * Converts:
+ * - param_name: undefined → skip
  * - param_name: val1 → param_name=val1
  * - param_name: {val1: val2} → param_name=val1:val2
  * - param_name: [val1, val2, val3] → param_name=val1,val2,val3
  * - param_name: {val1: val2, val3: val4} → param_name=val1:val2,val3:val4
- * - subvalue object of array/object → <json-string>
+ * - empty array/object, subvalue object of array/object → <json-string>
  *
  * @param {string|URL} url                  Source string URL or exist URL-object
  * @param {TObjectJS} [params]              Source object to set as parameters URL (default: {})
@@ -499,20 +500,24 @@ function getParamsURL(srcUrl = null, options = {}) {
  */
 function setParamsURL(url, params = {}, encode = false) {
     let res = typeof url === 'string' ? _tryMakeURL(url) : url;
-    if (res) {
 
+    if (res) {
         for (const key in params) {
             let value = params[key];
 
-            if (typeof value === 'object') {
-                let obj = Array.isArray(value)
-                    ? value.map((val) => _valToStr(val, { 'string': (v) => v }))
-                    : Object.entries(value).map((rec) => `${rec[0]}:${_valToStr(rec[1], { 'string': (v) => v })}`);
+            if (value !== undefined) {
+                if ((typeof value === 'object') && (value !== null)) {
+                    let obj = Array.isArray(value)
+                        ? value.map((val) => _valToStr(val, { 'string': (v) => v }))
+                        : Object.entries(value).map((rec) => `${rec[0]}:${_valToStr(rec[1], { 'string': (v) => v })}`);
 
-                value = obj.join(',');
+                    value = obj.length > 0
+                        ? obj.join(',')
+                        : _valToStr(value);
+                }
+
+                res.searchParams.set(key, encode ? encodeURIComponent(value) : value);
             }
-
-            res.searchParams.set(key, encode ? encodeURIComponent(value) : value);
         }
     }
 
@@ -557,7 +562,7 @@ function generateUUID() {
  * @param {object} [options]                Options
  * @param {function} [options.func]         Promise-wrapped function (default: null)
  * @param {Array} [options.args]            Arguments for promise-wrapped function (default: empty)
- * @param {function(function, number):void} [options.cbCreate] Callback after create promise (default: empty)
+ * @param {function(function,number):void} [options.cbCreate] Callback after create promise (default: empty)
  *      - arg0 - promise resolve function
  *      - arg1 - timeout id
  * @param {boolean} [options.timeoutReject] Call reject on timeout (default: false → call resolve without args)
@@ -639,7 +644,7 @@ function _tryStrToObj(srcStr) {
 }
 
 /**
- * @typedef {import('./Tackle').TObjectJS} TObjectJS Type of object JS
+ * @typedef {{[key:string]:any}} TObjectJS  Type of object JS
  */
 
 /**
@@ -656,7 +661,7 @@ function _tryStrToObj(srcStr) {
  * @returns {HTMLElement}
  */
 function createHTMLElement(tagName, elParent, options = {}) {
-    const element = document.createElement(tagName);
+    const element = self.document.createElement(tagName);
 
     const insertFirst = options.insertFirst ?? false;
     const subElements = options.subElements ?? [];
@@ -780,11 +785,137 @@ function interceptErrors(handler, preventDefault = true) {
     });
 }
 
-var TkBrowser = { createHTMLElement, getSizeHTMLElement, setDivResizer, interceptErrors };
+/**
+ * Implementation HTTP request
+ * @param {string} url                      Url of request
+ *
+ * @param {object} [options]                                    Options
+ * @param {'GET'|'POST'} [options.method]                       Method of request (default: 'GET')
+ * @param {XMLHttpRequestResponseType} [options.responseType]   Expected response type (default: 'arraybuffer')
+ * @param {TObjectJS} [options.params]                          Params of request. In case of a GET-request, this converted to url search params by TkService.setParamsURL → parsing on server by TkService.getParamsURL (default: empty)
+ * @param {Object<string,string>} [options.headers]             Headers of request (default: empty)
+ *
+ * @param {string} [options.id]             Id of request. Used in callbacks of request events (default: null)
+ * @param {number} [options.timeout]        Timeout of request (default: 10000)
+ * @param {boolean} [options.useCache]      Use request cached by browser (default: true)
+ * @param {boolean} [options.useReject]     Use promise rejection on failure of request (default: false → resolve null)
+ *
+ * @param {function(any,string):void} [options.cbLoad]          Callback on successful completion of the request (default: empty)
+ *      - arg0 - response body
+ *      - arg1 - request id
+ * @param {function(number,string):void} [options.cbError]      Callback on failure of the request (default: empty)
+ *      - arg0 - error status
+ *      - arg1 - request id
+ * @param {function(number,any,string):void} [options.cbFinal]  Callback on completion of the request (default: empty)
+ *      - arg0 - request status
+ *      - arg1 - response body
+ *      - arg2 - request id
+ * @param {function(number,number,string):void} [options.cbProgress] Callback on progress of the request (default: empty)
+ *      - arg0 - bytes loaded
+ *      - arg1 - bytes total
+ *      - arg2 - request id
+ * @returns {Promise}
+ */
+function httpRequest(url, options = {}) {
+    const useOptions = {
+        method: 'GET',
+
+        /** @type {XMLHttpRequestResponseType} */
+        responseType: 'arraybuffer',
+
+        params: {},
+        headers: {},
+
+        id: null,
+        timeout: 10000,
+        useCache: true,
+        useReject: false,
+
+        cbLoad: (response, requestId) => {},
+        cbError: (status, requestId) => {},
+        cbFinal: (status, response, requestId) => {},
+        cbProgress: (loaded, total, requestId) => {},
+
+        ...options
+    };
+
+    let useUrl;
+
+    try {
+        useUrl = new URL(url);
+    } catch {
+        const baseUrl = new URL(self.location.href).origin;
+        useUrl = new URL(url, baseUrl);
+    }
+
+    if (useOptions.method === 'GET') {
+        setParamsURL(useUrl, options.params);
+        if (useOptions.useCache === false) useUrl.searchParams.set('r', Math.random().toString());
+    }
+
+    return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+
+        xhr.open(useOptions.method, useUrl, true);
+        xhr.responseType = useOptions.responseType;
+        xhr.timeout = useOptions.timeout;
+
+        for (let name in useOptions.headers) {
+            xhr.setRequestHeader(name,  useOptions.headers[name]);
+        }
+
+        xhr.onloadend = () => {
+            const isError = (xhr.status !== 200) || ((useOptions.responseType === 'arraybuffer') && (xhr.response.byteLength === 0));
+
+            if (isError) {
+                useOptions.cbError(xhr.status, useOptions.id);
+                if (useOptions.useReject) reject(xhr.status);
+                else resolve(null);
+            } else {
+                useOptions.cbLoad(xhr.response, useOptions.id);
+                resolve(xhr.response);
+            }
+
+            useOptions.cbFinal(xhr.status, xhr.response, useOptions.id);
+        };
+
+        xhr.ontimeout = () => {
+            useOptions.cbError(408, useOptions.id);
+            if (useOptions.useReject) reject(408);
+            else resolve(null);
+            useOptions.cbFinal(408, null, useOptions.id);
+        };
+
+        xhr.onprogress = (event) => {
+            useOptions.cbProgress(event.loaded, event.total, useOptions.id);
+        };
+
+        const sendData = JSON.stringify(useOptions.method === 'POST' ? useOptions.params : {});
+        xhr.send(sendData);
+    })
+}
 
 /**
- * @typedef {{[key:string]:any}} TObjectJS  Type of object JS
+ * Saves the passed value in JSON format
+ * @param {string} fileName                 Name of file
+ * @param {any} value                       Value to save
  */
+function saveValAsJson(fileName, value) {
+    const blob = new Blob([JSON.stringify(value, null, '\t')], { type: 'text/json' });
+    const url = URL.createObjectURL(blob);
+
+    setTimeout(() => URL.revokeObjectURL(url), 10000);
+
+    createHTMLElement('a', self.document.body, {
+        properties: {
+            type: 'text/json',
+            download: fileName,
+            href: url
+        }
+    }).click();
+}
+
+var TkBrowser = { createHTMLElement, getSizeHTMLElement, setDivResizer, interceptErrors, httpRequest, saveValAsJson };
 
 var Tackle = { TkArray, TkString, TkObject, TkFunction, TkService, TkBrowser };
 
