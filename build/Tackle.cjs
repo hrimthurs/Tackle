@@ -1,7 +1,10 @@
-/* @hrimthurs/tackle 1.14.2 https://github.com/hrimthurs/Tackle @license MIT */
+/* @hrimthurs/tackle 1.14.3 https://github.com/hrimthurs/Tackle @license MIT */
 'use strict';
 
 Object.defineProperty(exports, '__esModule', { value: true });
+
+var fs = require('node:fs');
+var path = require('node:path');
 
 /**
  * Returns array regardless of type srcVal
@@ -912,9 +915,6 @@ function saveValAsJson(fileName, value) {
 }
 
 var TkBrowser = { createHTMLElement, getSizeHTMLElement, setDivResizer, interceptErrors, httpRequest, saveValAsJson };
-
-const fs = require('fs');
-const path = require('path');
 
 /**
  * @typedef {import('node:path').ParsedPath} TParsedPath

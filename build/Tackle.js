@@ -1,4 +1,7 @@
-/* @hrimthurs/tackle 1.14.2 https://github.com/hrimthurs/Tackle @license MIT */
+/* @hrimthurs/tackle 1.14.3 https://github.com/hrimthurs/Tackle @license MIT */
+import fs from 'node:fs';
+import path from 'node:path';
+
 /**
  * Returns array regardless of type srcVal
  * @param {any} srcVal                      Source value
@@ -908,9 +911,6 @@ function saveValAsJson(fileName, value) {
 }
 
 var TkBrowser = { createHTMLElement, getSizeHTMLElement, setDivResizer, interceptErrors, httpRequest, saveValAsJson };
-
-const fs = require('fs');
-const path = require('path');
 
 /**
  * @typedef {import('node:path').ParsedPath} TParsedPath

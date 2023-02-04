@@ -1,5 +1,8 @@
 import babel from '@rollup/plugin-babel'
 import terser from '@rollup/plugin-terser'
+import hypothetical from 'rollup-plugin-hypothetical'
+
+import { nodeResolve } from '@rollup/plugin-node-resolve'
 
 import pkg from './package.json' assert { type: 'json' }
 
@@ -29,12 +32,20 @@ function roll(name, format, outFile, usePlugins = [], exports = 'named') {
             file: path.join(dstFolder, outFile.replace(/\[name\]/g, name)),
             banner: `/* ${pkg.name} ${pkg.version} https://github.com/${pkg.repository} @license ${pkg.license} */`
         },
-        plugins: usePlugins.map(func => func())
+        plugins: [
+            ...usePlugins.map(func => func()),
+            nodeResolve()
+        ]
     }
 }
 
-const pluginsMin = [terser]
-const pluginsMinES5 = [transpile, terser]
+const excludeTkNode = () => hypothetical({
+    allowFallthrough: true,
+    files: { './src/TkNode.js': 'export default {}' }
+})
+
+const pluginsMin = [excludeTkNode, terser]
+const pluginsMinES5 = [excludeTkNode, transpile, terser]
 
 export default [
     roll('Tackle', 'esm', '[name].js'),
