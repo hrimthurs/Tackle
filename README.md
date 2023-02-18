@@ -464,6 +464,7 @@ const { TkArray, TkObject, TkString, TkFunction, TkService, TkBrowser, TkNode } 
      * @param {number} [options.timeout]        Timeout of request (default: 10000)
      * @param {boolean} [options.useCache]      Use request cached by browser (default: true)
      * @param {boolean} [options.useReject]     Use promise rejection on failure of request (default: false → resolve null)
+     * @param {boolean} [options.delSearchMark] Delete search mark ('?') from url (default: false)
      *
      * @param {function(any,string):void} [options.cbLoad]          Callback on successful completion of the request (default: empty)
      *      - arg0 - response body

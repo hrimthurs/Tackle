@@ -1,4 +1,4 @@
-/* @hrimthurs/tackle 1.14.4 https://github.com/hrimthurs/Tackle @license MIT */
+/* @hrimthurs/tackle 1.14.5 https://github.com/hrimthurs/Tackle @license MIT */
 'use strict';
 
 Object.defineProperty(exports, '__esModule', { value: true });
@@ -807,6 +807,7 @@ function interceptErrors(handler, preventDefault = true) {
  * @param {number} [options.timeout]        Timeout of request (default: 10000)
  * @param {boolean} [options.useCache]      Use request cached by browser (default: true)
  * @param {boolean} [options.useReject]     Use promise rejection on failure of request (default: false → resolve null)
+ * @param {boolean} [options.delSearchMark] Delete search mark ('?') from url (default: false)
  *
  * @param {function(any,string):void} [options.cbLoad]          Callback on successful completion of the request (default: empty)
  *      - arg0 - response body
@@ -838,6 +839,7 @@ function httpRequest(url, options = {}) {
         timeout: 10000,
         useCache: true,
         useReject: false,
+        delSearchMark: false,
 
         cbLoad: (response, requestId) => {},
         cbError: (status, requestId) => {},
@@ -847,17 +849,21 @@ function httpRequest(url, options = {}) {
         ...options
     };
 
+    const addUrl = useOptions.delSearchMark
+        ? '/' + setParamsURL(self.location.href, options.params).searchParams.toString()
+        : '';
+
     let useUrl;
 
     try {
-        useUrl = new URL(url);
+        useUrl = new URL(url + addUrl);
     } catch {
         const baseUrl = new URL(self.location.href).origin;
-        useUrl = new URL(url, baseUrl);
+        useUrl = new URL(url + addUrl, baseUrl);
     }
 
-    if (useOptions.method === 'GET') setParamsURL(useUrl, options.params);
-    if (useOptions.useCache === false) useUrl.searchParams.set('r', Math.random().toString());
+    if (!useOptions.delSearchMark && (useOptions.method === 'GET')) setParamsURL(useUrl, options.params);
+    if (!useOptions.useCache) useUrl.searchParams.set('r', Math.random().toString());
 
     return new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();
