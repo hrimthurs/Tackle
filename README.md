@@ -460,11 +460,12 @@ const { TkArray, TkObject, TkString, TkFunction, TkService, TkBrowser, TkNode } 
      * @param {TObjectJS} [options.params]                          Params of request. In case of a GET-request, this converted to url search params by TkService.setParamsURL → parsing on server by TkService.getParamsURL (default: empty)
      * @param {Object<string,string>} [options.headers]             Headers of request (default: empty)
      *
-     * @param {string} [options.id]             Id of request. Used in callbacks of request events (default: null)
-     * @param {number} [options.timeout]        Timeout of request (default: 10000)
-     * @param {boolean} [options.useCache]      Use request cached by browser (default: true)
-     * @param {boolean} [options.useReject]     Use promise rejection on failure of request (default: false → resolve null)
-     * @param {boolean} [options.delSearchMark] Delete search mark ('?') from url (default: false)
+     * @param {string} [options.id]                 Id of request. Used in callbacks of request events (default: null)
+     * @param {number} [options.timeout]            Timeout of request (default: 10000)
+     * @param {boolean} [options.useCache]          Use request cached by browser (default: true)
+     * @param {boolean} [options.useReject]         Use promise rejection on failure of request (default: false → resolve null)
+     * @param {boolean} [options.delSearchMark]     Delete search mark ('?') from url (default: false)
+     * @param {boolean} [options.setQueryString]    Set query string for all methods (default: false → not set for POST method)
      *
      * @param {function(any,string):void} [options.cbLoad]          Callback on successful completion of the request (default: empty)
      *      - arg0 - response body
