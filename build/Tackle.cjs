@@ -1,4 +1,4 @@
-/* @hrimthurs/tackle 1.14.6 https://github.com/hrimthurs/Tackle @license MIT */
+/* @hrimthurs/tackle 1.14.7 https://github.com/hrimthurs/Tackle @license MIT */
 'use strict';
 
 Object.defineProperty(exports, '__esModule', { value: true });
@@ -807,8 +807,8 @@ function interceptErrors(handler, preventDefault = true) {
  * @param {number} [options.timeout]            Timeout of request (default: 10000)
  * @param {boolean} [options.useCache]          Use request cached by browser (default: true)
  * @param {boolean} [options.useReject]         Use promise rejection on failure of request (default: false → resolve null)
- * @param {boolean} [options.delSearchMark]     Delete search mark ('?') from url (default: false)
- * @param {boolean} [options.setQueryString]    Set query string for all methods (default: false → not set for POST method)
+ * @param {boolean} [options.setGetAsFolder]    For GET request set parameters to query string as path to folder (default: false)
+ * @param {boolean} [options.addPostQString]    For POST request set body parameters to query string (default: false)
  *
  * @param {function(any,string):void} [options.cbLoad]          Callback on successful completion of the request (default: empty)
  *      - arg0 - response body
@@ -838,9 +838,12 @@ function httpRequest(url, options = {}) {
 
         id: null,
         timeout: 10000,
+
         useCache: true,
         useReject: false,
-        delSearchMark: false,
+
+        setGetAsFolder: false,
+        addPostQString: false,
 
         cbLoad: (response, requestId) => {},
         cbError: (status, requestId) => {},
@@ -850,26 +853,23 @@ function httpRequest(url, options = {}) {
         ...options
     };
 
-    const addUrl = useOptions.delSearchMark
-        ? '/' + setParamsURL(self.location.href, options.params).searchParams.toString()
-        : '';
+    const isSetParamUrlGET = !useOptions.setGetAsFolder && (useOptions.method === 'GET');
+    const isSetParamUrlPOST = useOptions.addPostQString && (useOptions.method === 'POST');
+
+    if (isSetParamUrlGET) url += '/' + setParamsURL(self.location.href, options.params).searchParams.toString();
+    if (isSetParamUrlPOST) url += '/';
 
     let useUrl;
 
     try {
-        useUrl = new URL(url + addUrl);
+        useUrl = new URL(url);
     } catch {
         const baseUrl = new URL(self.location.href).origin;
-        useUrl = new URL(url + addUrl, baseUrl);
+        useUrl = new URL(url, baseUrl);
     }
 
-    if (useOptions.setQueryString || (!useOptions.delSearchMark && (useOptions.method === 'GET'))) {
-        setParamsURL(useUrl, options.params);
-    }
-
-    if (!useOptions.useCache) {
-        useUrl.searchParams.set('r', Math.random().toString());
-    }
+    if (isSetParamUrlGET || isSetParamUrlPOST) setParamsURL(useUrl, options.params);
+    if (!useOptions.useCache) useUrl.searchParams.set('r', Math.random().toString());
 
     return new Promise((resolve, reject) => {
         const xhr = new XMLHttpRequest();

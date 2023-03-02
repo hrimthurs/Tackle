@@ -464,8 +464,8 @@ const { TkArray, TkObject, TkString, TkFunction, TkService, TkBrowser, TkNode } 
      * @param {number} [options.timeout]            Timeout of request (default: 10000)
      * @param {boolean} [options.useCache]          Use request cached by browser (default: true)
      * @param {boolean} [options.useReject]         Use promise rejection on failure of request (default: false → resolve null)
-     * @param {boolean} [options.delSearchMark]     Delete search mark ('?') from url (default: false)
-     * @param {boolean} [options.setQueryString]    Set query string for all methods (default: false → not set for POST method)
+     * @param {boolean} [options.setGetAsFolder]    For GET request set parameters to query string as path to folder (default: false)
+     * @param {boolean} [options.addPostQString]    For POST request set body parameters to query string (default: false)
      *
      * @param {function(any,string):void} [options.cbLoad]          Callback on successful completion of the request (default: empty)
      *      - arg0 - response body
