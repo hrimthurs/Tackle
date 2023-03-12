@@ -202,11 +202,15 @@ export function httpRequest(url, options = {}) {
         ...options
     }
 
-    const isSetParamUrlGET = !useOptions.setGetAsFolder && (useOptions.method === 'GET')
-    const isSetParamUrlPOST = useOptions.addPostQString && (useOptions.method === 'POST')
+    const isMethodGET = useOptions.method === 'GET'
+    const isMethodPOST = useOptions.method === 'POST'
 
-    if (isSetParamUrlGET) url += '/' + setParamsURL(self.location.href, options.params).searchParams.toString()
-    if (isSetParamUrlPOST) url += '/'
+    let isSetParamsUrl = isMethodGET || (isMethodPOST && useOptions.addPostQString)
+
+    if (isMethodGET && useOptions.setGetAsFolder) {
+        url += setParamsURL(self.location.href, options.params).searchParams.toString()
+        isSetParamsUrl = false
+    }
 
     let useUrl
 
@@ -217,7 +221,7 @@ export function httpRequest(url, options = {}) {
         useUrl = new URL(url, baseUrl)
     }
 
-    if (isSetParamUrlGET || isSetParamUrlPOST) setParamsURL(useUrl, options.params)
+    if (isSetParamsUrl) setParamsURL(useUrl, options.params)
     if (!useOptions.useCache) useUrl.searchParams.set('r', Math.random().toString())
 
     return new Promise((resolve, reject) => {
@@ -250,7 +254,7 @@ export function httpRequest(url, options = {}) {
             useOptions.cbProgress(event.loaded, event.total, useOptions.id)
         }
 
-        const sendData = JSON.stringify(useOptions.method === 'POST' ? useOptions.params : {})
+        const sendData = JSON.stringify(isMethodPOST ? useOptions.params : {})
         xhr.send(sendData)
     })
 }
