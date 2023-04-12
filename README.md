@@ -448,7 +448,7 @@ const { TkArray, TkObject, TkString, TkFunction, TkService, TkBrowser, TkNode } 
     /**
      * Run callback for each element by selector
      * @param {string} selectorElement          Query selector of target elements
-     * @param {function(Element):void} callback Callback function
+     * @param {function(any):void} callback     Callback function
      */
 
 • TkBrowser.setDivResizer(elDiv, handler)

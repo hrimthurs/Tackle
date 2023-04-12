@@ -1,4 +1,4 @@
-/* @hrimthurs/tackle 1.15.0 https://github.com/hrimthurs/Tackle @license MIT */
+/* @hrimthurs/tackle 1.15.4 https://github.com/hrimthurs/Tackle @license MIT */
 'use strict';
 
 Object.defineProperty(exports, '__esModule', { value: true });
@@ -747,6 +747,32 @@ function getSizeHTMLElement(element) {
 }
 
 /**
+ * Sets/unsets classes for each element by selector
+ * @param {string} selectorElement          Query selector of target elements
+ * @param {object} [options]                Options
+ * @param {string|string[]} [options.set]   Class/classes name for set to each elements (default: empty)
+ * @param {string|string[]} [options.unset] Class/classes name for unset to each elements (default: empty)
+ */
+function applyClasses(selectorElement, options) {
+    const setClasses = getArray(options.set);
+    const unsetClasses = getArray(options.unset);
+
+    forEachElement(selectorElement, (el) => {
+        setClasses.forEach((name) => el.classList.add(name));
+        unsetClasses.forEach((name) => el.classList.remove(name));
+    });
+}
+
+/**
+ * Run callback for each element by selector
+ * @param {string} selectorElement          Query selector of target elements
+ * @param {function(any):void} callback     Callback function
+ */
+function forEachElement(selectorElement, callback) {
+    document.querySelectorAll(selectorElement).forEach((el) => callback(el));
+}
+
+/**
  * Set resize handler for div HTML element
  * @param {HTMLElement} elDiv               Div HTML element
  * @param {function({width:number,height:number}):void} handler Handler function
@@ -930,7 +956,7 @@ function saveValAsJson(fileName, value) {
     }).click();
 }
 
-var TkBrowser = { createHTMLElement, getSizeHTMLElement, setDivResizer, interceptErrors, httpRequest, saveValAsJson };
+var TkBrowser = { createHTMLElement, getSizeHTMLElement, applyClasses, forEachElement, setDivResizer, interceptErrors, httpRequest, saveValAsJson };
 
 /**
  * @typedef {import('node:path').ParsedPath} TParsedPath

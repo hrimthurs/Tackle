@@ -116,7 +116,7 @@ export function applyClasses(selectorElement, options) {
 /**
  * Run callback for each element by selector
  * @param {string} selectorElement          Query selector of target elements
- * @param {function(Element):void} callback Callback function
+ * @param {function(any):void} callback     Callback function
  */
 export function forEachElement(selectorElement, callback) {
     document.querySelectorAll(selectorElement).forEach((el) => callback(el))
@@ -306,4 +306,4 @@ export function saveValAsJson(fileName, value) {
     }).click()
 }
 
-export default { createHTMLElement, getSizeHTMLElement, setDivResizer, interceptErrors, httpRequest, saveValAsJson }
+export default { createHTMLElement, getSizeHTMLElement, applyClasses, forEachElement, setDivResizer, interceptErrors, httpRequest, saveValAsJson }
