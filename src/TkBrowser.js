@@ -1,4 +1,5 @@
 ﻿import { setParamsURL } from './TkService.js'
+import { getArray } from './TkArray.js'
 
 /**
  * @typedef {{[key:string]:any}} TObjectJS  Type of object JS
@@ -93,6 +94,32 @@ export function getSizeHTMLElement(element) {
         width: parseInt(width, 10) + 1,
         height: parseInt(height, 10) + 1
     }
+}
+
+/**
+ * Sets/unsets classes for each element by selector
+ * @param {string} selectorElement          Query selector of target elements
+ * @param {object} [options]                Options
+ * @param {string|string[]} [options.set]   Class/classes name for set to each elements (default: empty)
+ * @param {string|string[]} [options.unset] Class/classes name for unset to each elements (default: empty)
+ */
+export function applyClasses(selectorElement, options) {
+    const setClasses = getArray(options.set)
+    const unsetClasses = getArray(options.unset)
+
+    forEachElement(selectorElement, (el) => {
+        setClasses.forEach((name) => el.classList.add(name))
+        unsetClasses.forEach((name) => el.classList.remove(name))
+    })
+}
+
+/**
+ * Run callback for each element by selector
+ * @param {string} selectorElement          Query selector of target elements
+ * @param {function(Element):void} callback Callback function
+ */
+export function forEachElement(selectorElement, callback) {
+    document.querySelectorAll(selectorElement).forEach((el) => callback(el))
 }
 
 /**

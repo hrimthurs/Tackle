@@ -1,4 +1,4 @@
-/* @hrimthurs/tackle 1.14.8 https://github.com/hrimthurs/Tackle @license MIT */
+/* @hrimthurs/tackle 1.15.0 https://github.com/hrimthurs/Tackle @license MIT */
 /**
  * Returns array regardless of type srcVal
  * @param {any} srcVal                      Source value
