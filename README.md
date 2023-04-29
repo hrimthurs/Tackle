@@ -413,11 +413,10 @@ const { TkArray, TkObject, TkString, TkFunction, TkService, TkBrowser, TkNode } 
 ### TkBrowser (only be used in the browser):
 
 ~~~ javascript
-• TkBrowser.createHTMLElement(tagName, elParent, options = {})
+• TkBrowser.createHTMLElement(tagName, options = {}, elParent = null)
     /**
      * Creates an HTML element
      * @param {string} tagName                  Type of element to be created
-     * @param {HTMLElement} elParent            Parent HTML element (page root: document.body)
      * @param {object} [options]                Options
      * @param {boolean} [options.insertFirst]   Add an element as first of the children nodes of parent (default: false → add as last)
      * @param {TObjectJS[]} [options.subElements]               Entries of elements to recursively create as children (default: empty)
@@ -425,6 +424,7 @@ const { TkArray, TkObject, TkString, TkFunction, TkService, TkBrowser, TkNode } 
      * @param {string|Object<string,string>} [options.style]    Keys/values/cssText of the style to be set for the element (default: empty)
      * @param {string|string[]} [options.class]                 Class/Classes to be set for the element (default: empty)
      * @param {Object<string,string>} [options.properties]      Keys/values of exist properties to be set for the element (default: empty)
+     * @param {HTMLElement} [elParent]          Parent HTML element (default: empty). Page root: document.body
      * @returns {HTMLElement}
      */
 

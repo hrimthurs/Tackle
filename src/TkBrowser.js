@@ -8,7 +8,6 @@ import { getArray } from './TkArray.js'
 /**
  * Creates an HTML element
  * @param {string} tagName                  Type of element to be created
- * @param {HTMLElement} elParent            Parent HTML element (page root: document.body)
  * @param {object} [options]                Options
  * @param {boolean} [options.insertFirst]   Add an element as first of the children nodes of parent (default: false → add as last)
  * @param {TObjectJS[]} [options.subElements]               Entries of elements to recursively create as children (default: empty)
@@ -16,9 +15,10 @@ import { getArray } from './TkArray.js'
  * @param {string|Object<string,string>} [options.style]    Keys/values/cssText of the style to be set for the element (default: empty)
  * @param {string|string[]} [options.class]                 Class/Classes to be set for the element (default: empty)
  * @param {Object<string,string>} [options.properties]      Keys/values of exist properties to be set for the element (default: empty)
+ * @param {HTMLElement} [elParent]          Parent HTML element (default: empty). Page root: document.body
  * @returns {HTMLElement}
  */
-export function createHTMLElement(tagName, elParent, options = {}) {
+export function createHTMLElement(tagName, options = {}, elParent = null) {
     const element = self.document.createElement(tagName)
 
     const insertFirst = options.insertFirst ?? false
@@ -34,8 +34,8 @@ export function createHTMLElement(tagName, elParent, options = {}) {
         switch (propName) {
             case 'attributes':
                 if (isValObject) {
-                    Object.entries(propVal).forEach((rec) => {
-                        element.setAttribute(rec[0], rec[1])
+                    Object.entries(propVal).forEach(([name, val]) => {
+                        element.setAttribute(name, val)
                     })
                 }
             break
@@ -44,8 +44,8 @@ export function createHTMLElement(tagName, elParent, options = {}) {
                 const currCssText = element.style.cssText ?? ''
 
                 if (isValObject) {
-                    Object.entries(propVal).forEach((rec) => {
-                        element.style.cssText = currCssText + `;${rec[0]}:${rec[1]}`
+                    Object.entries(propVal).forEach(([name, val]) => {
+                        element.style.cssText = currCssText + `;${name}:${val}`
                     })
                 } else if (isValString) {
                     element.style.cssText = currCssText + `;${propVal}`
@@ -62,21 +62,23 @@ export function createHTMLElement(tagName, elParent, options = {}) {
 
             case 'properties':
                 if (isValObject) {
-                    Object.entries(propVal).forEach((rec) => {
-                        if (rec[0] in element) element[rec[0]] = rec[1]
+                    Object.entries(propVal).forEach(([name, val]) => {
+                        if (name in element) element[name] = val
                     })
                 }
             break
         }
     })
 
-    if (insertFirst) elParent.insertBefore(element, elParent.firstChild)
-    else elParent.appendChild(element)
+    if (elParent) {
+        if (insertFirst) elParent.insertBefore(element, elParent.firstChild)
+        else elParent.appendChild(element)
+    }
 
     subElements.forEach((subEl) => {
         const tagName = subEl.tagName
         delete subEl.tagName
-        createHTMLElement(tagName, element, subEl)
+        createHTMLElement(tagName, subEl, element)
     })
 
     return element
@@ -128,10 +130,10 @@ export function forEachElement(selectorElement, callback) {
  * @param {function({width:number,height:number}):void} handler Handler function
  */
 export function setDivResizer(elDiv, handler) {
-    const elResizer = createHTMLElement('iframe', elDiv, {
+    const elResizer = createHTMLElement('iframe', {
         style: 'position:absolute; left:0px; top:0px; width:100%; height:100%; z-index:-10000',
         attributes: { frameborder: 'no' }
-    })
+    }, elDiv)
 
     const contentWindow = elResizer['contentWindow']
 
@@ -297,7 +299,7 @@ export function saveValAsJson(fileName, value) {
 
     setTimeout(() => URL.revokeObjectURL(url), 10000)
 
-    createHTMLElement('a', self.document.body, {
+    createHTMLElement('a', {
         properties: {
             type: 'text/json',
             download: fileName,
