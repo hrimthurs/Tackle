@@ -465,6 +465,13 @@ const { TkArray, TkObject, TkString, TkFunction, TkService, TkBrowser, TkNode } 
      * @param {boolean} [preventDefault]        Prevent default errors events (default: true)
      */
 
+• TkBrowser.onDocumentComplete(callback)
+    /**
+     * Wait for document complete
+     * @param {function():void} [callback]      Callback on document complete
+     * @returns {Promise}
+     */
+
 • TkBrowser.httpRequest(url, options = {})
     /**
      * Implementation HTTP request

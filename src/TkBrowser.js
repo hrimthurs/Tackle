@@ -172,6 +172,26 @@ export function interceptErrors(handler, preventDefault = true) {
 }
 
 /**
+ * Wait for document complete
+ * @param {function():void} [callback]      Callback on document complete
+ * @returns {Promise}
+ */
+export function onDocumentComplete(callback) {
+    return new Promise((resolve) => {
+        const complete = () => {
+            callback()
+            resolve()
+        }
+
+        if (document.readyState !== 'complete') {
+            document.addEventListener('readystatechange', () => {
+                if (document.readyState === 'complete') complete()
+            })
+        } else complete()
+    })
+}
+
+/**
  * Implementation HTTP request
  * @param {string} url                      Url of request
  *
@@ -308,4 +328,4 @@ export function saveValAsJson(fileName, value) {
     }).click()
 }
 
-export default { createHTMLElement, getSizeHTMLElement, applyClasses, forEachElement, setDivResizer, interceptErrors, httpRequest, saveValAsJson }
+export default { createHTMLElement, getSizeHTMLElement, applyClasses, forEachElement, setDivResizer, interceptErrors, onDocumentComplete, httpRequest, saveValAsJson }

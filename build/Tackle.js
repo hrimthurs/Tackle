@@ -1,4 +1,4 @@
-/* @hrimthurs/tackle 1.15.5 https://github.com/hrimthurs/Tackle @license MIT */
+/* @hrimthurs/tackle 1.16.0 https://github.com/hrimthurs/Tackle @license MIT */
 /**
  * Returns array regardless of type srcVal
  * @param {any} srcVal                      Source value
@@ -815,6 +815,26 @@ function interceptErrors(handler, preventDefault = true) {
 }
 
 /**
+ * Wait for document complete
+ * @param {function():void} [callback]      Callback on document complete
+ * @returns {Promise}
+ */
+function onDocumentComplete(callback) {
+    return new Promise((resolve) => {
+        const complete = () => {
+            callback();
+            resolve();
+        };
+
+        if (document.readyState !== 'complete') {
+            document.addEventListener('readystatechange', () => {
+                if (document.readyState === 'complete') complete();
+            });
+        } else complete();
+    })
+}
+
+/**
  * Implementation HTTP request
  * @param {string} url                      Url of request
  *
@@ -951,7 +971,7 @@ function saveValAsJson(fileName, value) {
     }).click();
 }
 
-var TkBrowser = { createHTMLElement, getSizeHTMLElement, applyClasses, forEachElement, setDivResizer, interceptErrors, httpRequest, saveValAsJson };
+var TkBrowser = { createHTMLElement, getSizeHTMLElement, applyClasses, forEachElement, setDivResizer, interceptErrors, onDocumentComplete, httpRequest, saveValAsJson };
 
 var TkNode = {};
 
