@@ -1,10 +1,6 @@
 ﻿import { getHash as getHashString } from './TkString.js'
 
 /**
- * @typedef {{[key:string]:any}} TObjectJS  Type of object JS
- */
-
-/**
  * Converts the number of bytes to kilobytes
  * @param {number} numBytes                 Number of bytes
  * @param {number} [precision]              Defines the number of decimal points of the result (default: 2)
@@ -51,7 +47,7 @@ export function trimFloat(srcVal, precision, stringify = false) {
  * @param {object} [options]                Options
  * @param {boolean} [options.keysLowerCase] Convert all parameters names to lower case (default: false)
  * @param {boolean} [options.valsLowerCase] Convert all strings values to lower case (default: false)
- * @returns {TObjectJS}                     Object with parameters
+ * @returns {object}                        Object with parameters
  */
 export function getParamsURL(srcUrl = null, options = {}) {
     const useOptions = {
@@ -103,7 +99,7 @@ export function getParamsURL(srcUrl = null, options = {}) {
  * - empty array/object, subvalue object of array/object → <json-string>
  *
  * @param {string|URL} url                  Source string URL or exist URL-object
- * @param {TObjectJS} [params]              Source object to set as parameters URL (default: {})
+ * @param {object} [params]                 Source object to set as parameters URL (default: {})
  * @param {boolean} [encode]                Use encode URI for result (default: false)
  * @returns {URL}                           Instance URL with parameters
  */

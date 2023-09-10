@@ -2,10 +2,6 @@
 import { getHash as getHashString } from './TkString.js'
 
 /**
- * @typedef {{[key:string]:any}} TObjectJS  Type of object JS
- */
-
-/**
  * Checks if the checkVal is an javascript object
  * @param {any} checkVal                    Check value
  * @param {string} [checkKey]               Checks for the presence of the checkKey in the object (default: null)
@@ -20,10 +16,10 @@ export function isObjectJs(checkVal, checkKey = null) {
 
 /**
  * Returns object that does not contain fields with skipKeys keys
- * @param {TObjectJS} srcObj                Source object
+ * @param {object} srcObj                   Source object
  * @param {string|string[]} [skipPathKeys]  Exclude keys (names or chains names) (default: empty)
  * @param {boolean} [modifySrc]             Modify the original object (default: false)
- * @returns {TObjectJS}
+ * @returns {object}
  */
 export function excludeKeys(srcObj, skipPathKeys, modifySrc = false) {
     let res = modifySrc ? srcObj : clone(srcObj)
@@ -37,7 +33,7 @@ export function excludeKeys(srcObj, skipPathKeys, modifySrc = false) {
 
 /**
  * Gets the values of the object's fields by pathKeys
- * @param {TObjectJS} srcObj                Source object
+ * @param {object} srcObj                   Source object
  * @param {...string} pathKeys              Keys (names or chains names)
  * @returns {any|any[]}                     For single pathKey return value, for a few pathKeys return array values
  */
@@ -53,12 +49,12 @@ export function getValue(srcObj, ...pathKeys) {
 
 /**
  * Sets value to object field by pathKey
- * @param {TObjectJS} dstObj                Destination object
+ * @param {object} dstObj                   Destination object
  * @param {string} pathKey                  Key (name or chain names)
  * @param {any} value                       Value
  * @param {object} [options]                Options
  * @param {boolean} [options.onlyExist]     Set value to only exists fields or create new fields (default: true)
- * @param {function(TObjectJS,string):any} [options.cbAction] Callback action for success set (default: empty)
+ * @param {function(object,string):any}     [options.cbAction] Callback action for success set (default: empty)
  *      - arg0 - parent object of the setting field
  *      - arg1 - finite key of the setting field
  * @returns {boolean|any}                   True/false as a success set value, or result cbAction (if given)
@@ -102,8 +98,8 @@ function setValue(dstObj, pathKey, value, options = {}) {
 
 /**
  * Sets values to exists object fields. Arrays are written in their entirety
- * @param {TObjectJS} targetObj             Target object
- * @param {TObjectJS} properties            Properties
+ * @param {object} targetObj                Target object
+ * @param {object} properties               Properties
  * @param {boolean} [strictTypes]           Strict type matching of values (default: true)
  */
 export function setProperties(targetObj, properties, strictTypes = true) {
@@ -126,14 +122,14 @@ export function setProperties(targetObj, properties, strictTypes = true) {
 
 /**
  * Traverse object fields
- * @param {TObjectJS} srcObj                Source object
+ * @param {object} srcObj                   Source object
  * @param {function(any,string,string):any} cbAction Callback action for every field
  *      - arg0 - field current value
  *      - arg1 - field key
  *      - arg2 - chain keys parents
  * @param {boolean} [deepObjects]           Recursive traverse all sub objects (default: false)
  * @param {boolean} [deepArrays]            Recursive traverse all sub arrays (default: false)
- * @returns {TObjectJS}                     New object based on the results of cbAction calls
+ * @returns {object}                        New object based on the results of cbAction calls
  */
 export function traverse(srcObj, cbAction, deepObjects = false, deepArrays = false) {
     return _traverseObject(srcObj, cbAction, deepObjects, deepArrays)
@@ -141,8 +137,8 @@ export function traverse(srcObj, cbAction, deepObjects = false, deepArrays = fal
 
 /**
  * Deep merge objects into a new object
- * @param {...TObjectJS} srcObjects         Source objects
- * @returns {TObjectJS}
+ * @param {...object} srcObjects            Source objects
+ * @returns {object}
  */
 export function merge(...srcObjects) {
     return srcObjects.reduce((objA, objB) => (
@@ -154,8 +150,8 @@ export function merge(...srcObjects) {
 
 /**
  * Creates an independent clone of the object
- * @param {TObjectJS} srcObj                Source object
- * @returns {TObjectJS}                     Clone of the object
+ * @param {object} srcObj                   Source object
+ * @returns {object}                        Clone of the object
  */
 export function clone(srcObj) {
     return JSON.parse(JSON.stringify(srcObj))
@@ -163,8 +159,8 @@ export function clone(srcObj) {
 
 /**
  * Try convert object to array
- * @param {TObjectJS} srcObj                Source object
- * @returns {Array|TObjectJS}               Array if possible convert, else - source object
+ * @param {object} srcObj                   Source object
+ * @returns {Array|object}                  Array if possible convert, else - source object
  */
  export function tryConvertToArray(srcObj) {
     const allKeys = Object.keys(srcObj)
@@ -178,7 +174,7 @@ export function clone(srcObj) {
 
 /**
  * Collects an array of transferable values (use for web worker)
- * @param {TObjectJS} srcObj                Source object
+ * @param {object} srcObj                   Source object
  * @returns {Array}                         Array of transferable values
  */
 export function getArrayTransferable(srcObj) {
@@ -201,7 +197,7 @@ export function getArrayTransferable(srcObj) {
 
 /**
  * Returns the hash of the object with a length of 16 characters
- * @param {TObjectJS} srcObj                Source object
+ * @param {object} srcObj                   Source object
  * @param {string|string[]} [skipPathKeys]  Not hash values with these keys (names or chains names)
  * @param {number} [seed]                   Hashing is relative to this value
  * @returns {string}                        String of hex values with a length of 16 characters

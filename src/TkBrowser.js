@@ -2,15 +2,11 @@
 import { getArray } from './TkArray.js'
 
 /**
- * @typedef {{[key:string]:any}} TObjectJS  Type of object JS
- */
-
-/**
  * Creates an HTML element
  * @param {string} tagName                  Type of element to be created
  * @param {object} [options]                Options
  * @param {boolean} [options.insertFirst]   Add an element as first of the children nodes of parent (default: false → add as last)
- * @param {TObjectJS[]} [options.subElements]               Entries of elements to recursively create as children (default: empty)
+ * @param {object[]} [options.subElements]                  Entries of elements to recursively create as children (default: empty)
  * @param {Object<string,string>} [options.attributes]      Keys/values of attributes who sets to the element (default: empty)
  * @param {string|Object<string,string>} [options.style]    Keys/values/cssText of the style to be set for the element (default: empty)
  * @param {string|string[]} [options.class]                 Class/Classes to be set for the element (default: empty)
@@ -198,7 +194,7 @@ export function onDocumentComplete(callback) {
  * @param {object} [options]                                    Options
  * @param {'GET'|'POST'} [options.method]                       Method of request (default: 'GET')
  * @param {XMLHttpRequestResponseType} [options.responseType]   Expected response type (default: 'arraybuffer')
- * @param {TObjectJS} [options.params]                          Params of request. In case of a GET-request, this converted to url search params by TkService.setParamsURL → parsing on server by TkService.getParamsURL (default: empty)
+ * @param {object} [options.params]                             Params of request. In case of a GET-request, this converted to url search params by TkService.setParamsURL → parsing on server by TkService.getParamsURL (default: empty)
  * @param {Object<string,string>} [options.headers]             Headers of request (default: empty)
  *
  * @param {string} [options.id]                 Id of request. Used in callbacks of request events (default: null)

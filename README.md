@@ -131,11 +131,6 @@ const { TkArray, TkObject, TkString, TkFunction, TkService, TkBrowser, TkNode } 
     ~~~
 
 ## API
-~~~ javascript
-/**
- * @typedef {{[key:string]:any}} TObjectJS      Type of object JS
- */
-~~~
 
 ### TkArray:
 
@@ -197,16 +192,16 @@ const { TkArray, TkObject, TkString, TkFunction, TkService, TkBrowser, TkNode } 
 • TkObject.excludeKeys(srcObj, skipKeys, modifySrc = false)
     /**
      * Returns object that does not contain fields with skipKeys keys
-     * @param {TObjectJS} srcObj                Source object
+     * @param {object} srcObj                   Source object
      * @param {string|string[]} [skipPathKeys]  Exclude keys (names or chains names) (default: empty)
      * @param {boolean} [modifySrc]             Modify the original object (default: false)
-     * @returns {TObjectJS}
+     * @returns {object}
      */
 
 • TkObject.getValue(srcObj, ...pathKeys)
     /**
      * Gets the values of the object's fields by pathKeys
-     * @param {TObjectJS} srcObj                Source object
+     * @param {object} srcObj                   Source object
      * @param {...string} pathKeys              Keys (names or chains names)
      * @returns {any|any[]}                     For single pathKey return value, for a few pathKeys return array values
      */
@@ -214,12 +209,12 @@ const { TkArray, TkObject, TkString, TkFunction, TkService, TkBrowser, TkNode } 
 • TkObject.setValue(dstObj, pathKey, value, cbAction = null)
     /**
      * Sets value to object field by pathKey
-     * @param {TObjectJS} dstObj                Destination object
+     * @param {object} dstObj                   Destination object
      * @param {string} pathKey                  Key (name or chain names)
      * @param {any} value                       Value
      * @param {object} [options]                Options
      * @param {boolean} [options.onlyExist]     Set value to only exists fields or create new fields (default: true)
-     * @param {function(TObjectJS,string):any} [options.cbAction] Callback action for success set (default: empty)
+     * @param {function(object,string):any} [options.cbAction] Callback action for success set (default: empty)
      *      - arg0 - parent object of the setting field
      *      - arg1 - finite key of the setting field
      * @returns {boolean|any}                   True/false as a success set value, or result cbAction (if given)
@@ -228,56 +223,56 @@ const { TkArray, TkObject, TkString, TkFunction, TkService, TkBrowser, TkNode } 
 • TkObject.setProperties(targetObj, properties, strictTypes = true)
     /**
      * Sets values to exists object fields. Arrays are written in their entirety
-     * @param {TObjectJS} targetObj             Target object
-     * @param {TObjectJS} properties            Properties
+     * @param {object} targetObj                Target object
+     * @param {object} properties               Properties
      * @param {boolean} [strictTypes]           Strict type matching of values (default: true)
      */
 
 • TkObject.traverse(srcObj, cbAction, deepObjects = false, deepArrays = false)
     /**
      * Traverse object fields
-     * @param {TObjectJS} srcObj                Source object
+     * @param {object} srcObj                   Source object
      * @param {function(any,string,string):any} cbAction Callback action for every field
      *      - arg0 - field current value
      *      - arg1 - field key
      *      - arg2 - chain keys parents
      * @param {boolean} [deepObjects]           Recursive traverse all sub objects (default: false)
      * @param {boolean} [deepArrays]            Recursive traverse all sub arrays (default: false)
-     * @returns {TObjectJS}                     New object based on the results of cbAction calls
+     * @returns {object}                        New object based on the results of cbAction calls
      */
 
 • TkObject.merge(...srcObjects)
     /**
      * Deep merge objects into a new object
-     * @param {...TObjectJS} srcObjects         Source objects
-     * @returns {TObjectJS}
+     * @param {...object} srcObjects            Source objects
+     * @returns {object}
      */
 
 • TkObject.clone(srcObj)
     /**
      * Creates an independent clone of the object
-     * @param {TObjectJS} srcObj                Source object
-     * @returns {TObjectJS}                     Clone of the object
+     * @param {object} srcObj                   Source object
+     * @returns {object}                        Clone of the object
      */
 
 • TkObject.tryConvertToArray(srcObj)
     /**
      * Try convert object to array
-     * @param {TObjectJS} srcObj                Source object
-     * @returns {Array|TObjectJS}               Array if possible convert, else - source object
+     * @param {object} srcObj                   Source object
+     * @returns {Array|object}                  Array if possible convert, else - source object
      */
 
 • TkObject.getArrayTransferable(srcObj)
     /**
      * Collects an array of transferable values (use for web worker)
-     * @param {TObjectJS} srcObj                Source object
+     * @param {object} srcObj                   Source object
      * @returns {Array}                         Array of transferable values
      */
 
 • TkObject.getHash(srcObj, skipKeys = null, seed = 0)
     /**
      * Returns the hash of the object with a length of 16 characters
-     * @param {TObjectJS} srcObj                Source object
+     * @param {object} srcObj                   Source object
      * @param {string|string[]} [skipPathKeys]  Not hash values with these keys (names or chains names)
      * @param {number} [seed]                   Hashing is relative to this value
      * @returns {string}                        String of hex values with a length of 16 characters
@@ -362,7 +357,7 @@ const { TkArray, TkObject, TkString, TkFunction, TkService, TkBrowser, TkNode } 
      * @param {object} [options]                Options
      * @param {boolean} [options.keysLowerCase] Convert all parameters names to lower case (default: false)
      * @param {boolean} [options.valsLowerCase] Convert all strings values to lower case (default: false)
-     * @returns {TObjectJS}                     Object with parameters
+     * @returns {object}                        Object with parameters
      */
 
 • TkService.setParamsURL(url, params = {}, encode = false)
@@ -377,7 +372,7 @@ const { TkArray, TkObject, TkString, TkFunction, TkService, TkBrowser, TkNode } 
      * - subvalue object of array/object → <json-string>
      *
      * @param {string|URL} url                  Source string URL or exist URL-object
-     * @param {TObjectJS} [params]              Source object to set as parameters URL (default: {})
+     * @param {object} [params]                 Source object to set as parameters URL (default: {})
      * @param {boolean} [encode]                Use encode URI for result (default: false)
      * @returns {URL}                           Instance URL with parameters
      */
@@ -419,7 +414,7 @@ const { TkArray, TkObject, TkString, TkFunction, TkService, TkBrowser, TkNode } 
      * @param {string} tagName                  Type of element to be created
      * @param {object} [options]                Options
      * @param {boolean} [options.insertFirst]   Add an element as first of the children nodes of parent (default: false → add as last)
-     * @param {TObjectJS[]} [options.subElements]               Entries of elements to recursively create as children (default: empty)
+     * @param {object[]} [options.subElements]                  Entries of elements to recursively create as children (default: empty)
      * @param {Object<string,string>} [options.attributes]      Keys/values of attributes who sets to the element (default: empty)
      * @param {string|Object<string,string>} [options.style]    Keys/values/cssText of the style to be set for the element (default: empty)
      * @param {string|string[]} [options.class]                 Class/Classes to be set for the element (default: empty)
@@ -480,7 +475,7 @@ const { TkArray, TkObject, TkString, TkFunction, TkService, TkBrowser, TkNode } 
      * @param {object} [options]                                    Options
      * @param {'GET'|'POST'} [options.method]                       Method of request (default: 'GET')
      * @param {XMLHttpRequestResponseType} [options.responseType]   Expected response type (default: 'arraybuffer')
-     * @param {TObjectJS} [options.params]                          Params of request. In case of a GET-request, this converted to url search params by TkService.setParamsURL → parsing on server by TkService.getParamsURL (default: empty)
+     * @param {object} [options.params]                             Params of request. In case of a GET-request, this converted to url search params by TkService.setParamsURL → parsing on server by TkService.getParamsURL (default: empty)
      * @param {Object<string,string>} [options.headers]             Headers of request (default: empty)
      *
      * @param {string} [options.id]                 Id of request. Used in callbacks of request events (default: null)
