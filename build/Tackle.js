@@ -1,4 +1,4 @@
-/* @hrimthurs/tackle 1.17.0 https://github.com/hrimthurs/Tackle @license MIT */
+/* @hrimthurs/tackle 1.17.1 https://github.com/hrimthurs/Tackle @license MIT */
 /**
  * Returns array regardless of type srcVal
  * @param {any} srcVal                      Source value
@@ -730,19 +730,22 @@ function getSizeHTMLElement(element) {
 }
 
 /**
- * Sets/unsets classes for each element by selector
+ * Sets/unsets/toggles classes for each element by selector
  * @param {string} selectorElement          Query selector of target elements
  * @param {object} [options]                Options
  * @param {string|string[]} [options.set]   Class/classes name for set to each elements (default: empty)
  * @param {string|string[]} [options.unset] Class/classes name for unset to each elements (default: empty)
+ * @param {string|string[]} [options.toggle] Class/classes name for toggle to each elements (default: empty)
  */
 function applyClasses(selectorElement, options) {
     const setClasses = getArray(options.set);
     const unsetClasses = getArray(options.unset);
+    const toggleClasses = getArray(options.toggle);
 
     forEachElement(selectorElement, (el) => {
         setClasses.forEach((name) => el.classList.add(name));
         unsetClasses.forEach((name) => el.classList.remove(name));
+        toggleClasses.forEach((name) => el.classList.toggle(name));
     });
 }
 

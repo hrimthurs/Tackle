@@ -432,11 +432,12 @@ const { TkArray, TkObject, TkString, TkFunction, TkService, TkBrowser, TkNode } 
 
 • TkBrowser.applyClasses(selectorElement, options)
     /**
-     * Sets/unsets classes for each element by selector
+     * Sets/unsets/toggles classes for each element by selector
      * @param {string} selectorElement          Query selector of target elements
      * @param {object} [options]                Options
      * @param {string|string[]} [options.set]   Class/classes name for set to each elements (default: empty)
      * @param {string|string[]} [options.unset] Class/classes name for unset to each elements (default: empty)
+     * @param {string|string[]} [options.toggle] Class/classes name for toggle to each elements (default: empty)
      */
 
 • TkBrowser.forEachElement(selectorElement, callback)
