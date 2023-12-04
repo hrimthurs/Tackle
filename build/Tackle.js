@@ -1,4 +1,4 @@
-/* @hrimthurs/tackle 1.17.1 https://github.com/hrimthurs/Tackle @license MIT */
+/* @hrimthurs/tackle 1.17.2 https://github.com/hrimthurs/Tackle @license MIT */
 /**
  * Returns array regardless of type srcVal
  * @param {any} srcVal                      Source value
@@ -810,11 +810,11 @@ function interceptErrors(handler, preventDefault = true) {
  * @param {function():void} [callback]      Callback on document complete
  * @returns {Promise}
  */
-function onDocumentComplete(callback) {
+function onDocumentComplete(callback = () => {}) {
     return new Promise((resolve) => {
         const complete = () => {
             callback();
-            resolve();
+            resolve(true);
         };
 
         if (document.readyState !== 'complete') {

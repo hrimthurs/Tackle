@@ -175,11 +175,11 @@ export function interceptErrors(handler, preventDefault = true) {
  * @param {function():void} [callback]      Callback on document complete
  * @returns {Promise}
  */
-export function onDocumentComplete(callback) {
+export function onDocumentComplete(callback = () => {}) {
     return new Promise((resolve) => {
         const complete = () => {
             callback()
-            resolve()
+            resolve(true)
         }
 
         if (document.readyState !== 'complete') {
