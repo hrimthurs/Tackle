@@ -82,4 +82,4 @@ export function isSubArray(subArr, mainArr, strictEqual = false) {
     return suitableSize && subArr.every(val => mainArr.includes(val))
 }
 
-export default { getArray, getUniqValues, excludeValues, sortArrayStr, isSubArray }
+export default { getArray, getUniqValues, swapValues, excludeValues, sortArrayStr, isSubArray }

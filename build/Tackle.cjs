@@ -1,4 +1,4 @@
-/* @hrimthurs/tackle 1.18.0 https://github.com/hrimthurs/Tackle @license MIT */
+/* @hrimthurs/tackle 1.18.1 https://github.com/hrimthurs/Tackle @license MIT */
 'use strict';
 
 Object.defineProperty(exports, '__esModule', { value: true });
@@ -31,6 +31,20 @@ function getUniqValues(srcArr, modifySrc = false) {
 
     if (modifySrc) srcArr = res;
     return res
+}
+
+/**
+ * Swap array values
+ * @param {any[]} srcArr                    Source array
+ * @param {...[number, number]} indsCouples Couples of indices for values swap
+ * @returns {any[]}
+ */
+function swapValues(srcArr, ...indsCouples) {
+    indsCouples.forEach(([indA, indB]) => {
+        srcArr[indA] = srcArr.splice(indB, 1, srcArr[indA])[0];
+    });
+
+    return srcArr
 }
 
 /**
@@ -76,7 +90,7 @@ function isSubArray(subArr, mainArr, strictEqual = false) {
     return suitableSize && subArr.every(val => mainArr.includes(val))
 }
 
-var TkArray = { getArray, getUniqValues, excludeValues, sortArrayStr, isSubArray };
+var TkArray = { getArray, getUniqValues, swapValues, excludeValues, sortArrayStr, isSubArray };
 
 /**
  * Converts a numeric value to a string of the specified length with adding '0' (at the beginning for integer, ending for float).
