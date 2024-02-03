@@ -26,6 +26,20 @@ export function getUniqValues(srcArr, modifySrc = false) {
 }
 
 /**
+ * Swap array values
+ * @param {any[]} srcArr                    Source array
+ * @param {...[number, number]} indsCouples Couples of indices for values swap
+ * @returns {any[]}
+ */
+export function swapValues(srcArr, ...indsCouples) {
+    indsCouples.forEach(([indA, indB]) => {
+        srcArr[indA] = srcArr.splice(indB, 1, srcArr[indA])[0]
+    })
+
+    return srcArr
+}
+
+/**
  * Returns array without elements with values from skipValues
  * @param {any[]} srcArr                    Source array
  * @param {any|any[]} skipValues            Values for exclude

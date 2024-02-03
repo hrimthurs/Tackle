@@ -151,6 +151,14 @@ const { TkArray, TkObject, TkString, TkFunction, TkService, TkBrowser, TkNode } 
      * @returns {any[]}                         Array with unique values
      */
 
+• TkArray.swapValues(srcArr, ...indsCouples)
+    /**
+     * Swap array values
+     * @param {any[]} srcArr                    Source array
+     * @param {...[number, number]} indsCouples Couples of indices for values swap
+     * @returns {any[]}
+     */
+
 • TkArray.excludeValues(srcArr, skipValues, modifySrc = false)
     /**
      * Returns array without elements with values from skipValues
