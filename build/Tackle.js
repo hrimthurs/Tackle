@@ -1,4 +1,4 @@
-/* @hrimthurs/tackle 1.18.1 https://github.com/hrimthurs/Tackle @license MIT */
+/* @hrimthurs/tackle 1.19.1 https://github.com/hrimthurs/Tackle @license MIT */
 /**
  * Returns array regardless of type srcVal
  * @param {any} srcVal                      Source value
@@ -604,7 +604,7 @@ function isPointBelongLineSegment2D(ptA, ptB, ptC, tolerance = 1.2) {
  * Checks if some point 2D on line segment ptA─────ptB
  * @param {{x:number,y:number}} ptA         Point A
  * @param {{x:number,y:number}} ptB         Point B
- * @param {[{x:number,y:number}]} arrPoints Array of check points
+ * @param {{x:number,y:number}[]} arrPoints Array of check points
  * @param {number} [tolerance]              Tolerance of match (default: 1.2)
  * @returns {boolean}
  */
@@ -616,7 +616,7 @@ function isSomePointBelongLineSegment2D(ptA, ptB, arrPoints, tolerance = 1.2) {
  * Checks if every point 2D on line segment ptA─────ptB
  * @param {{x:number,y:number}} ptA         Point A
  * @param {{x:number,y:number}} ptB         Point B
- * @param {[{x:number,y:number}]} arrPoints Array of check points
+ * @param {{x:number,y:number}[]} arrPoints Array of check points
  * @param {number} [tolerance]              Tolerance of match (default: 1.2)
  * @returns {boolean}
  */
@@ -627,7 +627,7 @@ function isEveryPointBelongLineSegment2D(ptA, ptB, arrPoints, tolerance = 1.2) {
 /**
  * Checks if point 2D ptA inside in polygon
  * @param {{x:number,y:number}} ptA         Point A
- * @param {[{x:number,y:number}]} polyPts   Points of polygon
+ * @param {{x:number,y:number}[]} polyPts   Points of polygon
  * @returns {boolean}
  */
 function isPointInsidePolygon2D(ptA, polyPts) {
@@ -649,8 +649,8 @@ function isPointInsidePolygon2D(ptA, polyPts) {
 
 /**
  * Checks if some point 2D inside in polygon
- * @param {[{x:number,y:number}]} arrPoints Array of check points
- * @param {[{x:number,y:number}]} polyPts   Points of polygon
+ * @param {{x:number,y:number}[]} arrPoints Array of check points
+ * @param {{x:number,y:number}[]} polyPts   Points of polygon
  * @returns {boolean}
  */
 function isSomePointInsidePolygon2D(arrPoints, polyPts) {
@@ -659,8 +659,8 @@ function isSomePointInsidePolygon2D(arrPoints, polyPts) {
 
 /**
  * Checks if every point 2D inside in polygon
- * @param {[{x:number,y:number}]} arrPoints Array of check points
- * @param {[{x:number,y:number}]} polyPts   Points of polygon
+ * @param {{x:number,y:number}[]} arrPoints Array of check points
+ * @param {{x:number,y:number}[]} polyPts   Points of polygon
  * @returns {boolean}
  */
 function isEveryPointInsidePolygon2D(arrPoints, polyPts) {
