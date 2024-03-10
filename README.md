@@ -25,14 +25,14 @@ npm install @hrimthurs/tackle
 
 ~~~ javascript
 import Tackle from '@hrimthurs/tackle'
-import { TkArray, TkObject, TkString, TkFunction, TkService, TkBrowser, TkNode } from '@hrimthurs/tackle'
+import { TkArray, TkObject, TkString, TkFunction, TkMath, TkService, TkBrowser, TkNode } from '@hrimthurs/tackle'
 ~~~
 
 ### CommonJS:
 
 ~~~ javascript
 const Tackle = require('@hrimthurs/tackle')
-const { TkArray, TkObject, TkString, TkFunction, TkService, TkBrowser, TkNode } = require('@hrimthurs/tackle')
+const { TkArray, TkObject, TkString, TkFunction, TkMath, TkService, TkBrowser, TkNode } = require('@hrimthurs/tackle')
 ~~~
 
 ### HTML tag \<script\>:
@@ -90,6 +90,17 @@ const { TkArray, TkObject, TkString, TkFunction, TkService, TkBrowser, TkNode } 
     <script src="TkFunction.min.js"></script>
     <!-- OR TRANSPILED: <script src="TkFunction.min.legacy.js"></script> -->
     <script> TkFunction. ... </script>
+    ~~~
+
+* Connection part of working with **math**:
+
+    [![GitHub file size in bytes](https://img.shields.io/github/size/hrimthurs/tackle/build/TkMath.min.js?label=TkMath.min.js)](https://github.com/hrimthurs/tackle/blob/master/build/TkMath.min.js)
+    [![GitHub file size in bytes](https://img.shields.io/github/size/hrimthurs/tackle/build/TkMath.min.legacy.js?label=TkMath.min.legacy.js)](https://github.com/hrimthurs/tackle/blob/master/build/TkMath.min.legacy.js)
+
+    ~~~ html
+    <script src="TkMath.min.js"></script>
+    <!-- OR TRANSPILED: <script src="TkMath.min.legacy.js"></script> -->
+    <script> TkMath. ... </script>
     ~~~
 
 * Connection part of working with **others**:
@@ -318,6 +329,207 @@ const { TkArray, TkObject, TkString, TkFunction, TkService, TkBrowser, TkNode } 
      * @param {function} srcFunc                Source function
      * @param {object} [context]                Function execution context (default: globalThis)
      * @returns {function}                      Memoized decorator
+     */
+~~~
+
+### TkMath:
+
+~~~ javascript
+• TkMath.HALF_PI = Pi / 2
+
+• TkMath.QUART_PI = Pi / 4
+
+• TkMath.angleDegToRad(angleDeg = 0)
+    /**
+     * Converts angle value from degree to radian
+     * @param {number} [angleDeg]               Angle degree (default: 0)
+     * @returns {number}
+     */
+
+• TkMath.roundFloat(srcVal, precision = 3)
+    /**
+     * Round float number with a given precision
+     * @param {number} srcVal                   Float number
+     * @param {number} [precision]              Defines the number of decimal points of the result float number (default: 3)
+     * @returns {number}
+     */
+
+• TkMath.dotProduct2D(ptA, ptB)
+    /**
+     * Calculates the dot product of 2D ptA and ptB
+     * @param {{x:number,y:number}} ptA         Point A
+     * @param {{x:number,y:number}} ptB         Point B
+     * @returns {number}
+     */
+
+• TkMath.crossProduct2D(ptA, ptB)
+    /**
+     * Calculates the cross product of 2D ptA and ptB
+     * @param {{x:number,y:number}} ptA         Point A
+     * @param {{x:number,y:number}} ptB         Point B
+     * @returns {number}
+     */
+
+• TkMath.delta2D(ptA, ptB)
+    /**
+     * Calculates the delta between 2D ptA and ptB
+     * @param {{x:number,y:number}} ptA         Point A
+     * @param {{x:number,y:number}} ptB         Point B
+     * @returns {{x:number,y:number}}
+     */
+
+• TkMath.midPoint2D(ptA, ptB)
+    /**
+     * Calculates the midpoint between 2D ptA and ptB
+     * @param {{x:number,y:number}} ptA         Point A
+     * @param {{x:number,y:number}} ptB         Point B
+     * @returns {{x:number,y:number}}
+     */
+
+• TkMath.isEqualCoords2D(ptA, ptB, tolerance = 0.1)
+    /**
+     * Checks is equal coords of 2D ptA and ptB
+     * @param {{x:number,y:number}} ptA         Point A
+     * @param {{x:number,y:number}} ptB         Point B
+     * @param {number} [tolerance]              Tolerance of match coords (default: 0.1)
+     * @returns {boolean}
+     */
+
+• TkMath.dist2D(ptA, ptB)
+    /**
+     * Calculates the distance between 2D ptA and ptB
+     * @param {{x:number,y:number}} ptA         Point A
+     * @param {{x:number,y:number}} ptB         Point B
+     * @returns {number}
+     */
+
+• TkMath.distManhattan2D(ptA, ptB)
+    /**
+     * Calculates the Manhattan distance between 2D ptA and ptB
+     * @param {{x:number,y:number}} ptA         Point A
+     * @param {{x:number,y:number}} ptB         Point B
+     * @returns {number}
+     */
+
+• TkMath.isNearerFirstPt2D(ptA, ptB, ptC)
+    /**
+     * Checks is point is nearer 2D ptC to ptA than to ptB
+     * @param {{x:number,y:number}} ptA         Point A
+     * @param {{x:number,y:number}} ptB         Point B
+     * @param {{x:number,y:number}} ptC         Point C
+     * @returns {boolean}
+     */
+
+• TkMath.pointOnLineByLen2D(ptA, ptB, distance)
+    /**
+     * Calculates the point 2D on a line lying at a given distance from ptA
+     * @param {{x:number,y:number}} ptA         Point A
+     * @param {{x:number,y:number}} ptB         Point B
+     * @param {number} distance                 Distance from ptA
+     * @returns {{x:number,y:number}}
+     */
+
+• TkMath.projectPointToStraightLine2D(ptA, ptB, ptC)
+    /**
+     * Calculates the projection of a point 2D ptC onto a straight line ─ptA─────ptB─
+     * @param {{x:number,y:number}} ptA         Point A
+     * @param {{x:number,y:number}} ptB         Point B
+     * @param {{x:number,y:number}} ptC         Point C
+     * @returns {{x:number,y:number}}
+     */
+
+• TkMath.isPointBelongStraightLine2D(ptA, ptB, ptC, tolerance = 1.2)
+    /**
+     * Checks if point 2D ptC on straight line ─ptA─────ptB─
+     * @param {{x:number,y:number}} ptA         Point A
+     * @param {{x:number,y:number}} ptB         Point B
+     * @param {{x:number,y:number}} ptC         Point C
+     * @param {number} [tolerance]              Tolerance of match (default: 1.2)
+     * @returns {boolean}
+     */
+
+• TkMath.isPointBelongLineSegment2D(ptA, ptB, ptC, tolerance = 1.2)
+    /**
+     * Checks if point 2D ptC on line segment ptA─────ptB
+     * @param {{x:number,y:number}} ptA         Point A
+     * @param {{x:number,y:number}} ptB         Point B
+     * @param {{x:number,y:number}} ptC         Point C
+     * @param {number} [tolerance]              Tolerance of match (default: 1.2)
+     * @returns {boolean}
+     */
+
+• TkMath.isSomePointBelongLineSegment2D(ptA, ptB, arrPoints, tolerance = 1.2)
+    /**
+     * Checks if some point 2D on line segment ptA─────ptB
+     * @param {{x:number,y:number}} ptA         Point A
+     * @param {{x:number,y:number}} ptB         Point B
+     * @param {[{x:number,y:number}]} arrPoints Array of check points
+     * @param {number} [tolerance]              Tolerance of match (default: 1.2)
+     * @returns {boolean}
+     */
+
+• TkMath.isEveryPointBelongLineSegment2D(ptA, ptB, arrPoints, tolerance = 1.2)
+    /**
+     * Checks if every point 2D on line segment ptA─────ptB
+     * @param {{x:number,y:number}} ptA         Point A
+     * @param {{x:number,y:number}} ptB         Point B
+     * @param {[{x:number,y:number}]} arrPoints Array of check points
+     * @param {number} [tolerance]              Tolerance of match (default: 1.2)
+     * @returns {boolean}
+     */
+
+• TkMath.isPointInsidePolygon2D(ptA, polyPts)
+    /**
+     * Checks if point 2D ptA inside in polygon
+     * @param {{x:number,y:number}} ptA         Point A
+     * @param {[{x:number,y:number}]} polyPts   Points of polygon
+     * @returns {boolean}
+     */
+
+• TkMath.isSomePointInsidePolygon2D(arrPoints, polyPts)
+    /**
+     * Checks if some point 2D inside in polygon
+     * @param {[{x:number,y:number}]} arrPoints Array of check points
+     * @param {[{x:number,y:number}]} polyPts   Points of polygon
+     * @returns {boolean}
+     */
+
+• TkMath.isEveryPointInsidePolygon2D(arrPoints, polyPts)
+    /**
+     * Checks if every point 2D inside in polygon
+     * @param {[{x:number,y:number}]} arrPoints Array of check points
+     * @param {[{x:number,y:number}]} polyPts   Points of polygon
+     * @returns {boolean}
+     */
+
+• TkMath.crossStraightLines2D(ptA, ptB, ptC, ptD)
+    /**
+     * Calculates the cross point 2D of the straight lines ─ptA─────ptB─ and ─ptC─────ptD─
+     * @param {{x:number,y:number}} ptA         Point A
+     * @param {{x:number,y:number}} ptB         Point B
+     * @param {{x:number,y:number}} ptC         Point C
+     * @param {{x:number,y:number}} ptD         Point D
+     * @returns {{x:number,y:number}|undefined}
+     */
+
+• TkMath.crossLinesSegments2D(ptA, ptB, ptC, ptD)
+    /**
+     * Calculates the cross point 2D of the lines segments ptA─────ptB and ptC─────ptD
+     * @param {{x:number,y:number}} ptA         Point A
+     * @param {{x:number,y:number}} ptB         Point B
+     * @param {{x:number,y:number}} ptC         Point C
+     * @param {{x:number,y:number}} ptD         Point D
+     * @returns {{x:number,y:number}|undefined}
+     */
+
+• TkMath.isCrossLinesSegments2D(ptA, ptB, ptC, ptD)
+    /**
+     * Checks if crossed of the lines segments ptA─────ptB and ptC─────ptD
+     * @param {{x:number,y:number}} ptA         Point A
+     * @param {{x:number,y:number}} ptB         Point B
+     * @param {{x:number,y:number}} ptC         Point C
+     * @param {{x:number,y:number}} ptD         Point D
+     * @returns {boolean}
      */
 ~~~
 
