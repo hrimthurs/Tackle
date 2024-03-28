@@ -1,4 +1,4 @@
-/* @hrimthurs/tackle 1.20.0 https://github.com/hrimthurs/Tackle @license MIT */
+/* @hrimthurs/tackle 1.21.0 https://github.com/hrimthurs/Tackle @license MIT */
 'use strict';
 
 Object.defineProperty(exports, '__esModule', { value: true });
@@ -525,6 +525,25 @@ function isNearerFirstPt2D(ptA, ptB, ptC) {
 }
 
 /**
+ * Calculation area of polygon 2D
+ * @param {{x:number,y:number}[]} polyPts   Points of polygon
+ * @param {boolean} [saveSign]              Save the area sign in the result (default: false)
+ * @returns {number}
+ */
+function areaPolygon2D(polyPts, saveSign = false) {
+    const area = polyPts.reduce((valArea, ptA, ind) => {
+        const ptB = polyPts[(ind + 1) % polyPts.length];
+
+        valArea += ptA.x * ptB.y;
+        valArea -= ptB.x * ptA.y;
+
+        return valArea
+    }, 0) ?? 0;
+
+    return saveSign ? area : Math.abs(area)
+}
+
+/**
  * Calculates the point 2D on a line lying at a given distance from ptA
  * @param {{x:number,y:number}} ptA         Point A
  * @param {{x:number,y:number}} ptB         Point B
@@ -847,7 +866,7 @@ function _getChainEnds(coords, chain) {
     }
 }
 
-var TkMath = { HALF_PI, QUART_PI, DOUBLE_PI, angleDegToRad, roundFloat, dotProduct2D, crossProduct2D, delta2D, midPoint2D, isEqualCoords2D, dist2D, distManhattan2D, isNearerFirstPt2D, pointOnLineByLen2D, projectPointToStraightLine2D, isPointBelongStraightLine2D, isPointBelongLineSegment2D, isSomePointBelongLineSegment2D, isEveryPointBelongLineSegment2D, isPointInsidePolygon2D, isSomePointInsidePolygon2D, isEveryPointInsidePolygon2D, crossStraightLines2D, crossLinesSegments2D, isCrossLinesSegments2D, chainsLinesSegments2D };
+var TkMath = { HALF_PI, QUART_PI, DOUBLE_PI, angleDegToRad, roundFloat, dotProduct2D, crossProduct2D, delta2D, midPoint2D, isEqualCoords2D, dist2D, distManhattan2D, isNearerFirstPt2D, areaPolygon2D, pointOnLineByLen2D, projectPointToStraightLine2D, isPointBelongStraightLine2D, isPointBelongLineSegment2D, isSomePointBelongLineSegment2D, isEveryPointBelongLineSegment2D, isPointInsidePolygon2D, isSomePointInsidePolygon2D, isEveryPointInsidePolygon2D, crossStraightLines2D, crossLinesSegments2D, isCrossLinesSegments2D, chainsLinesSegments2D };
 
 /**
  * Converts the number of bytes to kilobytes

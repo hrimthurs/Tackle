@@ -422,6 +422,14 @@ const { TkArray, TkObject, TkString, TkFunction, TkMath, TkService, TkBrowser, T
      * @returns {boolean}
      */
 
+• TkMath.areaPolygon2D(polyPts, saveSign = false)
+    /**
+     * Calculation area of polygon 2D
+     * @param {{x:number,y:number}[]} polyPts   Points of polygon
+     * @param {boolean} [saveSign]              Save the area sign in the result (default: false)
+     * @returns {number}
+     */
+
 • TkMath.pointOnLineByLen2D(ptA, ptB, distance)
     /**
      * Calculates the point 2D on a line lying at a given distance from ptA
