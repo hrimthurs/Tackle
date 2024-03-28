@@ -339,6 +339,8 @@ const { TkArray, TkObject, TkString, TkFunction, TkMath, TkService, TkBrowser, T
 
 • TkMath.QUART_PI = Pi / 4
 
+• TkMath.DOUBLE_PI = Pi * 2
+
 • TkMath.angleDegToRad(angleDeg = 0)
     /**
      * Converts angle value from degree to radian
@@ -530,6 +532,15 @@ const { TkArray, TkObject, TkString, TkFunction, TkMath, TkService, TkBrowser, T
      * @param {{x:number,y:number}} ptC         Point C
      * @param {{x:number,y:number}} ptD         Point D
      * @returns {boolean}
+     */
+
+• TkMath.chainsLinesSegments2D(arrLines, continuityCoords = false, tolerance = 0.1)
+    /**
+     * Detect of continuous chains for a set of line segments
+     * @param {[{x:number,y:number},{x:number,y:number}][]} arrLines    Array of lines segments
+     * @param {boolean} [continuityCoords]                              Changing source coordinates for segments continuity (default: false)
+     * @param {number} [tolerance]                                      Tolerance of match coords (default: 0.1)
+     * @returns {{inds:number[],closed:boolean}[]}
      */
 ~~~
 

@@ -1,5 +1,6 @@
 ﻿const HALF_PI = Math.PI / 2
 const QUART_PI = Math.PI / 4
+const DOUBLE_PI = Math.PI * 2
 
 const _DEG_TO_RAD = Math.PI / 180
 
@@ -339,4 +340,101 @@ function _getPointByFactorCross2D(factor, ptA, ptB) {
     }
 }
 
-export default { HALF_PI, QUART_PI, angleDegToRad, roundFloat, dotProduct2D, crossProduct2D, delta2D, midPoint2D, isEqualCoords2D, dist2D, distManhattan2D, isNearerFirstPt2D, pointOnLineByLen2D, projectPointToStraightLine2D, isPointBelongStraightLine2D, isPointBelongLineSegment2D, isSomePointBelongLineSegment2D, isEveryPointBelongLineSegment2D, isPointInsidePolygon2D, isSomePointInsidePolygon2D, isEveryPointInsidePolygon2D, crossStraightLines2D, crossLinesSegments2D, isCrossLinesSegments2D }
+/**
+ * Detect of continuous chains for a set of line segments
+ * @param {[{x:number,y:number},{x:number,y:number}][]} arrLines    Array of lines segments
+ * @param {boolean} [continuityCoords]                              Changing source coordinates for segments continuity (default: false)
+ * @param {number} [tolerance]                                      Tolerance of match coords (default: 0.1)
+ * @returns {{inds:number[],closed:boolean}[]}
+ */
+function chainsLinesSegments2D(arrLines, continuityCoords = false, tolerance = 0.1) {
+    let chains = []
+
+    arrLines.forEach((base, indBase) => {
+        const isAdded = chains.some((chain) => {
+            return chain.some((indLine, ind) => {
+                return _joinCoords2D(base, arrLines[indLine], tolerance, (isBefore) => {
+                    chain.splice(ind + (isBefore ? 0 : 1), 0, indBase)
+                })
+            })
+        })
+
+        if (!isAdded) chains.push([indBase])
+    })
+
+    if (chains.length > 1) {
+        chains = _joinChains2D(chains, arrLines, tolerance)
+    }
+
+    return chains.map((inds) => {
+        if (continuityCoords) {
+            inds.forEach((indCurr, ind) => {
+                const indNext = ind < inds.length - 1 ? inds[ind + 1] : inds[0]
+
+                const [ptA, ptB] = arrLines[indNext]
+                const [ptC] = arrLines[indCurr]
+
+                if (isNearerFirstPt2D(ptB, ptA, ptC)) {
+                    arrLines[indNext][0] = ptB
+                    arrLines[indNext][1] = ptA
+                }
+            })
+        }
+
+        const { first, last } = _getChainEnds(arrLines, inds)
+        const closed = (inds.length > 2) && _joinCoords2D(first, last, tolerance)
+
+        return { inds, closed }
+    })
+}
+
+function _joinChains2D(chains, arrLines, tolerance) {
+    const joinedChains = chains.filter((base, indBase) => {
+
+        let isJoined = false
+        const endsBase = _getChainEnds(arrLines, base)
+
+        for (let indCheck = indBase + 1; indCheck < chains.length; indCheck++) {
+            const check = chains[indCheck]
+            const endsCheck = _getChainEnds(arrLines, check)
+
+            isJoined =
+                _joinCoords2D(endsBase.first, endsCheck.last, tolerance, () => check.push(...base)) ||
+                _joinCoords2D(endsBase.last, endsCheck.first, tolerance, () => check.unshift(...base)) ||
+                _joinCoords2D(endsBase.last, endsCheck.last, tolerance, () => check.push(...base.reverse())) ||
+                _joinCoords2D(endsBase.first, endsCheck.first, tolerance, () => check.unshift(...base.reverse()))
+
+            if (isJoined) break
+        }
+
+        return !isJoined
+    })
+
+    return joinedChains
+}
+
+function _joinCoords2D(pointsBase, pointsCheck, tolerance, cbAction = (isBefore) => {}) {
+    let res = true
+
+    const [basePtA, basePtB] = pointsBase
+    const [checkPtA, checkPtB] = pointsCheck
+
+    if (isEqualCoords2D(checkPtB, basePtA, tolerance) || isEqualCoords2D(checkPtA, basePtA, tolerance)) {
+        cbAction(true)
+    } else if (isEqualCoords2D(checkPtA, basePtB, tolerance) || isEqualCoords2D(checkPtB, basePtB, tolerance)) {
+        cbAction(false)
+    } else {
+        res = false
+    }
+
+    return res
+}
+
+function _getChainEnds(coords, chain) {
+    return {
+        first: coords[chain[0]],
+        last: coords[chain[chain.length - 1]]
+    }
+}
+
+export default { HALF_PI, QUART_PI, DOUBLE_PI, angleDegToRad, roundFloat, dotProduct2D, crossProduct2D, delta2D, midPoint2D, isEqualCoords2D, dist2D, distManhattan2D, isNearerFirstPt2D, pointOnLineByLen2D, projectPointToStraightLine2D, isPointBelongStraightLine2D, isPointBelongLineSegment2D, isSomePointBelongLineSegment2D, isEveryPointBelongLineSegment2D, isPointInsidePolygon2D, isSomePointInsidePolygon2D, isEveryPointInsidePolygon2D, crossStraightLines2D, crossLinesSegments2D, isCrossLinesSegments2D, chainsLinesSegments2D }
