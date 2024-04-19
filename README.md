@@ -196,20 +196,20 @@ const { TkArray, TkObject, TkString, TkFunction, TkMath, TkService, TkBrowser, T
      * @returns {boolean}
      */
 
-• TkArray.prevIndCycle(srcArr, index)
+• TkArray.prevValueCycle(srcArr, index)
     /**
-     * Returns the index of the previous element of a circular array
+     * Returns the value of the previous element of a circular array
      * @param {any[]} srcArr                    Source array
      * @param {number} index                    Element index
-     * @returns {number}
+     * @returns {any}
      */
 
-• TkArray.nextIndCycle(srcArr, index)
+• TkArray.nextValueCycle(srcArr, index)
     /**
-     * Returns the index of the next element of a circular array
+     * Returns the value of the next element of a circular array
      * @param {any[]} srcArr                    Source array
      * @param {number} index                    Element index
-     * @returns {number}
+     * @returns {any}
      */
 ~~~
 

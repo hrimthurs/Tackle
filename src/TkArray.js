@@ -83,23 +83,23 @@ export function isSubArray(subArr, mainArr, strictEqual = false) {
 }
 
 /**
- * Returns the index of the previous element of a circular array
+ * Returns the value of the previous element of a circular array
  * @param {any[]} srcArr                    Source array
  * @param {number} index                    Element index
- * @returns {number}
+ * @returns {any}
  */
-export function prevIndCycle(srcArr, index) {
-    return index > 0 ? index - 1 : srcArr.length - 1
+export function prevValueCycle(srcArr, index) {
+    return srcArr[index > 0 ? index - 1 : srcArr.length - 1]
 }
 
 /**
- * Returns the index of the next element of a circular array
+  * Returns the value of the next element of a circular array
  * @param {any[]} srcArr                    Source array
  * @param {number} index                    Element index
- * @returns {number}
+ * @returns {any}
  */
-export function nextIndCycle(srcArr, index) {
-    return index < srcArr.length - 1 ? index + 1 : 0
+export function nextValueCycle(srcArr, index) {
+    return srcArr[index < srcArr.length - 1 ? index + 1 : 0]
 }
 
-export default { getArray, getUniqValues, swapValues, excludeValues, sortArrayStr, isSubArray, prevIndCycle, nextIndCycle }
+export default { getArray, getUniqValues, swapValues, excludeValues, sortArrayStr, isSubArray, prevValueCycle, nextValueCycle }
