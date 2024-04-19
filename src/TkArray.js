@@ -82,4 +82,24 @@ export function isSubArray(subArr, mainArr, strictEqual = false) {
     return suitableSize && subArr.every(val => mainArr.includes(val))
 }
 
-export default { getArray, getUniqValues, swapValues, excludeValues, sortArrayStr, isSubArray }
+/**
+ * Returns the index of the previous element of a circular array
+ * @param {any[]} srcArr                    Source array
+ * @param {number} index                    Element index
+ * @returns {number}
+ */
+export function prevIndCycle(srcArr, index) {
+    return index > 0 ? index - 1 : srcArr.length - 1
+}
+
+/**
+ * Returns the index of the next element of a circular array
+ * @param {any[]} srcArr                    Source array
+ * @param {number} index                    Element index
+ * @returns {number}
+ */
+export function nextIndCycle(srcArr, index) {
+    return index < srcArr.length - 1 ? index + 1 : 0
+}
+
+export default { getArray, getUniqValues, swapValues, excludeValues, sortArrayStr, isSubArray, prevIndCycle, nextIndCycle }

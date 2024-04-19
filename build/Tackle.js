@@ -1,4 +1,4 @@
-/* @hrimthurs/tackle 1.22.0 https://github.com/hrimthurs/Tackle @license MIT */
+/* @hrimthurs/tackle 1.23.0 https://github.com/hrimthurs/Tackle @license MIT */
 /**
  * Returns array regardless of type srcVal
  * @param {any} srcVal                      Source value
@@ -83,7 +83,27 @@ function isSubArray(subArr, mainArr, strictEqual = false) {
     return suitableSize && subArr.every(val => mainArr.includes(val))
 }
 
-var TkArray = { getArray, getUniqValues, swapValues, excludeValues, sortArrayStr, isSubArray };
+/**
+ * Returns the index of the previous element of a circular array
+ * @param {any[]} srcArr                    Source array
+ * @param {number} index                    Element index
+ * @returns {number}
+ */
+function prevIndCycle(srcArr, index) {
+    return index > 0 ? index - 1 : srcArr.length - 1
+}
+
+/**
+ * Returns the index of the next element of a circular array
+ * @param {any[]} srcArr                    Source array
+ * @param {number} index                    Element index
+ * @returns {number}
+ */
+function nextIndCycle(srcArr, index) {
+    return index < srcArr.length - 1 ? index + 1 : 0
+}
+
+var TkArray = { getArray, getUniqValues, swapValues, excludeValues, sortArrayStr, isSubArray, prevIndCycle, nextIndCycle };
 
 /**
  * Converts a numeric value to a string of the specified length with adding '0' (at the beginning for integer, ending for float).

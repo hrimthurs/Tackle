@@ -195,6 +195,22 @@ const { TkArray, TkObject, TkString, TkFunction, TkMath, TkService, TkBrowser, T
      * @param {boolean} [strictEqual]           Arrays must be equivalent (default: false)
      * @returns {boolean}
      */
+
+• TkArray.prevIndCycle(srcArr, index)
+    /**
+     * Returns the index of the previous element of a circular array
+     * @param {any[]} srcArr                    Source array
+     * @param {number} index                    Element index
+     * @returns {number}
+     */
+
+• TkArray.nextIndCycle(srcArr, index)
+    /**
+     * Returns the index of the next element of a circular array
+     * @param {any[]} srcArr                    Source array
+     * @param {number} index                    Element index
+     * @returns {number}
+     */
 ~~~
 
 ### TkObject:
