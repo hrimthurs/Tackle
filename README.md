@@ -535,6 +535,17 @@ const { TkArray, TkObject, TkString, TkFunction, TkMath, TkService, TkBrowser, T
      * @returns {boolean}
      */
 
+• TkMath.isParallelStraightLines2D(ptA, ptB, ptC, ptD, threshold = 0)
+    /**
+     * Checks if parallel of the straight lines ─ptA─────ptB─ and ─ptC─────ptD─
+     * @param {{x:number,y:number}} ptA         Point A
+     * @param {{x:number,y:number}} ptB         Point B
+     * @param {{x:number,y:number}} ptC         Point C
+     * @param {{x:number,y:number}} ptD         Point D
+     * @param {number} [threshold]              Threshold of parallel (default: 0)
+     * @returns {boolean}
+     */
+
 • TkMath.crossStraightLines2D(ptA, ptB, ptC, ptD)
     /**
      * Calculates the cross point 2D of the straight lines ─ptA─────ptB─ and ─ptC─────ptD─

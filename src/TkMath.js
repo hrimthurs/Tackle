@@ -309,6 +309,20 @@ function isEveryPointInsidePolygon2D(arrPoints, polyPts) {
 }
 
 /**
+ * Checks if parallel of the straight lines ─ptA─────ptB─ and ─ptC─────ptD─
+ * @param {{x:number,y:number}} ptA         Point A
+ * @param {{x:number,y:number}} ptB         Point B
+ * @param {{x:number,y:number}} ptC         Point C
+ * @param {{x:number,y:number}} ptD         Point D
+ * @param {number} [threshold]              Threshold of parallel (default: 0)
+ * @returns {boolean}
+ */
+function isParallelStraightLines2D(ptA, ptB, ptC, ptD, threshold = 0) {
+    const denominator = crossProduct2D(delta2D(ptB, ptA), delta2D(ptD, ptC))
+    return Math.abs(denominator) < threshold
+}
+
+/**
  * Calculates the cross point 2D of the straight lines ─ptA─────ptB─ and ─ptC─────ptD─
  * @param {{x:number,y:number}} ptA         Point A
  * @param {{x:number,y:number}} ptB         Point B
@@ -480,4 +494,4 @@ function _getChainEnds(coords, chain) {
     }
 }
 
-export default { HALF_PI, QUART_PI, DOUBLE_PI, angleDegToRad, roundFloat, dotProduct2D, crossProduct2D, delta2D, midPoint2D, isEqualCoords2D, dist2D, distManhattan2D, isNearerFirstPt2D, areaPolygon2D, centroidPolygon2D, pointOnLineByLen2D, projectPointToStraightLine2D, isPointBelongStraightLine2D, isPointBelongLineSegment2D, isSomePointBelongLineSegment2D, isEveryPointBelongLineSegment2D, isPointInsidePolygon2D, isSomePointInsidePolygon2D, isEveryPointInsidePolygon2D, crossStraightLines2D, crossLinesSegments2D, isCrossLinesSegments2D, chainsLinesSegments2D }
+export default { HALF_PI, QUART_PI, DOUBLE_PI, angleDegToRad, roundFloat, dotProduct2D, crossProduct2D, delta2D, midPoint2D, isEqualCoords2D, dist2D, distManhattan2D, isNearerFirstPt2D, areaPolygon2D, centroidPolygon2D, pointOnLineByLen2D, projectPointToStraightLine2D, isPointBelongStraightLine2D, isPointBelongLineSegment2D, isSomePointBelongLineSegment2D, isEveryPointBelongLineSegment2D, isPointInsidePolygon2D, isSomePointInsidePolygon2D, isEveryPointInsidePolygon2D, isParallelStraightLines2D, crossStraightLines2D, crossLinesSegments2D, isCrossLinesSegments2D, chainsLinesSegments2D }
