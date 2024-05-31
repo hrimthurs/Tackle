@@ -1,4 +1,4 @@
-/* @hrimthurs/tackle 1.23.2 https://github.com/hrimthurs/Tackle @license MIT */
+/* @hrimthurs/tackle 1.24.0 https://github.com/hrimthurs/Tackle @license MIT */
 /**
  * Returns array regardless of type srcVal
  * @param {any} srcVal                      Source value
@@ -617,6 +617,18 @@ function projectPointToStraightLine2D(ptA, ptB, ptC) {
 }
 
 /**
+ * Detect the side on which point ptC is located relative to the straight line ─ptA─────ptB─
+ * @param {{x:number,y:number}} ptA         Point A
+ * @param {{x:number,y:number}} ptB         Point B
+ * @param {{x:number,y:number}} ptC         Point C
+ * @returns {number}                        -1, 1, 0 (= located on line)
+ */
+function sidePointRelativeStraightLine2D(ptA, ptB, ptC) {
+    const doubleArea = crossProduct2D(delta2D(ptB, ptA), delta2D(ptC, ptA));
+    return Math.sign(doubleArea)
+}
+
+/**
  * Checks if point 2D ptC on straight line ─ptA─────ptB─
  * @param {{x:number,y:number}} ptA         Point A
  * @param {{x:number,y:number}} ptB         Point B
@@ -917,7 +929,7 @@ function _getChainEnds(coords, chain) {
     }
 }
 
-var TkMath = { HALF_PI, QUART_PI, DOUBLE_PI, angleDegToRad, roundFloat, dotProduct2D, crossProduct2D, delta2D, midPoint2D, isEqualCoords2D, dist2D, distManhattan2D, isNearerFirstPt2D, areaPolygon2D, centroidPolygon2D, pointOnLineByLen2D, projectPointToStraightLine2D, isPointBelongStraightLine2D, isPointBelongLineSegment2D, isSomePointBelongLineSegment2D, isEveryPointBelongLineSegment2D, isPointInsidePolygon2D, isSomePointInsidePolygon2D, isEveryPointInsidePolygon2D, isParallelStraightLines2D, crossStraightLines2D, crossLinesSegments2D, isCrossLinesSegments2D, chainsLinesSegments2D };
+var TkMath = { HALF_PI, QUART_PI, DOUBLE_PI, angleDegToRad, roundFloat, dotProduct2D, crossProduct2D, delta2D, midPoint2D, isEqualCoords2D, dist2D, distManhattan2D, isNearerFirstPt2D, areaPolygon2D, centroidPolygon2D, pointOnLineByLen2D, projectPointToStraightLine2D, sidePointRelativeStraightLine2D, isPointBelongStraightLine2D, isPointBelongLineSegment2D, isSomePointBelongLineSegment2D, isEveryPointBelongLineSegment2D, isPointInsidePolygon2D, isSomePointInsidePolygon2D, isEveryPointInsidePolygon2D, isParallelStraightLines2D, crossStraightLines2D, crossLinesSegments2D, isCrossLinesSegments2D, chainsLinesSegments2D };
 
 /**
  * Converts the number of bytes to kilobytes

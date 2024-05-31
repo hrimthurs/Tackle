@@ -471,6 +471,15 @@ const { TkArray, TkObject, TkString, TkFunction, TkMath, TkService, TkBrowser, T
      * @returns {{x:number,y:number}}
      */
 
+• TkMath.sidePointRelativeStraightLine2D(ptA, ptB, ptC)
+    /**
+     * Detect the side on which point ptC is located relative to the straight line ─ptA─────ptB─
+     * @param {{x:number,y:number}} ptA         Point A
+     * @param {{x:number,y:number}} ptB         Point B
+     * @param {{x:number,y:number}} ptC         Point C
+     * @returns {number}                        -1, 1, 0 (= located on straight line)
+     */
+
 • TkMath.isPointBelongStraightLine2D(ptA, ptB, ptC, tolerance = 1.2)
     /**
      * Checks if point 2D ptC on straight line ─ptA─────ptB─
