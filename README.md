@@ -404,6 +404,13 @@ const { TkArray, TkObject, TkString, TkFunction, TkMath, TkService, TkBrowser, T
      * @returns {{x:number,y:number}}
      */
 
+• TkMath.normalize2D(ptA)
+    /**
+     * Calculates the point of unit vector for direction point
+     * @param {{x:number,y:number}} ptA         Point A
+     * @returns {{x:number,y:number}}
+     */
+
 • TkMath.isEqualCoords2D(ptA, ptB, tolerance = 0.1)
     /**
      * Checks is equal coords of 2D ptA and ptB
@@ -544,14 +551,14 @@ const { TkArray, TkObject, TkString, TkFunction, TkMath, TkService, TkBrowser, T
      * @returns {boolean}
      */
 
-• TkMath.isParallelStraightLines2D(ptA, ptB, ptC, ptD, threshold = 0)
+• TkMath.isParallelStraightLines2D(ptA, ptB, ptC, ptD, tolerance = 0.1)
     /**
      * Checks if parallel of the straight lines ─ptA─────ptB─ and ─ptC─────ptD─
      * @param {{x:number,y:number}} ptA         Point A
      * @param {{x:number,y:number}} ptB         Point B
      * @param {{x:number,y:number}} ptC         Point C
      * @param {{x:number,y:number}} ptD         Point D
-     * @param {number} [threshold]              Threshold of parallel (default: 0)
+     * @param {number} [tolerance]              Tolerance of parallel: 0 - exact match, 1 - orthogonal (default: 0.1)
      * @returns {boolean}
      */
 

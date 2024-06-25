@@ -1,4 +1,4 @@
-/* @hrimthurs/tackle 1.24.0 https://github.com/hrimthurs/Tackle @license MIT */
+/* @hrimthurs/tackle 1.24.3 https://github.com/hrimthurs/Tackle @license MIT */
 /**
  * Returns array regardless of type srcVal
  * @param {any} srcVal                      Source value
@@ -493,6 +493,21 @@ function midPoint2D(ptA, ptB) {
 }
 
 /**
+ * Calculates the point of unit vector for direction point
+ * @param {{x:number,y:number}} ptA         Point A
+ * @returns {{x:number,y:number}}
+ */
+function normalize2D(ptA) {
+    const { x, y } = ptA;
+    const factor = 1 / (Math.sqrt(x * x + y * y) || 1);
+
+    return {
+        x: x * factor,
+        y: y * factor
+    }
+}
+
+/**
  * Checks is equal coords of 2D ptA and ptB
  * @param {{x:number,y:number}} ptA         Point A
  * @param {{x:number,y:number}} ptB         Point B
@@ -749,12 +764,15 @@ function isEveryPointInsidePolygon2D(arrPoints, polyPts) {
  * @param {{x:number,y:number}} ptB         Point B
  * @param {{x:number,y:number}} ptC         Point C
  * @param {{x:number,y:number}} ptD         Point D
- * @param {number} [threshold]              Threshold of parallel (default: 0)
+ * @param {number} [tolerance]              Tolerance of parallel: 0 - exact match, 1 - orthogonal (default: 0.1)
  * @returns {boolean}
  */
-function isParallelStraightLines2D(ptA, ptB, ptC, ptD, threshold = 0) {
-    const denominator = crossProduct2D(delta2D(ptB, ptA), delta2D(ptD, ptC));
-    return Math.abs(denominator) < threshold
+function isParallelStraightLines2D(ptA, ptB, ptC, ptD, tolerance = 0.1) {
+    const deltaBA = normalize2D(delta2D(ptB, ptA));
+    const deltaDC = normalize2D(delta2D(ptD, ptC));
+
+    const denominator = crossProduct2D(deltaBA, deltaDC);
+    return Math.abs(denominator) <= tolerance
 }
 
 /**
