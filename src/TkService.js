@@ -33,6 +33,35 @@ export function trimFloat(srcVal, precision, stringify = false) {
 }
 
 /**
+ * Linear congruential generator pseudo-randomized numbers
+ *
+ * Example use:
+ *
+ *      const random = randomLCG(5, { min: -100, max: 100 })
+ *      let v = random()
+ * @param {number} [seed]                           Seed of sequence generation (default: 1)
+ * @param {{max?:number,min?:number}} [rangeInt]    Range for integer sequence. If undefined, generated float sequence (default: null)
+ * @returns {function}
+ */
+export function randomLCG(seed = 1, rangeInt = null) {
+    const multiplier = 48271
+    const modulus = 2147483647
+
+    const divFloat = 1000000
+    const min = rangeInt?.min ?? 0
+    const divInt = ((rangeInt?.max ?? divFloat) - min + 1)
+
+    let value = seed % modulus
+
+    return function() {
+        value = value * multiplier % modulus
+
+        const res = value % divInt + min
+        return rangeInt ? res : res / divFloat
+    }
+}
+
+/**
  * Get parameters from URL to object
  *
  * Converts:
@@ -195,7 +224,7 @@ function promiseTimeout(limTimeout, options = {}) {
     })
 }
 
-export default { bytesToKb, bytesToMb, trimFloat, getParamsURL, setParamsURL, generateHashUID, generateUUID, promiseTimeout }
+export default { bytesToKb, bytesToMb, trimFloat, randomLCG, getParamsURL, setParamsURL, generateHashUID, generateUUID, promiseTimeout }
 
 /////////////////////////////////////////////////   PRIVATE   /////////////////////////////////////////////////
 

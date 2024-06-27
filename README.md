@@ -630,6 +630,18 @@ const { TkArray, TkObject, TkString, TkFunction, TkMath, TkService, TkBrowser, T
      * @returns {any|string}
      */
 
+• TkService.randomLCG(seed = 1, rangeInt = null)
+    /**
+     * Linear congruential generator pseudo-randomized numbers
+     *
+     * Example use:
+     *      const random = randomLCG(5, { min: -100, max: 100 })
+     *      let v = random()
+     * @param {number} [seed]                           Seed of sequence generation (default: 1)
+     * @param {{max?:number,min?:number}} [rangeInt]    Range for integer sequence. If undefined, generated float sequence (default: null)
+     * @returns {function}
+     */
+
 • TkService.getParamsURL(srcUrl, options)
     /**
      * Get parameters from URL to object
