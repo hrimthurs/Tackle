@@ -3,6 +3,7 @@ const QUART_PI = Math.PI / 4
 const DOUBLE_PI = Math.PI * 2
 
 const _DEG_TO_RAD = Math.PI / 180
+const _RAD_TO_DEG = 180 / Math.PI
 
 /**
  * Converts angle value from degree to radian
@@ -11,6 +12,15 @@ const _DEG_TO_RAD = Math.PI / 180
  */
 function angleDegToRad(angleDeg = 0) {
     return Number(angleDeg) * _DEG_TO_RAD
+}
+
+/**
+ * Converts angle value from radian to degree
+ * @param {number} [angleRad]               Angle radian (default: 0)
+ * @returns {number}
+ */
+function angleRadToDeg(angleRad = 0) {
+    return Number(angleRad) * _RAD_TO_DEG
 }
 
 /**
@@ -82,6 +92,25 @@ function normalize2D(ptA) {
         x: x * factor,
         y: y * factor
     }
+}
+
+/**
+ * Calculates the angle clockwise between lines ─ptA─────ptB─ and ─ptB─────ptC─
+ * @param {{x:number,y:number}} ptA         Point A
+ * @param {{x:number,y:number}} ptB         Point B
+ * @param {{x:number,y:number}} ptC         Point C
+ * @returns {number}
+ */
+function angleClockwise2D(ptA, ptB, ptC) {
+    const nAB = normalize2D(delta2D(ptA, ptB))
+    const nCB = normalize2D(delta2D(ptC, ptB))
+
+    let angle = Math.acos(dotProduct2D(nAB, nCB))
+
+    if (crossProduct2D(nAB, nCB) < 0) angle *= -1
+    if (angle < 0) angle += DOUBLE_PI
+
+    return angle
 }
 
 /**
@@ -524,4 +553,4 @@ function _getChainEnds(coords, chain) {
     }
 }
 
-export default { HALF_PI, QUART_PI, DOUBLE_PI, angleDegToRad, roundFloat, dotProduct2D, crossProduct2D, delta2D, midPoint2D, normalize2D, isEqualCoords2D, dist2D, distManhattan2D, isNearerFirstPt2D, areaPolygon2D, centroidPolygon2D, pointOnLineByLen2D, projectPointToStraightLine2D, sidePointRelativeStraightLine2D, isPointBelongStraightLine2D, isPointBelongLineSegment2D, isSomePointBelongLineSegment2D, isEveryPointBelongLineSegment2D, isPointInsidePolygon2D, isSomePointInsidePolygon2D, isEveryPointInsidePolygon2D, isParallelStraightLines2D, crossStraightLines2D, crossLinesSegments2D, isCrossLinesSegments2D, chainsLinesSegments2D }
+export default { HALF_PI, QUART_PI, DOUBLE_PI, angleDegToRad, angleRadToDeg, roundFloat, dotProduct2D, crossProduct2D, delta2D, midPoint2D, normalize2D, angleClockwise2D, isEqualCoords2D, dist2D, distManhattan2D, isNearerFirstPt2D, areaPolygon2D, centroidPolygon2D, pointOnLineByLen2D, projectPointToStraightLine2D, sidePointRelativeStraightLine2D, isPointBelongStraightLine2D, isPointBelongLineSegment2D, isSomePointBelongLineSegment2D, isEveryPointBelongLineSegment2D, isPointInsidePolygon2D, isSomePointInsidePolygon2D, isEveryPointInsidePolygon2D, isParallelStraightLines2D, crossStraightLines2D, crossLinesSegments2D, isCrossLinesSegments2D, chainsLinesSegments2D }

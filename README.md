@@ -364,6 +364,13 @@ const { TkArray, TkObject, TkString, TkFunction, TkMath, TkService, TkBrowser, T
      * @returns {number}
      */
 
+• TkMath.angleRadToDeg(angleRad = 0)
+    /**
+     * Converts angle value from radian to degree
+     * @param {number} [angleRad]               Angle radian (default: 0)
+     * @returns {number}
+     */
+
 • TkMath.roundFloat(srcVal, precision = 3)
     /**
      * Round float number with a given precision
@@ -409,6 +416,15 @@ const { TkArray, TkObject, TkString, TkFunction, TkMath, TkService, TkBrowser, T
      * Calculates the point of unit vector for direction point
      * @param {{x:number,y:number}} ptA         Point A
      * @returns {{x:number,y:number}}
+     */
+
+• TkMath.angleClockwise2D(ptA, ptB, ptC)
+    /**
+     * Calculates the angle clockwise between lines ─ptA─────ptB─ and ─ptB─────ptC─
+     * @param {{x:number,y:number}} ptA         Point A
+     * @param {{x:number,y:number}} ptB         Point B
+     * @param {{x:number,y:number}} ptC         Point C
+     * @returns {number}
      */
 
 • TkMath.isEqualCoords2D(ptA, ptB, tolerance = 0.1)
@@ -636,7 +652,8 @@ const { TkArray, TkObject, TkString, TkFunction, TkMath, TkService, TkBrowser, T
      *
      * Example use:
      *      const random = randomLCG(5, { min: -100, max: 100 })
-     *      let v = random()
+     *      let v1 = random()
+     *      let v2 = random({ min: 20, max: 25 })
      * @param {number} [seed]                           Seed of sequence generation (default: 1)
      * @param {{max?:number,min?:number}} [rangeInt]    Range for integer sequence. If undefined, generated float sequence (default: null)
      * @returns {function}

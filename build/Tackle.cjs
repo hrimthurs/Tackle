@@ -1,4 +1,4 @@
-/* @hrimthurs/tackle 1.25.0 https://github.com/hrimthurs/Tackle @license MIT */
+/* @hrimthurs/tackle 1.26.0 https://github.com/hrimthurs/Tackle @license MIT */
 'use strict';
 
 Object.defineProperty(exports, '__esModule', { value: true });
@@ -433,6 +433,7 @@ const QUART_PI = Math.PI / 4;
 const DOUBLE_PI = Math.PI * 2;
 
 const _DEG_TO_RAD = Math.PI / 180;
+const _RAD_TO_DEG = 180 / Math.PI;
 
 /**
  * Converts angle value from degree to radian
@@ -441,6 +442,15 @@ const _DEG_TO_RAD = Math.PI / 180;
  */
 function angleDegToRad(angleDeg = 0) {
     return Number(angleDeg) * _DEG_TO_RAD
+}
+
+/**
+ * Converts angle value from radian to degree
+ * @param {number} [angleRad]               Angle radian (default: 0)
+ * @returns {number}
+ */
+function angleRadToDeg(angleRad = 0) {
+    return Number(angleRad) * _RAD_TO_DEG
 }
 
 /**
@@ -512,6 +522,25 @@ function normalize2D(ptA) {
         x: x * factor,
         y: y * factor
     }
+}
+
+/**
+ * Calculates the angle clockwise between lines ─ptA─────ptB─ and ─ptB─────ptC─
+ * @param {{x:number,y:number}} ptA         Point A
+ * @param {{x:number,y:number}} ptB         Point B
+ * @param {{x:number,y:number}} ptC         Point C
+ * @returns {number}
+ */
+function angleClockwise2D(ptA, ptB, ptC) {
+    const nAB = normalize2D(delta2D(ptA, ptB));
+    const nCB = normalize2D(delta2D(ptC, ptB));
+
+    let angle = Math.acos(dotProduct2D(nAB, nCB));
+
+    if (crossProduct2D(nAB, nCB) < 0) angle *= -1;
+    if (angle < 0) angle += DOUBLE_PI;
+
+    return angle
 }
 
 /**
@@ -954,7 +983,7 @@ function _getChainEnds(coords, chain) {
     }
 }
 
-var TkMath = { HALF_PI, QUART_PI, DOUBLE_PI, angleDegToRad, roundFloat, dotProduct2D, crossProduct2D, delta2D, midPoint2D, normalize2D, isEqualCoords2D, dist2D, distManhattan2D, isNearerFirstPt2D, areaPolygon2D, centroidPolygon2D, pointOnLineByLen2D, projectPointToStraightLine2D, sidePointRelativeStraightLine2D, isPointBelongStraightLine2D, isPointBelongLineSegment2D, isSomePointBelongLineSegment2D, isEveryPointBelongLineSegment2D, isPointInsidePolygon2D, isSomePointInsidePolygon2D, isEveryPointInsidePolygon2D, isParallelStraightLines2D, crossStraightLines2D, crossLinesSegments2D, isCrossLinesSegments2D, chainsLinesSegments2D };
+var TkMath = { HALF_PI, QUART_PI, DOUBLE_PI, angleDegToRad, angleRadToDeg, roundFloat, dotProduct2D, crossProduct2D, delta2D, midPoint2D, normalize2D, angleClockwise2D, isEqualCoords2D, dist2D, distManhattan2D, isNearerFirstPt2D, areaPolygon2D, centroidPolygon2D, pointOnLineByLen2D, projectPointToStraightLine2D, sidePointRelativeStraightLine2D, isPointBelongStraightLine2D, isPointBelongLineSegment2D, isSomePointBelongLineSegment2D, isEveryPointBelongLineSegment2D, isPointInsidePolygon2D, isSomePointInsidePolygon2D, isEveryPointInsidePolygon2D, isParallelStraightLines2D, crossStraightLines2D, crossLinesSegments2D, isCrossLinesSegments2D, chainsLinesSegments2D };
 
 /**
  * Converts the number of bytes to kilobytes
@@ -994,7 +1023,8 @@ function trimFloat(srcVal, precision, stringify = false) {
  * Example use:
  *
  *      const random = randomLCG(5, { min: -100, max: 100 })
- *      let v = random()
+ *      let v1 = random()
+ *      let v2 = random({ min: 20, max: 25 })
  * @param {number} [seed]                           Seed of sequence generation (default: 1)
  * @param {{max?:number,min?:number}} [rangeInt]    Range for integer sequence. If undefined, generated float sequence (default: null)
  * @returns {function}
@@ -1009,11 +1039,17 @@ function randomLCG(seed = 1, rangeInt = null) {
 
     let value = seed % modulus;
 
-    return function() {
+    return function(localRangeInt = null) {
         value = value * multiplier % modulus;
 
-        const res = value % divInt + min;
-        return rangeInt ? res : res / divFloat
+        if (localRangeInt) {
+            const min = localRangeInt?.min ?? 0;
+            const divInt = ((localRangeInt?.max ?? divFloat) - min + 1);
+            return value % divInt + min
+        } else {
+            const res = value % divInt + min;
+            return rangeInt ? res : res / divFloat
+        }
     }
 }
 

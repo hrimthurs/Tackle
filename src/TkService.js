@@ -38,7 +38,8 @@ export function trimFloat(srcVal, precision, stringify = false) {
  * Example use:
  *
  *      const random = randomLCG(5, { min: -100, max: 100 })
- *      let v = random()
+ *      let v1 = random()
+ *      let v2 = random({ min: 20, max: 25 })
  * @param {number} [seed]                           Seed of sequence generation (default: 1)
  * @param {{max?:number,min?:number}} [rangeInt]    Range for integer sequence. If undefined, generated float sequence (default: null)
  * @returns {function}
@@ -53,11 +54,17 @@ export function randomLCG(seed = 1, rangeInt = null) {
 
     let value = seed % modulus
 
-    return function() {
+    return function(localRangeInt = null) {
         value = value * multiplier % modulus
 
-        const res = value % divInt + min
-        return rangeInt ? res : res / divFloat
+        if (localRangeInt) {
+            const min = localRangeInt?.min ?? 0
+            const divInt = ((localRangeInt?.max ?? divFloat) - min + 1)
+            return value % divInt + min
+        } else {
+            const res = value % divInt + min
+            return rangeInt ? res : res / divFloat
+        }
     }
 }
 
