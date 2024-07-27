@@ -732,11 +732,12 @@ const { TkArray, TkObject, TkString, TkFunction, TkMath, TkService, TkBrowser, T
      * @param {string} tagName                  Type of element to be created
      * @param {object} [options]                Options
      * @param {boolean} [options.insertFirst]   Add an element as first of the children nodes of parent (default: false → add as last)
-     * @param {object[]} [options.subElements]                  Entries of elements to recursively create as children (default: empty)
-     * @param {Object<string,string>} [options.attributes]      Keys/values of attributes who sets to the element (default: empty)
-     * @param {string|Object<string,string>} [options.style]    Keys/values/cssText of the style to be set for the element (default: empty)
-     * @param {string|string[]} [options.class]                 Class/Classes to be set for the element (default: empty)
-     * @param {Object<string,string>} [options.properties]      Keys/values of exist properties to be set for the element (default: empty)
+     * @param {object[]} [options.subElements]                      Entries of elements to recursively create as children (default: empty)
+     * @param {Object<string,string|number>} [options.attributes]   Keys/values of attributes who sets to the element (default: empty)
+     * @param {string|Object<string,string|number>} [options.style] Keys/values/cssText of the style to be set for the element (default: empty)
+     * @param {string|string[]} [options.class]                     Class/Classes to be set for the element (default: empty)
+     * @param {Object<string,string|number>} [options.properties]   Keys/values of exist properties to be set for the element (default: empty)
+     * @param {HTMLElement|HTMLElement[]} [options.children]        HTML element/elements for append as child (default: empty)
      * @param {HTMLElement} [elParent]          Parent HTML element (default: empty). Page root: document.body
      * @returns {HTMLElement}
      */
