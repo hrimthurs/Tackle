@@ -77,20 +77,6 @@ export function createHTMLElement(tagName, options = {}, elParent = null) {
 }
 
 /**
- * Returns real computed size of HTML element
- * @param {HTMLElement} element             HTML element
- * @returns {{width:number,height:number}}  Size of element
- */
-export function getSizeHTMLElement(element) {
-    const { width, height } = getComputedStyle(element)
-
-    return {
-        width: parseInt(width, 10) + 1,
-        height: parseInt(height, 10) + 1
-    }
-}
-
-/**
  * Sets/unsets/toggles classes for each element by selector
  * @param {string} selectorElement          Query selector of target elements
  * @param {object} [options]                Options
@@ -103,7 +89,7 @@ export function applyClasses(selectorElement, options) {
     const unsetClasses = getArray(options.unset)
     const toggleClasses = getArray(options.toggle)
 
-    forEachElement(selectorElement, (el) => {
+    document.querySelectorAll(selectorElement).forEach((el) => {
         setClasses.forEach((name) => el.classList.add(name))
         unsetClasses.forEach((name) => el.classList.remove(name))
         toggleClasses.forEach((name) => el.classList.toggle(name))
@@ -111,23 +97,21 @@ export function applyClasses(selectorElement, options) {
 }
 
 /**
- * Run callback for each element by selector
- * @param {string} selectorElement          Query selector of target elements
- * @param {function(any):void} callback     Callback function
- */
-export function forEachElement(selectorElement, callback) {
-    document.querySelectorAll(selectorElement).forEach((el) => callback(el))
-}
-
-/**
  * Set resize handler for div HTML element
  * @param {HTMLElement} elDiv               Div HTML element
- * @param {function({width:number,height:number}):void} handler Handler function
+ * @param {function({width:string,height:string}):void} handler Handler function
  */
 export function setDivResizer(elDiv, handler) {
     const elResizer = createHTMLElement('iframe', {
-        style: 'position:absolute; left:0px; top:0px; width:100%; height:100%; z-index:-10000',
-        attributes: { frameborder: 'no' }
+        style: {
+            'position': 'relative',
+            'width': '100%',
+            'height': '100%',
+            'z-index': -10000
+        },
+        attributes: {
+            frameborder: 'no'
+        }
     }, elDiv)
 
     const contentWindow = elResizer['contentWindow']
@@ -138,11 +122,11 @@ export function setDivResizer(elDiv, handler) {
     }
 
     contentWindow.addEventListener('resize', () => {
-        const newSize = getSizeHTMLElement(elResizer)
+        const { width, height } = getComputedStyle(elDiv)
 
-        if ((prevSize.width !== newSize.width) || (prevSize.height !== newSize.height)) {
-            handler(newSize)
-            prevSize = newSize
+        if ((prevSize.width !== width) || (prevSize.height !== height)) {
+            handler({ width, height })
+            prevSize = { width, height }
         }
     })
 
@@ -323,4 +307,4 @@ export function saveValAsJson(fileName, value) {
     }).click()
 }
 
-export default { createHTMLElement, getSizeHTMLElement, applyClasses, forEachElement, setDivResizer, interceptErrors, onDocumentComplete, httpRequest, saveValAsJson }
+export default { createHTMLElement, applyClasses, setDivResizer, interceptErrors, onDocumentComplete, httpRequest, saveValAsJson }

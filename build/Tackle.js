@@ -1,4 +1,4 @@
-/* @hrimthurs/tackle 1.26.2 https://github.com/hrimthurs/Tackle @license MIT */
+/* @hrimthurs/tackle 1.26.3 https://github.com/hrimthurs/Tackle @license MIT */
 /**
  * Returns array regardless of type srcVal
  * @param {any} srcVal                      Source value
@@ -1339,20 +1339,6 @@ function createHTMLElement(tagName, options = {}, elParent = null) {
 }
 
 /**
- * Returns real computed size of HTML element
- * @param {HTMLElement} element             HTML element
- * @returns {{width:number,height:number}}  Size of element
- */
-function getSizeHTMLElement(element) {
-    const { width, height } = getComputedStyle(element);
-
-    return {
-        width: parseInt(width, 10) + 1,
-        height: parseInt(height, 10) + 1
-    }
-}
-
-/**
  * Sets/unsets/toggles classes for each element by selector
  * @param {string} selectorElement          Query selector of target elements
  * @param {object} [options]                Options
@@ -1365,7 +1351,7 @@ function applyClasses(selectorElement, options) {
     const unsetClasses = getArray(options.unset);
     const toggleClasses = getArray(options.toggle);
 
-    forEachElement(selectorElement, (el) => {
+    document.querySelectorAll(selectorElement).forEach((el) => {
         setClasses.forEach((name) => el.classList.add(name));
         unsetClasses.forEach((name) => el.classList.remove(name));
         toggleClasses.forEach((name) => el.classList.toggle(name));
@@ -1373,23 +1359,21 @@ function applyClasses(selectorElement, options) {
 }
 
 /**
- * Run callback for each element by selector
- * @param {string} selectorElement          Query selector of target elements
- * @param {function(any):void} callback     Callback function
- */
-function forEachElement(selectorElement, callback) {
-    document.querySelectorAll(selectorElement).forEach((el) => callback(el));
-}
-
-/**
  * Set resize handler for div HTML element
  * @param {HTMLElement} elDiv               Div HTML element
- * @param {function({width:number,height:number}):void} handler Handler function
+ * @param {function({width:string,height:string}):void} handler Handler function
  */
 function setDivResizer(elDiv, handler) {
     const elResizer = createHTMLElement('iframe', {
-        style: 'position:absolute; left:0px; top:0px; width:100%; height:100%; z-index:-10000',
-        attributes: { frameborder: 'no' }
+        style: {
+            'position': 'relative',
+            'width': '100%',
+            'height': '100%',
+            'z-index': -10000
+        },
+        attributes: {
+            frameborder: 'no'
+        }
     }, elDiv);
 
     const contentWindow = elResizer['contentWindow'];
@@ -1400,11 +1384,11 @@ function setDivResizer(elDiv, handler) {
     };
 
     contentWindow.addEventListener('resize', () => {
-        const newSize = getSizeHTMLElement(elResizer);
+        const { width, height } = getComputedStyle(elDiv);
 
-        if ((prevSize.width !== newSize.width) || (prevSize.height !== newSize.height)) {
-            handler(newSize);
-            prevSize = newSize;
+        if ((prevSize.width !== width) || (prevSize.height !== height)) {
+            handler({ width, height });
+            prevSize = { width, height };
         }
     });
 
@@ -1585,7 +1569,7 @@ function saveValAsJson(fileName, value) {
     }).click();
 }
 
-var TkBrowser = { createHTMLElement, getSizeHTMLElement, applyClasses, forEachElement, setDivResizer, interceptErrors, onDocumentComplete, httpRequest, saveValAsJson };
+var TkBrowser = { createHTMLElement, applyClasses, setDivResizer, interceptErrors, onDocumentComplete, httpRequest, saveValAsJson };
 
 var TkNode = {};
 

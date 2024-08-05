@@ -742,13 +742,6 @@ const { TkArray, TkObject, TkString, TkFunction, TkMath, TkService, TkBrowser, T
      * @returns {HTMLElement}
      */
 
-• TkBrowser.getSizeHTMLElement(element)
-    /**
-     * Returns real computed size of HTML element
-     * @param {HTMLElement} element             HTML element
-     * @returns {{width:number,height:number}}  Size of element
-     */
-
 • TkBrowser.applyClasses(selectorElement, options)
     /**
      * Sets/unsets/toggles classes for each element by selector
@@ -759,18 +752,11 @@ const { TkArray, TkObject, TkString, TkFunction, TkMath, TkService, TkBrowser, T
      * @param {string|string[]} [options.toggle] Class/classes name for toggle to each elements (default: empty)
      */
 
-• TkBrowser.forEachElement(selectorElement, callback)
-    /**
-     * Run callback for each element by selector
-     * @param {string} selectorElement          Query selector of target elements
-     * @param {function(any):void} callback     Callback function
-     */
-
 • TkBrowser.setDivResizer(elDiv, handler)
     /**
      * Set resize handler for div HTML element
      * @param {HTMLElement} elDiv               Div HTML element
-     * @param {function({width:number,height:number}):void} handler Handler function
+     * @param {function({width:string,height:string}):void} handler Handler function
      */
 
 • TkBrowser.interceptErrors(handler, preventDefault = true)
