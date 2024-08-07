@@ -1,4 +1,4 @@
-/* @hrimthurs/tackle 1.26.3 https://github.com/hrimthurs/Tackle @license MIT */
+/* @hrimthurs/tackle 1.26.4 https://github.com/hrimthurs/Tackle @license MIT */
 'use strict';
 
 Object.defineProperty(exports, '__esModule', { value: true });
@@ -1459,9 +1459,10 @@ function onDocumentComplete(callback = () => {}) {
  * @param {function(any,string):void} [options.cbLoad]          Callback on successful completion of the request (default: empty)
  *      - arg0 - response body
  *      - arg1 - request id
- * @param {function(number,string):void} [options.cbError]      Callback on failure of the request (default: empty)
+ * @param {function(number,any,string):void} [options.cbError]  Callback on failure of the request (default: empty)
  *      - arg0 - error status
- *      - arg1 - request id
+ *      - arg1 - response body
+ *      - arg2 - request id
  * @param {function(number,any,string):void} [options.cbFinal]  Callback on completion of the request (default: empty)
  *      - arg0 - request status
  *      - arg1 - response body
@@ -1492,7 +1493,7 @@ function httpRequest(url, options = {}) {
         addPostQString: false,
 
         cbLoad: (response, requestId) => {},
-        cbError: (status, requestId) => {},
+        cbError: (status, response, requestId) => {},
         cbFinal: (status, response, requestId) => {},
         cbProgress: (loaded, total, requestId) => {},
 
@@ -1536,7 +1537,7 @@ function httpRequest(url, options = {}) {
             const isError = (xhr.status !== 200) || ((useOptions.responseType === 'arraybuffer') && (xhr.response.byteLength === 0));
 
             if (isError) {
-                useOptions.cbError(xhr.status, useOptions.id);
+                useOptions.cbError(xhr.status, xhr.response, useOptions.id);
                 if (useOptions.useReject) reject(xhr.status);
                 else resolve(null);
             } else {

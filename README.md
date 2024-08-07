@@ -794,9 +794,10 @@ const { TkArray, TkObject, TkString, TkFunction, TkMath, TkService, TkBrowser, T
      * @param {function(any,string):void} [options.cbLoad]          Callback on successful completion of the request (default: empty)
      *      - arg0 - response body
      *      - arg1 - request id
-     * @param {function(number,string):void} [options.cbError]      Callback on failure of the request (default: empty)
+     * @param {function(number,any,string):void} [options.cbError]  Callback on failure of the request (default: empty)
      *      - arg0 - error status
-     *      - arg1 - request id
+     *      - arg1 - response body
+     *      - arg2 - request id
      * @param {function(number,any,string):void} [options.cbFinal]  Callback on completion of the request (default: empty)
      *      - arg0 - request status
      *      - arg1 - response body
