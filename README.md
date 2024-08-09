@@ -784,12 +784,13 @@ const { TkArray, TkObject, TkString, TkFunction, TkMath, TkService, TkBrowser, T
      * @param {object} [options.params]                             Params of request. In case of a GET-request, this converted to url search params by TkService.setParamsURL → parsing on server by TkService.getParamsURL (default: empty)
      * @param {Object<string,string>} [options.headers]             Headers of request (default: empty)
      *
-     * @param {string} [options.id]                 Id of request. Used in callbacks of request events (default: null)
-     * @param {number} [options.timeout]            Timeout of request (default: 10000)
-     * @param {boolean} [options.useCache]          Use request cached by browser (default: true)
-     * @param {boolean} [options.useReject]         Use promise rejection on failure of request (default: false → resolve null)
-     * @param {boolean} [options.setGetAsFolder]    For GET request set parameters to query string as path to folder (default: false)
-     * @param {boolean} [options.addPostQString]    For POST request set body parameters to query string (default: false)
+     * @param {string} [options.id]                                 Id of request. Used in callbacks of request events (default: null)
+     * @param {number} [options.timeout]                            Timeout of request (default: 10000)
+     * @param {boolean} [options.useCache]                          Use request cached by browser (default: true)
+     * @param {boolean} [options.useReject]                         Use promise rejection on failure of request (default: false → resolve null)
+     * @param {boolean} [options.setGetAsFolder]                    Only GET: request set parameters to query string as path to folder (default: false)
+     * @param {boolean} [options.addPostQString]                    Only POST: request set body parameters to query string (default: false)
+     * @param {'RAW'|'STRING'|'FORM'} [options.postSendType]        Only POST: type of data to send (default: 'STRING')
      *
      * @param {function(any,string):void} [options.cbLoad]          Callback on successful completion of the request (default: empty)
      *      - arg0 - response body

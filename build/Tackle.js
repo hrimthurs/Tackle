@@ -1,4 +1,4 @@
-/* @hrimthurs/tackle 1.26.4 https://github.com/hrimthurs/Tackle @license MIT */
+/* @hrimthurs/tackle 1.26.5 https://github.com/hrimthurs/Tackle @license MIT */
 /**
  * Returns array regardless of type srcVal
  * @param {any} srcVal                      Source value
@@ -1442,12 +1442,13 @@ function onDocumentComplete(callback = () => {}) {
  * @param {object} [options.params]                             Params of request. In case of a GET-request, this converted to url search params by TkService.setParamsURL → parsing on server by TkService.getParamsURL (default: empty)
  * @param {Object<string,string>} [options.headers]             Headers of request (default: empty)
  *
- * @param {string} [options.id]                 Id of request. Used in callbacks of request events (default: null)
- * @param {number} [options.timeout]            Timeout of request (default: 10000)
- * @param {boolean} [options.useCache]          Use request cached by browser (default: true)
- * @param {boolean} [options.useReject]         Use promise rejection on failure of request (default: false → resolve null)
- * @param {boolean} [options.setGetAsFolder]    For GET request set parameters to query string as path to folder (default: false)
- * @param {boolean} [options.addPostQString]    For POST request set body parameters to query string (default: false)
+ * @param {string} [options.id]                                 Id of request. Used in callbacks of request events (default: null)
+ * @param {number} [options.timeout]                            Timeout of request (default: 10000)
+ * @param {boolean} [options.useCache]                          Use request cached by browser (default: true)
+ * @param {boolean} [options.useReject]                         Use promise rejection on failure of request (default: false → resolve null)
+ * @param {boolean} [options.setGetAsFolder]                    Only GET: request set parameters to query string as path to folder (default: false)
+ * @param {boolean} [options.addPostQString]                    Only POST: request set body parameters to query string (default: false)
+ * @param {'RAW'|'STRING'|'FORM'} [options.postSendType]        Only POST: type of data to send (default: 'STRING')
  *
  * @param {function(any,string):void} [options.cbLoad]          Callback on successful completion of the request (default: empty)
  *      - arg0 - response body
@@ -1485,6 +1486,8 @@ function httpRequest(url, options = {}) {
         setGetAsFolder: false,
         addPostQString: false,
 
+        postSendType: 'STRING',
+
         cbLoad: (response, requestId) => {},
         cbError: (status, response, requestId) => {},
         cbFinal: (status, response, requestId) => {},
@@ -1496,7 +1499,9 @@ function httpRequest(url, options = {}) {
     const isMethodGET = useOptions.method === 'GET';
     const isMethodPOST = useOptions.method === 'POST';
 
-    let isSetParamsUrl = isMethodGET || (isMethodPOST && useOptions.addPostQString);
+    let isSetParamsUrl =
+        isMethodGET ||
+        (isMethodPOST && useOptions.addPostQString && (useOptions.postSendType !== 'RAW'));
 
     if (isMethodGET && useOptions.setGetAsFolder) {
         url += setParamsURL(self.location.href, options.params).searchParams.toString();
@@ -1527,7 +1532,9 @@ function httpRequest(url, options = {}) {
         }
 
         xhr.onloadend = () => {
-            const isError = (xhr.status !== 200) || ((useOptions.responseType === 'arraybuffer') && (xhr.response.byteLength === 0));
+            const isError =
+                (xhr.status !== 200) ||
+                ((useOptions.responseType === 'arraybuffer') && (xhr.response.byteLength === 0));
 
             if (isError) {
                 useOptions.cbError(xhr.status, xhr.response, useOptions.id);
@@ -1545,8 +1552,27 @@ function httpRequest(url, options = {}) {
             useOptions.cbProgress(event.loaded, event.total, useOptions.id);
         };
 
-        const sendData = JSON.stringify(isMethodPOST ? useOptions.params : {});
-        xhr.send(sendData);
+        if (isMethodPOST) {
+            switch (useOptions.postSendType) {
+                case 'RAW':
+                    xhr.send(useOptions.params);
+                    break
+
+                case 'STRING':
+                    xhr.send(JSON.stringify(useOptions.params));
+                    break
+
+                case 'FORM':
+                    const formData = new FormData();
+
+                    for (const key in useOptions.params) {
+                        formData.append(key, useOptions.params[key]);
+                    }
+
+                    xhr.send(formData);
+                    break
+            }
+        } else xhr.send();
     })
 }
 
