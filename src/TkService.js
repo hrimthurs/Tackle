@@ -48,8 +48,9 @@ export function randomLCG(seed = 1, rangeInt = null) {
     const multiplier = 48271
     const modulus = 2147483647
 
-    const divFloat = 1000000
-    const min = rangeInt?.min ?? 0
+    const divFloat = 100000
+    const min = rangeInt?.min ? rangeInt.min - 1 : 0
+
     const divInt = ((rangeInt?.max ?? divFloat) - min + 1)
 
     let value = seed % modulus
@@ -58,12 +59,12 @@ export function randomLCG(seed = 1, rangeInt = null) {
         value = value * multiplier % modulus
 
         if (localRangeInt) {
-            const min = localRangeInt?.min ?? 0
-            const divInt = ((localRangeInt?.max ?? divFloat) - min + 1)
-            return value % divInt + min
+            const min = localRangeInt.min ? localRangeInt.min - 1 : 0
+            const divInt = ((localRangeInt.max ?? divFloat) - min + 1)
+            return Math.trunc(value % divInt + min)
         } else {
             const res = value % divInt + min
-            return rangeInt ? res : res / divFloat
+            return rangeInt ? Math.trunc(res) : res / divFloat
         }
     }
 }
