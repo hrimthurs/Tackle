@@ -99,16 +99,17 @@ function normalize2D(ptA) {
  * @param {{x:number,y:number}} ptA         Point A
  * @param {{x:number,y:number}} ptB         Point B
  * @param {{x:number,y:number}} ptC         Point C
+ * @param {boolean} [sign]                  Return angle with a sign (default: false)
  * @returns {number}
  */
-function angleClockwise2D(ptA, ptB, ptC) {
+function angleClockwise2D(ptA, ptB, ptC, sign = false) {
     const nAB = normalize2D(delta2D(ptA, ptB))
     const nCB = normalize2D(delta2D(ptC, ptB))
 
     let angle = Math.acos(dotProduct2D(nAB, nCB))
 
     if (crossProduct2D(nAB, nCB) < 0) angle *= -1
-    if (angle < 0) angle += DOUBLE_PI
+    if (!sign && (angle < 0)) angle += DOUBLE_PI
 
     return angle
 }

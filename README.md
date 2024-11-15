@@ -418,12 +418,13 @@ const { TkArray, TkObject, TkString, TkFunction, TkMath, TkService, TkBrowser, T
      * @returns {{x:number,y:number}}
      */
 
-• TkMath.angleClockwise2D(ptA, ptB, ptC)
+• TkMath.angleClockwise2D(ptA, ptB, ptC, sign = false)
     /**
      * Calculates the angle clockwise between lines ─ptA─────ptB─ and ─ptB─────ptC─
      * @param {{x:number,y:number}} ptA         Point A
      * @param {{x:number,y:number}} ptB         Point B
      * @param {{x:number,y:number}} ptC         Point C
+     * @param {boolean} [sign]                  Return angle with a sign (default: false)
      * @returns {number}
      */
 
