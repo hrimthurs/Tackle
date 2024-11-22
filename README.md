@@ -418,6 +418,14 @@ const { TkArray, TkObject, TkString, TkFunction, TkMath, TkService, TkBrowser, T
      * @returns {{x:number,y:number}}
      */
 
+• TkMath.normal2D(ptA, ptB)
+    /**
+     * Calculates the normal for line ─ptA─────ptB─
+     * @param {{x:number,y:number}} ptA         Point A
+     * @param {{x:number,y:number}} ptB         Point B
+     * @returns {{x:number,y:number}}
+     */
+
 • TkMath.angleClockwise2D(ptA, ptB, ptC, sign = false)
     /**
      * Calculates the angle clockwise between lines ─ptA─────ptB─ and ─ptB─────ptC─
