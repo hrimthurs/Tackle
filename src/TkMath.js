@@ -128,6 +128,23 @@ function angleClockwise2D(ptA, ptB, ptC, sign = false) {
 }
 
 /**
+ * Checks is equal coords of the lines segments ptA─────ptB and ptC─────ptD
+ * @param {{x:number,y:number}} ptA         Point A
+ * @param {{x:number,y:number}} ptB         Point B
+ * @param {{x:number,y:number}} ptC         Point C
+ * @param {{x:number,y:number}} ptD         Point D
+ * @param {number} [tolerance]              Tolerance of match coords (default: 0.1)
+ * @returns {boolean}
+ */
+function isEqualLinesSegments2D(ptA, ptB, ptC, ptD, tolerance = 0.1) {
+    const isEqual =
+        (isEqualCoords2D(ptA, ptC, tolerance) && isEqualCoords2D(ptB, ptD, tolerance)) ||
+        (isEqualCoords2D(ptB, ptC, tolerance) && isEqualCoords2D(ptA, ptD, tolerance))
+
+    return isEqual
+}
+
+/**
  * Checks is equal coords of 2D ptA and ptB
  * @param {{x:number,y:number}} ptA         Point A
  * @param {{x:number,y:number}} ptB         Point B
@@ -567,4 +584,4 @@ function _getChainEnds(coords, chain) {
     }
 }
 
-export default { HALF_PI, QUART_PI, DOUBLE_PI, angleDegToRad, angleRadToDeg, roundFloat, dotProduct2D, crossProduct2D, delta2D, midPoint2D, normalize2D, normal2D, angleClockwise2D, isEqualCoords2D, dist2D, distManhattan2D, isNearerFirstPt2D, areaPolygon2D, centroidPolygon2D, pointOnLineByLen2D, projectPointToStraightLine2D, sidePointRelativeStraightLine2D, isPointBelongStraightLine2D, isPointBelongLineSegment2D, isSomePointBelongLineSegment2D, isEveryPointBelongLineSegment2D, isPointInsidePolygon2D, isSomePointInsidePolygon2D, isEveryPointInsidePolygon2D, isParallelStraightLines2D, crossStraightLines2D, crossLinesSegments2D, isCrossLinesSegments2D, chainsLinesSegments2D }
+export default { HALF_PI, QUART_PI, DOUBLE_PI, angleDegToRad, angleRadToDeg, roundFloat, dotProduct2D, crossProduct2D, delta2D, midPoint2D, normalize2D, normal2D, angleClockwise2D, isEqualLinesSegments2D, isEqualCoords2D, dist2D, distManhattan2D, isNearerFirstPt2D, areaPolygon2D, centroidPolygon2D, pointOnLineByLen2D, projectPointToStraightLine2D, sidePointRelativeStraightLine2D, isPointBelongStraightLine2D, isPointBelongLineSegment2D, isSomePointBelongLineSegment2D, isEveryPointBelongLineSegment2D, isPointInsidePolygon2D, isSomePointInsidePolygon2D, isEveryPointInsidePolygon2D, isParallelStraightLines2D, crossStraightLines2D, crossLinesSegments2D, isCrossLinesSegments2D, chainsLinesSegments2D }
