@@ -128,6 +128,29 @@ function angleClockwise2D(ptA, ptB, ptC, sign = false) {
 }
 
 /**
+ * Checks is equal coords of 2D ptA and ptB
+ * @param {{x:number,y:number}} ptA         Point A
+ * @param {{x:number,y:number}} ptB         Point B
+ * @param {number} [tolerance]              Tolerance of match coords (default: 0.1)
+ * @returns {boolean}
+ */
+function isEqualCoords2D(ptA, ptB, tolerance = 0.1) {
+    const delta = delta2D(ptB, ptA)
+    return (Math.abs(delta.x) < tolerance) && (Math.abs(delta.y) < tolerance)
+}
+
+/**
+ * Checks if some point is equal coords of 2D ptA
+ * @param {{x:number,y:number}} ptA         Point A
+ * @param {{x:number,y:number}[]} arrPoints Array of check points
+ * @param {number} [tolerance]              Tolerance of match coords (default: 0.1)
+ * @returns {boolean}
+ */
+function isSomeEqualCoords2D(ptA, arrPoints, tolerance = 0.1) {
+    return arrPoints.some((pt) => isEqualCoords2D(ptA, pt, tolerance))
+}
+
+/**
  * Checks is equal coords of the lines segments ptA─────ptB and ptC─────ptD
  * @param {{x:number,y:number}} ptA         Point A
  * @param {{x:number,y:number}} ptB         Point B
@@ -142,18 +165,6 @@ function isEqualLinesSegments2D(ptA, ptB, ptC, ptD, tolerance = 0.1) {
         (isEqualCoords2D(ptB, ptC, tolerance) && isEqualCoords2D(ptA, ptD, tolerance))
 
     return isEqual
-}
-
-/**
- * Checks is equal coords of 2D ptA and ptB
- * @param {{x:number,y:number}} ptA         Point A
- * @param {{x:number,y:number}} ptB         Point B
- * @param {number} [tolerance]              Tolerance of match coords (default: 0.1)
- * @returns {boolean}
- */
-function isEqualCoords2D(ptA, ptB, tolerance = 0.1) {
-    const delta = delta2D(ptB, ptA)
-    return (Math.abs(delta.x) < tolerance) && (Math.abs(delta.y) < tolerance)
 }
 
 /**
@@ -564,15 +575,10 @@ function _joinCoords2D(pointsBase, pointsCheck, tolerance, cbAction = (isBefore)
     let res = true
 
     const [basePtA, basePtB] = pointsBase
-    const [checkPtA, checkPtB] = pointsCheck
 
-    if (isEqualCoords2D(checkPtB, basePtA, tolerance) || isEqualCoords2D(checkPtA, basePtA, tolerance)) {
-        cbAction(true)
-    } else if (isEqualCoords2D(checkPtA, basePtB, tolerance) || isEqualCoords2D(checkPtB, basePtB, tolerance)) {
-        cbAction(false)
-    } else {
-        res = false
-    }
+    if (isSomeEqualCoords2D(basePtA, pointsCheck, tolerance)) cbAction(true)
+    else if (isSomeEqualCoords2D(basePtB, pointsCheck, tolerance)) cbAction(false)
+    else res = false
 
     return res
 }
@@ -584,4 +590,4 @@ function _getChainEnds(coords, chain) {
     }
 }
 
-export default { HALF_PI, QUART_PI, DOUBLE_PI, angleDegToRad, angleRadToDeg, roundFloat, dotProduct2D, crossProduct2D, delta2D, midPoint2D, normalize2D, normal2D, angleClockwise2D, isEqualLinesSegments2D, isEqualCoords2D, dist2D, distManhattan2D, isNearerFirstPt2D, areaPolygon2D, centroidPolygon2D, pointOnLineByLen2D, projectPointToStraightLine2D, sidePointRelativeStraightLine2D, isPointBelongStraightLine2D, isPointBelongLineSegment2D, isSomePointBelongLineSegment2D, isEveryPointBelongLineSegment2D, isPointInsidePolygon2D, isSomePointInsidePolygon2D, isEveryPointInsidePolygon2D, isParallelStraightLines2D, crossStraightLines2D, crossLinesSegments2D, isCrossLinesSegments2D, chainsLinesSegments2D }
+export default { HALF_PI, QUART_PI, DOUBLE_PI, angleDegToRad, angleRadToDeg, roundFloat, dotProduct2D, crossProduct2D, delta2D, midPoint2D, normalize2D, normal2D, angleClockwise2D, isEqualCoords2D, isSomeEqualCoords2D, isEqualLinesSegments2D, dist2D, distManhattan2D, isNearerFirstPt2D, areaPolygon2D, centroidPolygon2D, pointOnLineByLen2D, projectPointToStraightLine2D, sidePointRelativeStraightLine2D, isPointBelongStraightLine2D, isPointBelongLineSegment2D, isSomePointBelongLineSegment2D, isEveryPointBelongLineSegment2D, isPointInsidePolygon2D, isSomePointInsidePolygon2D, isEveryPointInsidePolygon2D, isParallelStraightLines2D, crossStraightLines2D, crossLinesSegments2D, isCrossLinesSegments2D, chainsLinesSegments2D }

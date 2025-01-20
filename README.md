@@ -436,6 +436,24 @@ const { TkArray, TkObject, TkString, TkFunction, TkMath, TkService, TkBrowser, T
      * @returns {number}
      */
 
+• TkMath.isEqualCoords2D(ptA, ptB, tolerance = 0.1)
+    /**
+     * Checks is equal coords of 2D ptA and ptB
+     * @param {{x:number,y:number}} ptA         Point A
+     * @param {{x:number,y:number}} ptB         Point B
+     * @param {number} [tolerance]              Tolerance of match coords (default: 0.1)
+     * @returns {boolean}
+     */
+
+• TkMath.isSomeEqualCoords2D(ptA, arrPoints, tolerance = 0.1)
+    /**
+     * Checks if some point is equal coords of 2D ptA
+     * @param {{x:number,y:number}} ptA         Point A
+     * @param {{x:number,y:number}[]} arrPoints Array of check points
+     * @param {number} [tolerance]              Tolerance of match coords (default: 0.1)
+     * @returns {boolean}
+     */
+
 • TkMath.isEqualLinesSegments2D(ptA, ptB, ptC, ptD, tolerance = 0.1)
     /**
      * Checks is equal coords of the lines segments ptA─────ptB and ptC─────ptD
@@ -443,15 +461,6 @@ const { TkArray, TkObject, TkString, TkFunction, TkMath, TkService, TkBrowser, T
      * @param {{x:number,y:number}} ptB         Point B
      * @param {{x:number,y:number}} ptC         Point C
      * @param {{x:number,y:number}} ptD         Point D
-     * @param {number} [tolerance]              Tolerance of match coords (default: 0.1)
-     * @returns {boolean}
-     */
-
-• TkMath.isEqualCoords2D(ptA, ptB, tolerance = 0.1)
-    /**
-     * Checks is equal coords of 2D ptA and ptB
-     * @param {{x:number,y:number}} ptA         Point A
-     * @param {{x:number,y:number}} ptB         Point B
      * @param {number} [tolerance]              Tolerance of match coords (default: 0.1)
      * @returns {boolean}
      */
