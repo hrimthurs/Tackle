@@ -297,7 +297,7 @@ export function httpRequest(url, options = {}) {
                     break
 
                 case 'STRING':
-                    xhr.send(JSON.stringify(useOptions.params))
+                    xhr.send(_stringify(useOptions.params))
                     break
 
                 case 'FORM':
@@ -320,7 +320,7 @@ export function httpRequest(url, options = {}) {
  * @param {any} value                       Value to save
  */
 export function saveValAsJson(fileName, value) {
-    const blob = new Blob([JSON.stringify(value, null, '\t')], { type: 'text/json' })
+    const blob = new Blob([_stringify(value, '\t')], { type: 'text/json' })
     const url = URL.createObjectURL(blob)
 
     setTimeout(() => URL.revokeObjectURL(url), 10000)
@@ -335,3 +335,15 @@ export function saveValAsJson(fileName, value) {
 }
 
 export default { createHTMLElement, applyClasses, setDivResizer, interceptErrors, onDocumentComplete, httpRequest, saveValAsJson }
+
+/////////////////////////////////////////////////   PRIVATE   /////////////////////////////////////////////////
+
+function _stringify(srcVal, space = null) {
+    return JSON.stringify(srcVal, (_, val) => {
+        return val instanceof Map
+            ? Object.fromEntries(val.entries())
+            : val instanceof Set
+                ? [...val]
+                : val
+    }, space)
+}

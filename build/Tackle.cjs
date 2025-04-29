@@ -1,4 +1,4 @@
-/* @hrimthurs/tackle 1.29.0 https://github.com/hrimthurs/Tackle @license MIT */
+/* @hrimthurs/tackle 1.29.1 https://github.com/hrimthurs/Tackle @license MIT */
 'use strict';
 
 Object.defineProperty(exports, '__esModule', { value: true });
@@ -570,7 +570,7 @@ function isEqualCoords2D(ptA, ptB, tolerance = 0.1) {
 }
 
 /**
- * Checks if some point 2D is equal coords of ptA
+ * Checks if some point is equal coords of 2D ptA
  * @param {{x:number,y:number}} ptA         Point A
  * @param {{x:number,y:number}[]} arrPoints Array of check points
  * @param {number} [tolerance]              Tolerance of match coords (default: 0.1)
@@ -1604,7 +1604,7 @@ function httpRequest(url, options = {}) {
                     break
 
                 case 'STRING':
-                    xhr.send(JSON.stringify(useOptions.params));
+                    xhr.send(_stringify(useOptions.params));
                     break
 
                 case 'FORM':
@@ -1627,7 +1627,7 @@ function httpRequest(url, options = {}) {
  * @param {any} value                       Value to save
  */
 function saveValAsJson(fileName, value) {
-    const blob = new Blob([JSON.stringify(value, null, '\t')], { type: 'text/json' });
+    const blob = new Blob([_stringify(value, '\t')], { type: 'text/json' });
     const url = URL.createObjectURL(blob);
 
     setTimeout(() => URL.revokeObjectURL(url), 10000);
@@ -1642,6 +1642,18 @@ function saveValAsJson(fileName, value) {
 }
 
 var TkBrowser = { createHTMLElement, applyClasses, setDivResizer, interceptErrors, onDocumentComplete, httpRequest, saveValAsJson };
+
+/////////////////////////////////////////////////   PRIVATE   /////////////////////////////////////////////////
+
+function _stringify(srcVal, space = null) {
+    return JSON.stringify(srcVal, (_, val) => {
+        return val instanceof Map
+            ? Object.fromEntries(val.entries())
+            : val instanceof Set
+                ? [...val]
+                : val
+    }, space)
+}
 
 /**
  * @typedef {import('node:path').ParsedPath} TParsedPath
