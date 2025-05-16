@@ -490,6 +490,16 @@ const { TkArray, TkObject, TkString, TkFunction, TkMath, TkService, TkBrowser, T
      * @returns {boolean}
      */
 
+• TkMath.areaTriangle2D(ptA, ptB, ptC, saveSign = false)
+    /**
+     * Calculation area of triangle 2D
+     * @param {{x:number,y:number}} ptA         Point A
+     * @param {{x:number,y:number}} ptB         Point B
+     * @param {{x:number,y:number}} ptC         Point C
+     * @param {boolean} [saveSign]              Save the area sign in the result (default: false)
+     * @returns {number}
+     */
+
 • TkMath.areaPolygon2D(polyPts, saveSign = false)
     /**
      * Calculation area of polygon 2D

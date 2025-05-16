@@ -1,4 +1,4 @@
-/* @hrimthurs/tackle 1.29.1 https://github.com/hrimthurs/Tackle @license MIT */
+/* @hrimthurs/tackle 1.30.0 https://github.com/hrimthurs/Tackle @license MIT */
 'use strict';
 
 Object.defineProperty(exports, '__esModule', { value: true });
@@ -631,18 +631,39 @@ function isNearerFirstPt2D(ptA, ptB, ptC) {
 }
 
 /**
+ * Calculation area of triangle 2D
+ * @param {{x:number,y:number}} ptA         Point A
+ * @param {{x:number,y:number}} ptB         Point B
+ * @param {{x:number,y:number}} ptC         Point C
+ * @param {boolean} [saveSign]              Save the area sign in the result (default: false)
+ * @returns {number}
+ */
+function areaTriangle2D(ptA, ptB, ptC, saveSign = false) {
+    const area = (((ptB.x - ptA.x) * (ptC.y - ptA.y)) - ((ptC.x - ptA.x) * (ptB.y - ptA.y))) / 2;
+    return saveSign ? area : Math.abs(area)
+}
+
+/**
  * Calculation area of polygon 2D
  * @param {{x:number,y:number}[]} polyPts   Points of polygon
  * @param {boolean} [saveSign]              Save the area sign in the result (default: false)
  * @returns {number}
  */
 function areaPolygon2D(polyPts, saveSign = false) {
-    const area = polyPts.reduce((valArea, ptA, ind) => {
-        const ptB = polyPts[(ind + 1) % polyPts.length];
-        return valArea + crossProduct2D(ptA, ptB)
-    }, 0);
+    let res = 0;
 
-    return saveSign ? area : Math.abs(area)
+    if (polyPts.length > 3) {
+        const area = polyPts.reduce((valArea, ptA, ind) => {
+            const ptB = polyPts[(ind + 1) % polyPts.length];
+            return valArea + crossProduct2D(ptA, ptB)
+        }, 0) / 2;
+
+        res = saveSign ? area : Math.abs(area);
+    } else if (polyPts.length === 3) {
+        res = areaTriangle2D(polyPts[0], polyPts[1], polyPts[2], saveSign);
+    }
+
+    return res
 }
 
 /**
@@ -1020,7 +1041,7 @@ function _getChainEnds(coords, chain) {
     }
 }
 
-var TkMath = { HALF_PI, QUART_PI, DOUBLE_PI, angleDegToRad, angleRadToDeg, roundFloat, dotProduct2D, crossProduct2D, delta2D, midPoint2D, normalize2D, normal2D, angleClockwise2D, isEqualCoords2D, isSomeEqualCoords2D, isEqualLinesSegments2D, dist2D, distManhattan2D, isNearerFirstPt2D, areaPolygon2D, centroidPolygon2D, pointOnLineByLen2D, projectPointToStraightLine2D, sidePointRelativeStraightLine2D, isPointBelongStraightLine2D, isPointBelongLineSegment2D, isSomePointBelongLineSegment2D, isEveryPointBelongLineSegment2D, isPointInsidePolygon2D, isSomePointInsidePolygon2D, isEveryPointInsidePolygon2D, isParallelStraightLines2D, crossStraightLines2D, crossLinesSegments2D, isCrossLinesSegments2D, chainsLinesSegments2D };
+var TkMath = { HALF_PI, QUART_PI, DOUBLE_PI, angleDegToRad, angleRadToDeg, roundFloat, dotProduct2D, crossProduct2D, delta2D, midPoint2D, normalize2D, normal2D, angleClockwise2D, isEqualCoords2D, isSomeEqualCoords2D, isEqualLinesSegments2D, dist2D, distManhattan2D, isNearerFirstPt2D, areaTriangle2D, areaPolygon2D, centroidPolygon2D, pointOnLineByLen2D, projectPointToStraightLine2D, sidePointRelativeStraightLine2D, isPointBelongStraightLine2D, isPointBelongLineSegment2D, isSomePointBelongLineSegment2D, isEveryPointBelongLineSegment2D, isPointInsidePolygon2D, isSomePointInsidePolygon2D, isEveryPointInsidePolygon2D, isParallelStraightLines2D, crossStraightLines2D, crossLinesSegments2D, isCrossLinesSegments2D, chainsLinesSegments2D };
 
 /**
  * Converts the number of bytes to kilobytes

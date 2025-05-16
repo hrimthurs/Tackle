@@ -1,6 +1,6 @@
 {
   "name": "@hrimthurs/tackle",
-  "version": "1.29.1",
+  "version": "1.30.0",
   "description": "Various auxiliary tools for working in JavaScript projects",
   "author": "@hrimthurs",
   "license": "MIT",
