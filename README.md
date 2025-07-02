@@ -676,6 +676,20 @@ const { TkArray, TkObject, TkString, TkFunction, TkMath, TkService, TkBrowser, T
      * @returns {number}                        Number of megabytes
      */
 
+• TkService.arrayBufferToBlob(buffer)
+    /**
+     * Create blob from array buffer
+     * @param {ArrayBuffer} buffer              Source array buffer
+     * @returns {Blob}
+     */
+
+• TkService.arrayBufferToString(buffer)
+    /**
+     * Create string from array buffer
+     * @param {ArrayBuffer} buffer              Source array buffer
+     * @returns {string}
+     */
+
 • TkService.trimFloat(srcVal, precision, stringify = false)
     /**
      * Trimming float numbers with a given precision

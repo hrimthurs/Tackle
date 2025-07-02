@@ -1,4 +1,4 @@
-/* @hrimthurs/tackle 1.30.0 https://github.com/hrimthurs/Tackle @license MIT */
+/* @hrimthurs/tackle 1.31.0 https://github.com/hrimthurs/Tackle @license MIT */
 /**
  * Returns array regardless of type srcVal
  * @param {any} srcVal                      Source value
@@ -1057,6 +1057,24 @@ function bytesToMb(numBytes, precision = 2) {
 }
 
 /**
+ * Create blob from array buffer
+ * @param {ArrayBuffer} buffer              Source array buffer
+ * @returns {Blob}
+ */
+function arrayBufferToBlob(buffer) {
+    return new Blob([buffer], { type: 'application/octet-stream' })
+}
+
+/**
+ * Create string from array buffer
+ * @param {ArrayBuffer} buffer              Source array buffer
+ * @returns {string}
+ */
+function arrayBufferToString(buffer) {
+    return btoa(new Uint8Array(buffer).reduce((collect, byte) => collect + String.fromCharCode(byte), ''))
+}
+
+/**
  * Trimming float numbers with a given precision
  * @param {any} srcVal                      Value with containing float numbers
  * @param {number} precision                Defines the number of decimal points of the result float numbers
@@ -1268,7 +1286,7 @@ function promiseTimeout(limTimeout, options = {}) {
     })
 }
 
-var TkService = { bytesToKb, bytesToMb, trimFloat, randomLCG, getParamsURL, setParamsURL, generateHashUID, generateUUID, promiseTimeout };
+var TkService = { bytesToKb, bytesToMb, arrayBufferToBlob, arrayBufferToString, trimFloat, randomLCG, getParamsURL, setParamsURL, generateHashUID, generateUUID, promiseTimeout };
 
 /////////////////////////////////////////////////   PRIVATE   /////////////////////////////////////////////////
 

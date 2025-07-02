@@ -21,6 +21,24 @@ export function bytesToMb(numBytes, precision = 2) {
 }
 
 /**
+ * Create blob from array buffer
+ * @param {ArrayBuffer} buffer              Source array buffer
+ * @returns {Blob}
+ */
+export function arrayBufferToBlob(buffer) {
+    return new Blob([buffer], { type: 'application/octet-stream' })
+}
+
+/**
+ * Create string from array buffer
+ * @param {ArrayBuffer} buffer              Source array buffer
+ * @returns {string}
+ */
+export function arrayBufferToString(buffer) {
+    return btoa(new Uint8Array(buffer).reduce((collect, byte) => collect + String.fromCharCode(byte), ''))
+}
+
+/**
  * Trimming float numbers with a given precision
  * @param {any} srcVal                      Value with containing float numbers
  * @param {number} precision                Defines the number of decimal points of the result float numbers
@@ -171,7 +189,7 @@ export function setParamsURL(url, params = {}, encode = false) {
  * @param {string} [initialStr]             Initial string for generate (default: empty)
  * @returns {string}                        String of hex values with a length of 16 characters
  */
-function generateHashUID(initialStr = '') {
+export function generateHashUID(initialStr = '') {
     const numRandom = 10 + Math.trunc(Math.random() * 10)
     const strRandom = new Array(numRandom).fill(0).map(() => Math.random()).join()
 
@@ -182,7 +200,7 @@ function generateHashUID(initialStr = '') {
  * Generates a universal unique ID in the format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
  * @returns {string}                        String hex values
  */
-function generateUUID() {
+export function generateUUID() {
 	const d0 = Math.random() * 0xffffffff | 0
 	const d1 = Math.random() * 0xffffffff | 0
 	const d2 = Math.random() * 0xffffffff | 0
@@ -210,7 +228,7 @@ function generateUUID() {
  * @param {boolean} [options.timeoutReject] Call reject on timeout (default: false → call resolve without args)
  * @returns {Promise}
  */
-function promiseTimeout(limTimeout, options = {}) {
+export function promiseTimeout(limTimeout, options = {}) {
     return new Promise(async (resolve, reject) => {
         const idTimeout = setTimeout(() => {
             if (options.timeoutReject) reject(new Error('timeout'))
@@ -232,7 +250,7 @@ function promiseTimeout(limTimeout, options = {}) {
     })
 }
 
-export default { bytesToKb, bytesToMb, trimFloat, randomLCG, getParamsURL, setParamsURL, generateHashUID, generateUUID, promiseTimeout }
+export default { bytesToKb, bytesToMb, arrayBufferToBlob, arrayBufferToString, trimFloat, randomLCG, getParamsURL, setParamsURL, generateHashUID, generateUUID, promiseTimeout }
 
 /////////////////////////////////////////////////   PRIVATE   /////////////////////////////////////////////////
 

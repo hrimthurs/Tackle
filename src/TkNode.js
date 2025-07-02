@@ -17,7 +17,7 @@ import path from 'node:path'
  *      - arg1 - parsed parts of path of file
  * @returns {string[]}                      Array of full pathes of all traversed files
  */
-function traverseFiles(root, options = {}) {
+export function traverseFiles(root, options = {}) {
     const useOptions = {
         include: [],
         exclude: [],

@@ -59,7 +59,7 @@ export function getValue(srcObj, ...pathKeys) {
  *      - arg1 - finite key of the setting field
  * @returns {boolean|any}                   True/false as a success set value, or result cbAction (if given)
  */
-function setValue(dstObj, pathKey, value, options = {}) {
+export function setValue(dstObj, pathKey, value, options = {}) {
     let res = false
 
     const onlyExist = options.onlyExist ?? true

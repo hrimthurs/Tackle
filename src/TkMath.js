@@ -10,7 +10,7 @@ const _RAD_TO_DEG = 180 / Math.PI
  * @param {number} [angleDeg]               Angle degree (default: 0)
  * @returns {number}
  */
-function angleDegToRad(angleDeg = 0) {
+export function angleDegToRad(angleDeg = 0) {
     return Number(angleDeg) * _DEG_TO_RAD
 }
 
@@ -19,7 +19,7 @@ function angleDegToRad(angleDeg = 0) {
  * @param {number} [angleRad]               Angle radian (default: 0)
  * @returns {number}
  */
-function angleRadToDeg(angleRad = 0) {
+export function angleRadToDeg(angleRad = 0) {
     return Number(angleRad) * _RAD_TO_DEG
 }
 
@@ -29,7 +29,7 @@ function angleRadToDeg(angleRad = 0) {
  * @param {number} [precision]              Defines the number of decimal points of the result float number (default: 3)
  * @returns {number}
  */
-function roundFloat(srcVal, precision = 3) {
+export function roundFloat(srcVal, precision = 3) {
     return Number(srcVal.toFixed(precision))
 }
 
@@ -39,7 +39,7 @@ function roundFloat(srcVal, precision = 3) {
  * @param {{x:number,y:number}} ptB         Point B
  * @returns {number}
  */
-function dotProduct2D(ptA, ptB) {
+export function dotProduct2D(ptA, ptB) {
     return (ptA.x * ptB.x) + (ptA.y * ptB.y)
 }
 
@@ -49,7 +49,7 @@ function dotProduct2D(ptA, ptB) {
  * @param {{x:number,y:number}} ptB         Point B
  * @returns {number}
  */
-function crossProduct2D(ptA, ptB) {
+export function crossProduct2D(ptA, ptB) {
     return (ptA.x * ptB.y) - (ptA.y * ptB.x)
 }
 
@@ -59,7 +59,7 @@ function crossProduct2D(ptA, ptB) {
  * @param {{x:number,y:number}} ptB         Point B
  * @returns {{x:number,y:number}}
  */
-function delta2D(ptA, ptB) {
+export function delta2D(ptA, ptB) {
     return {
         x: ptA.x - ptB.x,
         y: ptA.y - ptB.y
@@ -72,7 +72,7 @@ function delta2D(ptA, ptB) {
  * @param {{x:number,y:number}} ptB         Point B
  * @returns {{x:number,y:number}}
  */
-function midPoint2D(ptA, ptB) {
+export function midPoint2D(ptA, ptB) {
     return {
         x: (ptA.x + ptB.x) / 2,
         y: (ptA.y + ptB.y) / 2
@@ -84,7 +84,7 @@ function midPoint2D(ptA, ptB) {
  * @param {{x:number,y:number}} ptA         Point A
  * @returns {{x:number,y:number}}
  */
-function normalize2D(ptA) {
+export function normalize2D(ptA) {
     const { x, y } = ptA
     const factor = 1 / (Math.sqrt(x * x + y * y) || 1)
 
@@ -100,7 +100,7 @@ function normalize2D(ptA) {
  * @param {{x:number,y:number}} ptB         Point B
  * @returns {{x:number,y:number}}
  */
-function normal2D(ptA, ptB) {
+export function normal2D(ptA, ptB) {
     return normalize2D({
         x: ptA.y - ptB.y,
         y: ptB.x - ptA.x
@@ -115,7 +115,7 @@ function normal2D(ptA, ptB) {
  * @param {boolean} [sign]                  Return angle with a sign (default: false)
  * @returns {number}
  */
-function angleClockwise2D(ptA, ptB, ptC, sign = false) {
+export function angleClockwise2D(ptA, ptB, ptC, sign = false) {
     const nAB = normalize2D(delta2D(ptA, ptB))
     const nCB = normalize2D(delta2D(ptC, ptB))
 
@@ -134,7 +134,7 @@ function angleClockwise2D(ptA, ptB, ptC, sign = false) {
  * @param {number} [tolerance]              Tolerance of match coords (default: 0.1)
  * @returns {boolean}
  */
-function isEqualCoords2D(ptA, ptB, tolerance = 0.1) {
+export function isEqualCoords2D(ptA, ptB, tolerance = 0.1) {
     const delta = delta2D(ptB, ptA)
     return (Math.abs(delta.x) < tolerance) && (Math.abs(delta.y) < tolerance)
 }
@@ -146,7 +146,7 @@ function isEqualCoords2D(ptA, ptB, tolerance = 0.1) {
  * @param {number} [tolerance]              Tolerance of match coords (default: 0.1)
  * @returns {boolean}
  */
-function isSomeEqualCoords2D(ptA, arrPoints, tolerance = 0.1) {
+export function isSomeEqualCoords2D(ptA, arrPoints, tolerance = 0.1) {
     return arrPoints.some((pt) => isEqualCoords2D(ptA, pt, tolerance))
 }
 
@@ -159,7 +159,7 @@ function isSomeEqualCoords2D(ptA, arrPoints, tolerance = 0.1) {
  * @param {number} [tolerance]              Tolerance of match coords (default: 0.1)
  * @returns {boolean}
  */
-function isEqualLinesSegments2D(ptA, ptB, ptC, ptD, tolerance = 0.1) {
+export function isEqualLinesSegments2D(ptA, ptB, ptC, ptD, tolerance = 0.1) {
     const isEqual =
         (isEqualCoords2D(ptA, ptC, tolerance) && isEqualCoords2D(ptB, ptD, tolerance)) ||
         (isEqualCoords2D(ptB, ptC, tolerance) && isEqualCoords2D(ptA, ptD, tolerance))
@@ -173,7 +173,7 @@ function isEqualLinesSegments2D(ptA, ptB, ptC, ptD, tolerance = 0.1) {
  * @param {{x:number,y:number}} ptB         Point B
  * @returns {number}
  */
-function dist2D(ptA, ptB) {
+export function dist2D(ptA, ptB) {
     const delta = delta2D(ptB, ptA)
     return Math.sqrt(delta.x ** 2 + delta.y ** 2)
 }
@@ -184,7 +184,7 @@ function dist2D(ptA, ptB) {
  * @param {{x:number,y:number}} ptB         Point B
  * @returns {number}
  */
-function distManhattan2D(ptA, ptB) {
+export function distManhattan2D(ptA, ptB) {
     const delta = delta2D(ptB, ptA)
     return Math.abs(delta.x) + Math.abs(delta.y)
 }
@@ -196,7 +196,7 @@ function distManhattan2D(ptA, ptB) {
  * @param {{x:number,y:number}} ptC         Point C
  * @returns {boolean}
  */
-function isNearerFirstPt2D(ptA, ptB, ptC) {
+export function isNearerFirstPt2D(ptA, ptB, ptC) {
     return distManhattan2D(ptC, ptA) < distManhattan2D(ptC, ptB)
 }
 
@@ -208,7 +208,7 @@ function isNearerFirstPt2D(ptA, ptB, ptC) {
  * @param {boolean} [saveSign]              Save the area sign in the result (default: false)
  * @returns {number}
  */
-function areaTriangle2D(ptA, ptB, ptC, saveSign = false) {
+export function areaTriangle2D(ptA, ptB, ptC, saveSign = false) {
     const area = (((ptB.x - ptA.x) * (ptC.y - ptA.y)) - ((ptC.x - ptA.x) * (ptB.y - ptA.y))) / 2
     return saveSign ? area : Math.abs(area)
 }
@@ -219,7 +219,7 @@ function areaTriangle2D(ptA, ptB, ptC, saveSign = false) {
  * @param {boolean} [saveSign]              Save the area sign in the result (default: false)
  * @returns {number}
  */
-function areaPolygon2D(polyPts, saveSign = false) {
+export function areaPolygon2D(polyPts, saveSign = false) {
     let res = 0
 
     if (polyPts.length > 3) {
@@ -241,7 +241,7 @@ function areaPolygon2D(polyPts, saveSign = false) {
  * @param {{x:number,y:number}[]} polyPts   Points of polygon
  * @returns {{x:number,y:number}}
  */
-function centroidPolygon2D(polyPts) {
+export function centroidPolygon2D(polyPts) {
     let area = 0
 
     const centroid = polyPts.reduce((valCentroid, ptA, ind) => {
@@ -271,7 +271,7 @@ function centroidPolygon2D(polyPts) {
  * @param {number} distance                 Distance from ptA
  * @returns {{x:number,y:number}}
  */
-function pointOnLineByLen2D(ptA, ptB, distance) {
+export function pointOnLineByLen2D(ptA, ptB, distance) {
     const delta = delta2D(ptB, ptA)
     const factor = distance / (dist2D(ptA, ptB) || 1)
 
@@ -288,7 +288,7 @@ function pointOnLineByLen2D(ptA, ptB, distance) {
  * @param {{x:number,y:number}} ptC         Point C
  * @returns {{x:number,y:number}}
  */
-function projectPointToStraightLine2D(ptA, ptB, ptC) {
+export function projectPointToStraightLine2D(ptA, ptB, ptC) {
     const delta = delta2D(ptB, ptA)
     const deltaPointA = delta2D(ptC, ptA)
 
@@ -307,7 +307,7 @@ function projectPointToStraightLine2D(ptA, ptB, ptC) {
  * @param {{x:number,y:number}} ptC         Point C
  * @returns {number}                        -1, 1, 0 (= located on line)
  */
-function sidePointRelativeStraightLine2D(ptA, ptB, ptC) {
+export function sidePointRelativeStraightLine2D(ptA, ptB, ptC) {
     const doubleArea = crossProduct2D(delta2D(ptB, ptA), delta2D(ptC, ptA))
     return Math.sign(doubleArea)
 }
@@ -320,7 +320,7 @@ function sidePointRelativeStraightLine2D(ptA, ptB, ptC) {
  * @param {number} [tolerance]              Tolerance of match (default: 1.2)
  * @returns {boolean}
  */
-function isPointBelongStraightLine2D(ptA, ptB, ptC, tolerance = 1.2) {
+export function isPointBelongStraightLine2D(ptA, ptB, ptC, tolerance = 1.2) {
     const deltaBA = delta2D(ptB, ptA)
     const deltaCA = delta2D(ptC, ptA)
 
@@ -338,7 +338,7 @@ function isPointBelongStraightLine2D(ptA, ptB, ptC, tolerance = 1.2) {
  * @param {number} [tolerance]              Tolerance of match (default: 1.2)
  * @returns {boolean}
  */
-function isPointBelongLineSegment2D(ptA, ptB, ptC, tolerance = 1.2) {
+export function isPointBelongLineSegment2D(ptA, ptB, ptC, tolerance = 1.2) {
     let res = false
 
     const deltaBA = delta2D(ptB, ptA)
@@ -368,7 +368,7 @@ function isPointBelongLineSegment2D(ptA, ptB, ptC, tolerance = 1.2) {
  * @param {number} [tolerance]              Tolerance of match (default: 1.2)
  * @returns {boolean}
  */
-function isSomePointBelongLineSegment2D(ptA, ptB, arrPoints, tolerance = 1.2) {
+export function isSomePointBelongLineSegment2D(ptA, ptB, arrPoints, tolerance = 1.2) {
     return arrPoints.some((pt) => isPointBelongLineSegment2D(ptA, ptB, pt, tolerance))
 }
 
@@ -380,7 +380,7 @@ function isSomePointBelongLineSegment2D(ptA, ptB, arrPoints, tolerance = 1.2) {
  * @param {number} [tolerance]              Tolerance of match (default: 1.2)
  * @returns {boolean}
  */
-function isEveryPointBelongLineSegment2D(ptA, ptB, arrPoints, tolerance = 1.2) {
+export function isEveryPointBelongLineSegment2D(ptA, ptB, arrPoints, tolerance = 1.2) {
     return arrPoints.every((pt) => isPointBelongLineSegment2D(ptA, ptB, pt, tolerance))
 }
 
@@ -390,7 +390,7 @@ function isEveryPointBelongLineSegment2D(ptA, ptB, arrPoints, tolerance = 1.2) {
  * @param {{x:number,y:number}[]} polyPts   Points of polygon
  * @returns {boolean}
  */
-function isPointInsidePolygon2D(ptA, polyPts) {
+export function isPointInsidePolygon2D(ptA, polyPts) {
     let isInside = false
 
     for (let i = 0, j = polyPts.length - 1; i < polyPts.length; j = i++) {
@@ -413,7 +413,7 @@ function isPointInsidePolygon2D(ptA, polyPts) {
  * @param {{x:number,y:number}[]} polyPts   Points of polygon
  * @returns {boolean}
  */
-function isSomePointInsidePolygon2D(arrPoints, polyPts) {
+export function isSomePointInsidePolygon2D(arrPoints, polyPts) {
     return arrPoints.some((pt) => isPointInsidePolygon2D(pt, polyPts))
 }
 
@@ -423,7 +423,7 @@ function isSomePointInsidePolygon2D(arrPoints, polyPts) {
  * @param {{x:number,y:number}[]} polyPts   Points of polygon
  * @returns {boolean}
  */
-function isEveryPointInsidePolygon2D(arrPoints, polyPts) {
+export function isEveryPointInsidePolygon2D(arrPoints, polyPts) {
     return arrPoints.every((pt) => isPointInsidePolygon2D(pt, polyPts))
 }
 
@@ -436,7 +436,7 @@ function isEveryPointInsidePolygon2D(arrPoints, polyPts) {
  * @param {number} [tolerance]              Tolerance of parallel: 0 - exact match, 1 - orthogonal (default: 0.1)
  * @returns {boolean}
  */
-function isParallelStraightLines2D(ptA, ptB, ptC, ptD, tolerance = 0.1) {
+export function isParallelStraightLines2D(ptA, ptB, ptC, ptD, tolerance = 0.1) {
     const deltaBA = normalize2D(delta2D(ptB, ptA))
     const deltaDC = normalize2D(delta2D(ptD, ptC))
 
@@ -452,7 +452,7 @@ function isParallelStraightLines2D(ptA, ptB, ptC, ptD, tolerance = 0.1) {
  * @param {{x:number,y:number}} ptD         Point D
  * @returns {{x:number,y:number}|undefined}
  */
-function crossStraightLines2D(ptA, ptB, ptC, ptD) {
+export function crossStraightLines2D(ptA, ptB, ptC, ptD) {
     const factor = _getFactorCrossLines2D(ptA, ptB, ptC, ptD)
     if (factor) {
         return _getPointByFactorCross2D(factor, ptA, ptB)
@@ -467,7 +467,7 @@ function crossStraightLines2D(ptA, ptB, ptC, ptD) {
  * @param {{x:number,y:number}} ptD         Point D
  * @returns {{x:number,y:number}|undefined}
  */
-function crossLinesSegments2D(ptA, ptB, ptC, ptD) {
+export function crossLinesSegments2D(ptA, ptB, ptC, ptD) {
     const factor = _getFactorCrossLines2D(ptA, ptB, ptC, ptD)
     if (_isScopeFactorCross2D(factor)) {
         return _getPointByFactorCross2D(factor, ptA, ptB)
@@ -482,7 +482,7 @@ function crossLinesSegments2D(ptA, ptB, ptC, ptD) {
  * @param {{x:number,y:number}} ptD         Point D
  * @returns {boolean}
  */
-function isCrossLinesSegments2D(ptA, ptB, ptC, ptD) {
+export function isCrossLinesSegments2D(ptA, ptB, ptC, ptD) {
     const factor = _getFactorCrossLines2D(ptA, ptB, ptC, ptD)
     return _isScopeFactorCross2D(factor) === true
 }
@@ -526,7 +526,7 @@ function _getPointByFactorCross2D(factor, ptA, ptB) {
  * @param {number} [tolerance]                                      Tolerance of match coords (default: 0.1)
  * @returns {{inds:number[],closed:boolean}[]}
  */
-function chainsLinesSegments2D(arrLines, continuityCoords = false, tolerance = 0.1) {
+export function chainsLinesSegments2D(arrLines, continuityCoords = false, tolerance = 0.1) {
     let chains = []
 
     arrLines.forEach((base, indBase) => {
