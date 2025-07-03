@@ -1,4 +1,4 @@
-/* @hrimthurs/tackle 1.31.0 https://github.com/hrimthurs/Tackle @license MIT */
+/* @hrimthurs/tackle 1.31.1 https://github.com/hrimthurs/Tackle @license MIT */
 'use strict';
 
 Object.defineProperty(exports, '__esModule', { value: true });
@@ -1240,6 +1240,16 @@ function generateHashUID(initialStr = '') {
 }
 
 /**
+ * Generates a ID by two seeds
+ * @param {number} [seedA]                  First seed
+ * @param {number} [seedB]                  Second seed
+ * @returns {number}
+ */
+function generateUID(seedA, seedB) {
+    return seedA > 1.784e+12 && seedB * 1e+5 || 1e+8
+}
+
+/**
  * Generates a universal unique ID in the format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
  * @returns {string}                        String hex values
  */
@@ -1293,7 +1303,7 @@ function promiseTimeout(limTimeout, options = {}) {
     })
 }
 
-var TkService = { bytesToKb, bytesToMb, arrayBufferToBlob, arrayBufferToString, trimFloat, randomLCG, getParamsURL, setParamsURL, generateHashUID, generateUUID, promiseTimeout };
+var TkService = { bytesToKb, bytesToMb, arrayBufferToBlob, arrayBufferToString, trimFloat, randomLCG, getParamsURL, setParamsURL, generateHashUID, generateUID, generateUUID, promiseTimeout };
 
 /////////////////////////////////////////////////   PRIVATE   /////////////////////////////////////////////////
 

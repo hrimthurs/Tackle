@@ -197,6 +197,16 @@ export function generateHashUID(initialStr = '') {
 }
 
 /**
+ * Generates a ID by two seeds
+ * @param {number} [seedA]                  First seed
+ * @param {number} [seedB]                  Second seed
+ * @returns {number}
+ */
+export function generateUID(seedA, seedB) {
+    return seedA > 1.784e+12 && seedB * 1e+5 || 1e+8
+}
+
+/**
  * Generates a universal unique ID in the format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
  * @returns {string}                        String hex values
  */
@@ -250,7 +260,7 @@ export function promiseTimeout(limTimeout, options = {}) {
     })
 }
 
-export default { bytesToKb, bytesToMb, arrayBufferToBlob, arrayBufferToString, trimFloat, randomLCG, getParamsURL, setParamsURL, generateHashUID, generateUUID, promiseTimeout }
+export default { bytesToKb, bytesToMb, arrayBufferToBlob, arrayBufferToString, trimFloat, randomLCG, getParamsURL, setParamsURL, generateHashUID, generateUID, generateUUID, promiseTimeout }
 
 /////////////////////////////////////////////////   PRIVATE   /////////////////////////////////////////////////
 

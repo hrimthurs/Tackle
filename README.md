@@ -755,6 +755,14 @@ const { TkArray, TkObject, TkString, TkFunction, TkMath, TkService, TkBrowser, T
      * @returns {string}                        String of hex values with a length of 16 characters
      */
 
+• TkService.generateUID(seedA, seedB)
+    /**
+     * Generates a ID by two seeds
+     * @param {number} [seedA]                  First seed
+     * @param {number} [seedB]                  Second seed
+     * @returns {number}
+     */
+
 • TkService.generateUUID()
     /**
      * Generates a universal unique ID in the format: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
