@@ -34,6 +34,17 @@ export function roundFloat(srcVal, precision = 3) {
 }
 
 /**
+ * Linearly interpolate on interval
+ * @param {number} minVal                   Minimum number of interval
+ * @param {number} maxVal                   Maximum number of interval
+ * @param {number} factor                   Factor interpolate (0 → minimum, 1 → maximum)
+ * @returns {number}
+ */
+export function lerp(minVal, maxVal, factor) {
+    return (minVal * (1 - factor)) + (maxVal * factor)
+}
+
+/**
  * Calculates the dot product of 2D ptA and ptB
  * @param {{x:number,y:number}} ptA         Point A
  * @param {{x:number,y:number}} ptB         Point B
@@ -611,4 +622,4 @@ function _getChainEnds(coords, chain) {
     }
 }
 
-export default { HALF_PI, QUART_PI, DOUBLE_PI, angleDegToRad, angleRadToDeg, roundFloat, dotProduct2D, crossProduct2D, delta2D, midPoint2D, normalize2D, normal2D, angleClockwise2D, isEqualCoords2D, isSomeEqualCoords2D, isEqualLinesSegments2D, dist2D, distManhattan2D, isNearerFirstPt2D, areaTriangle2D, areaPolygon2D, centroidPolygon2D, pointOnLineByLen2D, projectPointToStraightLine2D, sidePointRelativeStraightLine2D, isPointBelongStraightLine2D, isPointBelongLineSegment2D, isSomePointBelongLineSegment2D, isEveryPointBelongLineSegment2D, isPointInsidePolygon2D, isSomePointInsidePolygon2D, isEveryPointInsidePolygon2D, isParallelStraightLines2D, crossStraightLines2D, crossLinesSegments2D, isCrossLinesSegments2D, chainsLinesSegments2D }
+export default { HALF_PI, QUART_PI, DOUBLE_PI, angleDegToRad, angleRadToDeg, roundFloat, lerp, dotProduct2D, crossProduct2D, delta2D, midPoint2D, normalize2D, normal2D, angleClockwise2D, isEqualCoords2D, isSomeEqualCoords2D, isEqualLinesSegments2D, dist2D, distManhattan2D, isNearerFirstPt2D, areaTriangle2D, areaPolygon2D, centroidPolygon2D, pointOnLineByLen2D, projectPointToStraightLine2D, sidePointRelativeStraightLine2D, isPointBelongStraightLine2D, isPointBelongLineSegment2D, isSomePointBelongLineSegment2D, isEveryPointBelongLineSegment2D, isPointInsidePolygon2D, isSomePointInsidePolygon2D, isEveryPointInsidePolygon2D, isParallelStraightLines2D, crossStraightLines2D, crossLinesSegments2D, isCrossLinesSegments2D, chainsLinesSegments2D }

@@ -387,6 +387,15 @@ const { TkArray, TkObject, TkString, TkFunction, TkMath, TkService, TkBrowser, T
      * @returns {number}
      */
 
+• TkMath.lerp(minVal, maxVal, factor)
+    /**
+     * Linearly interpolate on interval
+     * @param {number} minVal                   Minimum number of interval
+     * @param {number} maxVal                   Maximum number of interval
+     * @param {number} factor                   Factor interpolate (0 → minimum, 1 → maximum)
+     * @returns {number}
+     */
+
 • TkMath.dotProduct2D(ptA, ptB)
     /**
      * Calculates the dot product of 2D ptA and ptB
