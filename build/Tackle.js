@@ -1,4 +1,4 @@
-/* @hrimthurs/tackle 1.31.3 https://github.com/hrimthurs/Tackle @license MIT */
+/* @hrimthurs/tackle 1.31.4 https://github.com/hrimthurs/Tackle @license MIT */
 /**
  * Converts a numeric value to a string of the specified length with adding '0' (at the beginning for integer, ending for float).
  * If the length of the original number is greater than lenTotal - no change occurs
@@ -381,6 +381,17 @@ function getArray(srcVal, uniqValues = false) {
 }
 
 /**
+ * Creates an array of a given size with each cell set to a value
+ * @param {number} size                     Size of array
+ * @param {function(number):any} [cbCell]   Callback for every cell. Return value set to array cell (default: value is cell index)
+ *      - arg0 - cell index
+ * @returns {any[]}
+ */
+function createEnum(size, cbCell = (ind) => ind) {
+    return new Array(size).fill(0).map((_, ind) => cbCell(ind))
+}
+
+/**
  * Returns array of unique values
  * @param {any[]} srcArr                    Source array
  * @param {boolean} [modifySrc]             Modify the original array (default: false)
@@ -487,7 +498,7 @@ function nextValueCycle(srcArr, index) {
     return srcArr[index < srcArr.length - 1 ? index + 1 : 0]
 }
 
-var TkArray = { getArray, getUniqValues, swapValues, excludeValues, sortArrayStr, shuffleRandom, isSubArray, prevValueCycle, nextValueCycle };
+var TkArray = { getArray, createEnum, getUniqValues, swapValues, excludeValues, sortArrayStr, shuffleRandom, isSubArray, prevValueCycle, nextValueCycle };
 
 /**
  * Checks if the checkVal is an javascript object

@@ -154,6 +154,15 @@ const { TkArray, TkObject, TkString, TkFunction, TkMath, TkService, TkBrowser, T
      * @returns {any[]}
      */
 
+• TkArray.createEnum(size, cbCell = (ind) => ind)
+    /**
+     * Creates an array of a given size with each cell set to a value
+     * @param {number} size                     Size of array
+     * @param {function(number):any} [cbCell]   Callback for every cell. Return value set to array cell (default: value is cell index)
+     *      - arg0 - cell index
+     * @returns {any[]}
+     */
+
 • TkArray.getUniqValues(srcArr, modifySrc = false)
     /**
      * Returns array of unique values
