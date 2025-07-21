@@ -1,4 +1,6 @@
-﻿/**
+﻿import { randomLCG } from './TkService.js'
+
+/**
  * Returns array regardless of type srcVal
  * @param {any} srcVal                      Source value
  * @param {boolean} [uniqValues]            Returns array of unique values (default: false)
@@ -68,6 +70,23 @@ export function sortArrayStr(srcArrStr, modifySrc = false) {
 }
 
 /**
+ * Shuffle of an array in-place
+ * @param {any[]} srcArr                    Source array
+ * @param {number} [seed]                   Seed of random generator (default: random)
+ * @returns {any[]}
+ */
+export function shuffleRandom(srcArr, seed = Math.random()) {
+    const generatorLCG = randomLCG(seed)
+
+    for (let indA = srcArr.length - 1; indA > 0; indA--) {
+        const indB = generatorLCG({ max: indA + 1 });
+        [srcArr[indA], srcArr[indB]] = [srcArr[indB], srcArr[indA]]
+    }
+
+    return srcArr
+}
+
+/**
  * Checks is all elements of array subArr are present in array mainArr
  * @param {any[]} subArr                    Sub array
  * @param {any[]} mainArr                   Main array
@@ -102,4 +121,4 @@ export function nextValueCycle(srcArr, index) {
     return srcArr[index < srcArr.length - 1 ? index + 1 : 0]
 }
 
-export default { getArray, getUniqValues, swapValues, excludeValues, sortArrayStr, isSubArray, prevValueCycle, nextValueCycle }
+export default { getArray, getUniqValues, swapValues, excludeValues, sortArrayStr, shuffleRandom, isSubArray, prevValueCycle, nextValueCycle }

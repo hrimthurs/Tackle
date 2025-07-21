@@ -187,6 +187,14 @@ const { TkArray, TkObject, TkString, TkFunction, TkMath, TkService, TkBrowser, T
      * @returns {string[]}                      Array with sorted strings
      */
 
+• TkArray.shuffleRandom(srcArr, seed = Math.random())
+    /**
+     * Shuffle of an array in-place
+     * @param {any[]} srcArr                    Source array
+     * @param {number} [seed]                   Seed of random generator (default: random)
+     * @returns {any[]}
+     */
+
 • TkArray.isSubArray(subArr, mainArr, strictEqual = false)
     /**
      * Checks is all elements of array subArr are present in array mainArr
